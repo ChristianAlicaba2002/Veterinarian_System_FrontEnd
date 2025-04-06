@@ -81,70 +81,63 @@ function Login() {
     }
 
     return (
-        <div className="">
-            <div className="">
-                <div>
-                    <h1 className="">Login to Your Account</h1>
-                </div>
-                <form onSubmit={handleSubmit} className="">
-                    <div className="">
-                        <div>
-                            <label htmlFor="email" className="">
-                                Email
-                            </label>
-                            <input
-                                id="email"
-                                type="email"
-                                required
-                                className=""
-                                placeholder="Enter your email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="password" className="">
-                                Password
-                            </label>
-                            <input
-                                id="password"
-                                type="password"
-                                required
-                                className=""
-                                placeholder="Enter your password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
-                    </div>
-
-                    {errorMessage && (
-                        <div className="text-red-500 text-sm">
-                            {errorMessage}
-                        </div>
-                    )}
-
-                    <div>
-                        <button
-                            type="submit"
-                            className=""
-                        >
-                            Sign in
-                        </button>
-                    </div>
-
-                    <div className="">
-                        <a 
-                            href="/Application/Organisms/Auth/RegisterPage" 
-                            className=""
-                        >
-                            Don't have an account? Register here
-                        </a>
-                    </div>
-                </form>
-            </div>
+<div className="login-container">
+      <div className="login-card">
+        <div className="login-image-container">
+          <img src="/img/runningcorgi.gif" alt="Running Corgi" className="login-image" />
         </div>
-    )
-}
+        <div className="login-form-container">
+          <div>
+            <h1 className="login-title">Login to Your Account</h1>
+          </div>
+          <form onSubmit={handleSubmit} className="login-form">
+            <div className="form-group">
+              <label htmlFor="email" className="form-label">
+                Email
+              </label>
+              <input
+                id="email"
+                type="email"
+                required
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="form-input"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                required
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="form-input"
+              />
+            </div>
+
+            {errorMessage && <div className="error-message">{errorMessage}</div>}
+
+            <div>
+              <button type="submit" className="login-button">
+                Sign in
+              </button>
+            </div>
+
+            <div className="register-link-container">
+              <a href="/Application/Organisms/Auth/RegisterPage" className="register-link">
+                Don't have an account? Register here
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Login

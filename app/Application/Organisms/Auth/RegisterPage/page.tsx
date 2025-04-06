@@ -83,87 +83,59 @@ function Register() {
     }
 
     return (
-        <div>
-            <h1>Register page</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="container-form">
-                    <label htmlFor="first_name">First name</label>
-                    <input
-                        id="first_name"
-                        type="text"
-                        placeholder="Enter First Name"
-                        value={first_name}
-                        onChange={(e) => setFirstName(e.target.value)}
-                    />
-                    <label htmlFor="last_name">Last name</label>
-                    <input
-                        id="last_name"
-                        type="text"
-                        placeholder="Enter Last Name"
-                        value={last_name}
-                        onChange={(e) => setLastName(e.target.value)}
-                    />
-                    <label htmlFor="phone_number">Phone Number</label>
-                    <input
-                        id="phone_number"
-                        type="text"
-                        placeholder="Enter Phone Number"
-                        maxLength={11}
-                        value={phone_number}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                    />
-                    <label htmlFor="address">Address</label>
-                    <input
-                        id="address"
-                        type="text"
-                        placeholder="Enter Address"
-                        list="addressList"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                    />
-                    <datalist id="addressList">
-                        <option value="Alcantara, Cebu">Alcantara, Cebu</option>
-                        <option value="Alcoy, Cebu">Alcoy, Cebu</option>
-                        <option value="Alegria, Cebu">Alegria, Cebu</option>
-                        {/* other address options */}
-                    </datalist>
-                    <label htmlFor="email">Email</label>
-                    <input
-                        id="email"
-                        type="email"
-                        placeholder="Enter your Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <label htmlFor="password">Password</label>
-                    <input
-                        id="password"
-                        type="password"
-                        placeholder="Enter your Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <label htmlFor="confirm_password">Confirm Password</label>
-                    <input
-                        id="confirm_password"
-                        type="password"
-                        placeholder="Enter Confirmation Password"
-                        value={confirm_password}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                    {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-                    <div>
-                        <label>
-                            <a href="/Application/Organisms/Auth/LoginPage">Already have an account? Login here</a>
-                        </label>
-                    </div>
-                    <div>
-                        <button type="submit">Register</button>
-                    </div>
+        <div className="register-container-landscape">
+        <div className="register-card-landscape">
+          <div className="register-image-container-landscape">
+            <img src="/img/cutepuppy.gif" alt="Running Corgi" className="register-image-landscape" />
+          </div>
+          <div className="register-form-container-landscape">
+            <h1 className="register-title-landscape">Register page</h1>
+            <form onSubmit={handleSubmit} className="register-form-landscape">
+              <div className="form-grid-landscape">
+                <div className="form-group-landscape">
+                  <label htmlFor="first_name" className="form-label-landscape">First name</label>
+                  <input id="first_name" type="text" placeholder="Enter First Name" value={first_name} onChange={(e) => setFirstName(e.target.value)} className="form-input-landscape" />
                 </div>
+                <div className="form-group-landscape">
+                  <label htmlFor="last_name" className="form-label-landscape">Last name</label>
+                  <input id="last_name" type="text" placeholder="Enter Last Name" value={last_name} onChange={(e) => setLastName(e.target.value)} className="form-input-landscape" />
+                </div>
+                <div className="form-group-landscape">
+                  <label htmlFor="phone_number" className="form-label-landscape">Phone Number</label>
+                  <input id="phone_number" type="text" placeholder="Enter Phone Number" maxLength={11} value={phone_number} onChange={(e) => setPhoneNumber(e.target.value)} className="form-input-landscape" />
+                </div>
+                <div className="form-group-landscape">
+                  <label htmlFor="address" className="form-label-landscape">Address</label>
+                  <input id="address" type="text" placeholder="Enter Address" list="addressList" value={address} onChange={(e) => setAddress(e.target.value)} className="form-input-landscape" />
+                  <datalist id="addressList">
+                    <option value="Alcantara, Cebu">Alcantara, Cebu</option>
+                    <option value="Alcoy, Cebu">Alcoy, Cebu</option>
+                    <option value="Alegria, Cebu">Alegria, Cebu</option>
+                  </datalist>
+                </div>
+                <div className="form-group-landscape email-group">
+                  <label htmlFor="email" className="form-label-landscape">Email</label>
+                  <input id="email" type="email" placeholder="Enter your Email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-input-landscape" />
+                </div>
+                <div className="form-group-landscape">
+                  <label htmlFor="password" className="form-label-landscape">Password</label>
+                  <input id="password" type="password" placeholder="Enter your Password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-input-landscape" />
+                </div>
+                <div className="form-group-landscape">
+                  <label htmlFor="confirm_password" className="form-label-landscape">Confirm Password</label>
+                  <input id="confirm_password" type="password" placeholder="Enter Confirmation Password" value={confirm_password} onChange={(e) => setConfirmPassword(e.target.value)} className="form-input-landscape" />
+                </div>
+              </div>
+              {errorMessage && <p className="error-message-landscape">{errorMessage}</p>}
+              <div><button type="submit" className="register-button-landscape">Register</button></div>
+              <div className="login-link-container-landscape">
+                <label><a href="/Application/Organisms/Auth/LoginPage" className="login-link-landscape">Already have an account? Login here</a></label>
+              </div>
             </form>
+          </div>
         </div>
-    )
-}
+      </div>
+    );
+  };
 
 export default Register
