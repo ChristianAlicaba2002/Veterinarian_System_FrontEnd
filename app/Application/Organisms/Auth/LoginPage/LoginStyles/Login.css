@@ -9,7 +9,7 @@
     display: flex;
     width: 80%;
     max-width: 800px;
-    border: 2px dashed linear-gradient(to right, blueviolet, mediumpurple);;
+    border: 2px dashed linear-gradient(to right, blueviolet, mediumpurple);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgb(181, 237, 241);
