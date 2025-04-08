@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import { getUser } from "../../../../utils";
 import "./UserProfileStyles/UserProfile.css";
@@ -17,41 +17,46 @@ type UserData = {
 export default function UserProfile() {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [loadingText, setLoadingText] = useState("Initializing your profile...");
+  const [loadingText, setLoadingText] = useState(
+    "Initializing your profile..."
+  );
+  const [showAlert, setShowAlert] = useState(false);
   const [changeColor, setChangeColor] = useState(() => {
-    return localStorage.getItem('profileHeaderColor') || '#3b82f6';
+    return localStorage.getItem("profileHeaderColor") || "blue";
   });
-  
+
+  useEffect(() => {
+    localStorage.setItem("profileHeaderColor", changeColor);
+  }, [changeColor]);
+
   const saveColor = () => {
-    try {
-      localStorage.setItem('profileHeaderColor', changeColor);
-      alert('Color saved successfully!');
-    } catch (error) {
-      console.error('Error saving color:', error);
-    }
+    localStorage.setItem("profileHeaderColor", changeColor);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 3000);
+    alert('✅ Color saved successfully!')
   };
 
   useEffect(() => {
     const loadData = async () => {
       try {
         setIsLoading(true);
-        
+
         const loadingSequence = [
           { message: "Initializing your profile...", delay: 800 },
           { message: "Almost ready...", delay: 800 },
-          { message: "Preparing your dashboard...", delay: 600 }
+          { message: "Preparing your dashboard...", delay: 600 },
         ];
 
         for (const sequence of loadingSequence) {
           setLoadingText(sequence.message);
-          await new Promise(resolve => setTimeout(resolve, sequence.delay));
+          await new Promise((resolve) => setTimeout(resolve, sequence.delay));
         }
 
         const user = getUser();
         if (!user) {
           throw new Error("User not found");
         }
-        
+
         setUserData(user);
       } catch (error) {
         console.error("Error loading profile:", error);
@@ -78,6 +83,21 @@ export default function UserProfile() {
     );
   }
 
+  {showAlert && (
+    <div style={{
+      marginTop: "4rem",
+      padding: "0.75rem 1rem",
+      backgroundColor: "#4BB543",
+      color: "white",
+      borderRadius: "5px",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+      transition: "opacity 0.3s ease",
+      zIndex: '10000'
+    }}>
+      ✅ Color saved successfully!
+    </div>
+  )}
+
   if (!userData) {
     return (
       <div className="body">
@@ -96,8 +116,23 @@ export default function UserProfile() {
     <div className="body">
       <main>
         <div className="main-content">
+          <div
+            className="arrow-container ml-[-10%] p-1 w-8 flex content-center items-center rounded-2xl text-center"
+            style={{ backgroundColor: changeColor }}
+          >
+            <a href="/Application/Organisms/Layouts">
+              <i
+                className="fa-solid fa-arrow-left"
+                style={{ color: "#ffffff" , textAlign: 'center'}}
+              >
+              </i>
+            </a>
+          </div>
           <div className="profile-container">
-            <div className="profile-header" style={{ backgroundColor: changeColor }}>
+            <div
+              className="profile-header"
+              style={{ backgroundColor: changeColor }}
+            >
               <h2 className="profile-title">User Profile</h2>
               <p className="profile-subtitle">
                 Welcome back, {userData.first_name}!
@@ -127,8 +162,15 @@ export default function UserProfile() {
               <div className="change-color-background">
                 <div className="profile-label">Change Color</div>
                 <div className="profile-value">
-                  <input type="color" className="color-input" value={changeColor} onChange={(e) => setChangeColor(e.target.value)} />
-                  <button type="submit" onClick={saveColor}>save</button>
+                  <input
+                    type="color"
+                    className="color-input"
+                    value={changeColor}
+                    onChange={(e) => setChangeColor(e.target.value)}
+                  />
+                  <button type="submit" onClick={saveColor}>
+                    save
+                  </button>
                 </div>
               </div>
             </div>

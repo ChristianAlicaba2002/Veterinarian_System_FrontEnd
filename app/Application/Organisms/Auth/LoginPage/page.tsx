@@ -19,7 +19,7 @@ function Login() {
         const token = localStorage.getItem('token')
         if (token) {
             router.push('/Application/Organisms/Layouts')
-            router.refresh() // Force a refresh of the navigation
+            router.refresh()
         }
     }, [router])
 
@@ -71,7 +71,6 @@ function Login() {
                 router.replace('/Application/Organisms/Layouts')
                 router.refresh() // Force a refresh of the navigation
             }
-
             console.log("Login success:", data)
           
         } catch (error) {

@@ -17,13 +17,22 @@ export default function LogoProfile() {
         <div className="profile-container">
             <div className="dropdown">
                 <button className="dropbtn">
-                    <i className="fa-solid fa-user profile-icon"></i>
+                    <div className="profile-icon-wrapper">
+                        <i className="fa-solid fa-user profile-icon"></i>
+                        <span className="offline-indicator"></span>
+                    </div>
                 </button>
                 <div className="dropdown-content">
-                    <a href="/Application/Components/UserProfile">My Profile</a>
-                    <a href="/Application/Organisms/Pages/SettingsPage">Settings</a>
+                    <a href="/Application/Components/UserProfile">
+                        <i className="fa-solid fa-user"></i>
+                        My Profile
+                    </a>
+                    <a href="/Application/Organisms/Pages/SettingsPage">
+                        <i className="fa-solid fa-gear"></i>
+                        Settings
+                    </a>
                     <div className="dropdown-divider"></div>
-                    <button onClick={handleLogout}>
+                    <button onClick={handleLogout} className="logout-button">
                         <svg 
                             xmlns="http://www.w3.org/2000/svg" 
                             className="h-5 w-5" 
