@@ -83,7 +83,6 @@ export default function Main() {
         rel="stylesheet"
       />
       <div className="body">
-        {/* style={{ backgroundColor: changeColor }} */}
         <header className="header" style={{ backgroundColor: changeColor }}>
           <div className="header-container">
             <div>

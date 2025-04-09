@@ -46,6 +46,11 @@ const PetDetails = (props: { params: Promise<PetParams> }) => {
   }, []);
 
 
+  const submitForm = () => {
+
+  }
+
+
   return (
     <div className="pet-details-page" >
       <div className="pet-details-container" >
@@ -53,7 +58,7 @@ const PetDetails = (props: { params: Promise<PetParams> }) => {
           <Link href="/Application/Organisms/Layouts" className="back-button">
             ← Back to Pets
           </Link>
-          <h1 className="pet-name">{decodeURIComponent(Pet_Name)}</h1>
+          <h1 className="pet-name-details">{decodeURIComponent(Pet_Name)}</h1>
         </div>
 
         <div className="pet-content">
@@ -102,7 +107,7 @@ const PetDetails = (props: { params: Promise<PetParams> }) => {
           </div>
           <div>
             <form action="" method="post">
-              <SubmitButton dataForm={''} />
+              <SubmitButton dataForm={submitForm} />
             </form>
           </div>
         </div>

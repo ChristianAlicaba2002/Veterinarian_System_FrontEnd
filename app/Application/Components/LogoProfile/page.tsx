@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import { logout } from '../../../../utils'
+import Link from 'next/link'
 import './LogoStyles/LogoProfile.css'
 
 export default function LogoProfile() {
@@ -23,14 +24,14 @@ export default function LogoProfile() {
                     </div>
                 </button>
                 <div className="dropdown-content">
-                    <a href="/Application/Components/UserProfile">
+                    <Link href="/Application/Components/UserProfile">
                         <i className="fa-solid fa-user"></i>
                         My Profile
-                    </a>
-                    <a href="/Application/Organisms/Pages/SettingsPage">
-                        <i className="fa-solid fa-gear"></i>
-                        Settings
-                    </a>
+                    </Link>
+                    <Link href="/Application/Organisms/Pages/Appointment">
+                        <i className="fa-solid fa-calendar-check"></i>
+                        Appointment's
+                    </Link>
                     <div className="dropdown-divider"></div>
                     <button onClick={handleLogout} className="logout-button">
                         <svg 

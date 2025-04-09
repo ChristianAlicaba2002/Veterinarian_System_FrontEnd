@@ -8,7 +8,7 @@ export const logout = async () => {
 
     try {
         // Call the backend logout endpoint with the correct path
-        const response = await fetch('http://127.0.0.1:8000/api/client/logout', {
+        const response = await fetch('http://127.0.0.1:8000/api/logout', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -30,14 +30,14 @@ export const logout = async () => {
         document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
         
         // Redirect to login page
-        window.location.href = '/Application/Organisms/Auth/LoginPage'
+        window.location.assign('/Application/Organisms/LandingPage')
     } catch (error) {
         console.error('Logout error:', error)
         // Even if the API call fails, clear local data and redirect
         localStorage.removeItem('token')
         localStorage.removeItem('user')
         document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-        window.location.href = '/Application/Organisms/Auth/LoginPage'
+        window.location.assign('/Application/Organisms/LandingPage')
     }
 }
 

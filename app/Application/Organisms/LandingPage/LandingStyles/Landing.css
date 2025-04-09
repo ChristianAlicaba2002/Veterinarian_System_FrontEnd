@@ -217,11 +217,10 @@ body, html {
         flex-direction: column;
         align-items: flex-start;
     }
-
-    .nav-link,
-    .nav-button {
-        margin: 5px 0;
+    .nav-link {
+        margin: 5px 5px;
     }
+
 }
 
 .services-container {
