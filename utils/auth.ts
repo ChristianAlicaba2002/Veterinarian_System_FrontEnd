@@ -1,4 +1,5 @@
 export const logout = async () => {
+
     // Get the token from localStorage
     const token = localStorage.getItem('token')
     
@@ -31,6 +32,7 @@ export const logout = async () => {
         
         // Redirect to login page
         window.location.assign('/Application/Organisms/LandingPage')
+
     } catch (error) {
         console.error('Logout error:', error)
         // Even if the API call fails, clear local data and redirect

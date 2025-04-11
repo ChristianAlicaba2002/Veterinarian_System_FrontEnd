@@ -1,11 +1,10 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import "./MainStyles/main.css";
-import Image from "next/image";
-import Link from "next/link";
 import { getUser } from "../../../../../utils";
 import LogoProfile from "@/app/Application/Components/LogoProfile/page";
+import UserMessage from "@/app/Application/Atoms/UserMessage";
+import PetsData from "@/app/Application/Atoms/PetsData";
 
 type UserData = {
   id: number;
@@ -19,13 +18,14 @@ type UserData = {
 };
 
 type PetsData = {
+  pet_id: number;
   Pet_Name: string;
   Sex: string;
   Age: string;
   Breed: string;
   Color: string;
   image: string;
-  Microchip_Number: string;
+  Microchip_Number: number;
   Neutered_Spay: string;
   Special_Markings: string;
   Species: string;
@@ -55,11 +55,6 @@ export default function Main() {
       const data = await response.json();
       console.log("All pets data:", data.Data);
 
-      // Log the first pet's image path for debugging
-      if (data.Data && data.Data.length > 0) {
-        console.log("First pet image path:", data.Data[0].image);
-      }
-
       setPets(data.Data);
     } catch (err) {
       console.log(err);
@@ -74,7 +69,6 @@ export default function Main() {
     getAllPets();
   }, []);
 
-
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -86,11 +80,12 @@ export default function Main() {
         <header className="header" style={{ backgroundColor: changeColor }}>
           <div className="header-container">
             <div>
-              <h1 className="title">PawfectCare</h1>
+              <h1 className="title">FurEver</h1>
               {userData && (
-                <p className="welcome-text">
-                  Welcome, {userData.first_name} {userData.last_name}
-                </p>
+                <UserMessage
+                  first_name={userData.first_name}
+                  last_name={userData.last_name}
+                />
               )}
             </div>
             <LogoProfile />
@@ -101,64 +96,23 @@ export default function Main() {
             <div className="content-card">
               {pets ? (
                 pets.map((pet: PetsData) => {
+                pets.sort((a:any, b:any) => a.Breed - b.Breed)
                   const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
-
                   return (
-                    <div key={pet.Pet_Name} className="pet-card">
-                      <div className="pet-image-container">
-                        {imageUrl ? (
-                          <Image
-                          src={imageUrl}
-                          alt={`Product-${pet.Pet_Name}`}
-                          width={500}
-                          height={500}
-                          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                        ) : (
-                          <div className="no-image-placeholder">
-                            <i className="fa-solid fa-paw"></i>
-                            <span>No Image</span>
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="pet-info">
-                        <h1 className="pet-name">{pet.Pet_Name}</h1>
-                        <div className="pet-details">
-                          <span className="pet-detail">{pet.Age}</span>
-                          <span className="pet-detail">{pet.Species}</span>
-                          <span className="pet-detail">{pet.Sex}</span>
-                          <span className="pet-detail">{pet.Color}</span>
-                          <span className="pet-detail">{pet.Breed}</span>
-                        </div>
-                        <Link
-                          href={`/Application/Organisms/Pages/PetDetails/${encodeURIComponent(
-                            pet.image
-                          )}/${encodeURIComponent(
-                            pet.Pet_Name
-                          )}/${encodeURIComponent(
-                            pet.Age
-                          )}/${encodeURIComponent(
-                            pet.Species
-                          )}/${encodeURIComponent(
-                            pet.Sex
-                          )}/${encodeURIComponent(
-                            pet.Color
-                          )}/${encodeURIComponent(
-                            pet.Breed
-                          )}/${encodeURIComponent(
-                            pet.Microchip_Number
-                          )}/${encodeURIComponent(
-                            pet.Neutered_Spay
-                          )}/${encodeURIComponent(
-                            pet.Special_Markings
-                          )}/${encodeURIComponent(pet.Weight)}`}
-                          className="view-more-link"
-                        >
-                          View more
-                        </Link>
-                      </div>
-                    </div>
+                    <PetsData
+                      key={pet.pet_id}
+                      image={imageUrl}
+                      Pet_Name={pet.Pet_Name}
+                      Age={pet.Age}
+                      Species={pet.Species}
+                      Sex={pet.Sex}
+                      Color={pet.Color}
+                      Breed={pet.Breed}
+                      Neutered_Spay={pet.Neutered_Spay}
+                      Special_Markings={pet.Special_Markings}
+                      Microchip_Number={pet.Microchip_Number}
+                      Weight={pet.Weight}
+                    />
                   );
                 })
               ) : (

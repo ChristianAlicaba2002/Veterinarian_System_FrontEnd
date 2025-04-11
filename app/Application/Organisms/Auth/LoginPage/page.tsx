@@ -12,12 +12,15 @@ function Login() {
     const router = useRouter()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [isLoggedIn , setIsLoggedIn] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
     // Check if user is already logged in
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (token) {
+        setIsLoggedIn(true)
+          
             router.push('/Application/Organisms/Layouts')
             router.refresh()
         }
@@ -25,6 +28,7 @@ function Login() {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        setIsLoggedIn(false)
 
         if (!email || !password) {
             setErrorMessage("All fields are required")
@@ -66,11 +70,14 @@ function Login() {
                 
                 // The Data of the user also pass in the localStorage
                 localStorage.setItem('user', JSON.stringify(data.data))
-                
+
+            
                 // Replace the current history entry and redirect
-                router.replace('/Application/Organisms/Layouts')
+                router.push('/Application/Organisms/Layouts')
                 router.refresh() // Force a refresh of the navigation
             }
+
+
             console.log("Login success:", data)
           
         } catch (error) {

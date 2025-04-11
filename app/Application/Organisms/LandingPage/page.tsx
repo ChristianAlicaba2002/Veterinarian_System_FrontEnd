@@ -66,19 +66,19 @@ const LandingPage = () => {
 
       <div id="services" className="services-container">
         <div className="service-card">
-          <img src="img/groomer.png" alt="Groomer" className="service-icon" />
+          <img src="/img/groomer.png" alt="Groomer" className="service-icon" />
           <h3>Spa Day:</h3>
           <h3>Pet Grooming Perfection</h3>
           <p>Stylish cuts and pampering for your furry friend.</p>
         </div>
         <div className="service-card">
-          <img src="img/check.png" alt="Vet Check" className="service-icon" />
+          <img src="/img/check.png" alt="Vet Check" className="service-icon" />
           <h3>Vet Check:</h3>
           <h3>Pawsitively Healthy</h3>
           <p>Complete veterinary care for a vibrant pet.</p>
         </div>
         <div className="service-card">
-          <img src="img/adoption.png" alt="Adoption" className="service-icon" />
+          <img src="/img/adoption.png" alt="Adoption" className="service-icon" />
           <h3>Adopt:</h3>
           <h3>Heartwarming Companions</h3>
           <p>Find your perfect match and make a difference.</p>
@@ -87,7 +87,7 @@ const LandingPage = () => {
 
       <div id="about" className="about-container">
         <div id="about-gif">
-          <img src="img/vaccine.gif" alt="Vaccine" />
+          <img src="/img/vaccine.gif" alt="Vaccine" />
         </div>
         <div id="about-text">
           <h2>We Speak Fluent Fur</h2>
@@ -114,7 +114,7 @@ const LandingPage = () => {
       <div id="pets" className="pets-container">
         <h1>THEYRE LOOKING FOR A HOUSE</h1>
         <div className="pet-card">
-          <img src="img/us.jpg" alt="so us" />
+          <img src="/img/us.jpg" alt="so us" />
           <div className="pet-card-content">
             <h3>I</h3>
             <button>Learn More</button>
@@ -122,7 +122,7 @@ const LandingPage = () => {
         </div>
 
         <div className="pet-card">
-          <img src="img/kasal.jpg" alt="kasal" />
+          <img src="/img/kasal.jpg" alt="kasal" />
           <div className="pet-card-content">
             <h3>LOVE</h3>
             <button>Learn More</button>
@@ -130,7 +130,7 @@ const LandingPage = () => {
         </div>
 
         <div className="pet-card">
-          <img src="img/kiss.jpg" alt="imy" />
+          <img src="/img/kiss.jpg" alt="imy" />
           <div className="pet-card-content">
             <h3>YOU</h3>
             <button>Learn More</button>
