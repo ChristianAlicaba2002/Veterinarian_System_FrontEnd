@@ -1,0 +1,157 @@
+
+html, body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #fff0fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    /* position: relative; */
+}
+
+.AppointmentContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* height: 100%; */
+    /* padding: 8rem 10rem; */
+    gap: 2rem;
+    animation: fadeIn 1s ease;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    margin-top: 2rem;
+
+}
+
+.AppointmentLeft {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: flex-start;
+    padding-left: 15%;
+}
+
+.AppointmentLeft h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(to right, #ff80ab, #26c6da);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    animation: popIn 0.6s ease-in-out;
+}
+
+.AppointmentLeft img {
+    width: 420px;
+    transition: all 0.4s ease;
+}
+
+.AppointmentLeft img:hover {
+    transform: scale(1.05) rotate(1deg);
+}
+
+.Options {
+    /* flex: 1; */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    padding-right: 2rem;
+}
+
+.Options a button {
+    background: linear-gradient(to right, #f7cbff81, #4dd0e162);
+    border: 3px white dashed;
+    border-radius: 60px;
+    padding: 30px 30px;
+    width: 270px;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: whitesmoke;
+    box-shadow: 5px 5px 15px rgba(179, 138, 255, 0.384);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.Options a button:hover {
+    transform: translateY(-10px) scale(1.03);
+    border: 3px white dashed;
+    background: linear-gradient(to right, #ce93d8, #4dd0e1);
+    color: #fff;
+    box-shadow: 0 12px 20px rgba(247, 159, 225, 0.603);
+}
+
+.Options a button img {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.Options a button:hover img {
+    transform: scale(1.15) rotate(2deg);
+}
+
+.Back img {
+    position: absolute;
+    top: 1rem;
+    width: 50px;
+    height: 50px;
+    transition: transform 0.8s ease;
+    z-index: 10;
+}
+
+.Back img:hover {
+    transform: scale(1.2);
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .AppointmentContainer {
+        flex-direction: column;
+        padding: 3rem 2rem;
+    }
+
+    .AppointmentLeft, .Options {
+        align-items: center;
+        text-align: center;
+    }
+
+    .AppointmentLeft img {
+        height: auto;
+    }
+
+    .Options a button {
+        width: 90%;
+    }
+}

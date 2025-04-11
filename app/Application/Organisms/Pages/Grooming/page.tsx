@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { getUser } from "../../../../../utils";
 import "./Grooming.css";
+import Link from "next/link";
 
 type UserData = {
   id: number;
@@ -113,19 +114,33 @@ const Grooming = () => {
   };
 
   return (
-    <div className="grooming-container">
+<>
+  <div className="Back">
+    <Link href="/Application/Organisms/Pages/Appointment">
+      <img src="/img/back.png" alt="back icon" />
+    </Link>
+  </div>
+
+    {userData && (
+      <div className="left-panel">
+        <div className="user-info">
+          <h1>Your Info</h1>
+          <p>Name:</p>
+            <a>{userData.first_name} {userData.last_name}</a> 
+          <p>Email:</p>
+            <a>{userData.email}</a>
+          <p>Address:</p>
+            <a>{userData.address}</a>
+          <p>Phone Number:</p> 
+            <a>{userData.phone_number}</a>
+        </div>
+      </div>
+    )}
+
+<div className="grooming-container">
+    <div className="right-panel">
       <div className="grooming-header">
         <h1>Schedule Grooming Appointment</h1>
-        {userData && (
-          <div className="user-info">
-            <p>
-              Name: {userData.first_name} {userData.last_name}
-            </p>
-            <p>Email: {userData.email}</p>
-            <p>Address: {userData.address}</p>
-            <p>Phone Number: {userData.phone_number}</p>
-          </div>
-        )}
       </div>
 
       <form onSubmit={handleSubmit} className="appointment-form">
@@ -254,6 +269,8 @@ const Grooming = () => {
         </button>
       </form>
     </div>
+    </div>
+    </>
   );
 };
 

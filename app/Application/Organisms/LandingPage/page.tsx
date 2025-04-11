@@ -1,6 +1,5 @@
 import React from "react";
 import "./LandingStyles/Landing.css";
-import Register from "../Auth/RegisterPage/page";
 import Link from "next/link";
 
 const LandingPage = () => {
