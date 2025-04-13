@@ -23,3 +23,18 @@ export type TUseUserData = {
   created_at: string;
   updated_at: string;
 };
+
+export type TLoginProps = {
+    email: string;
+    password: string;
+}
+
+export type TRegisterProps = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  phone_number: string;
+  address: string;
+  notes?: string;
+};

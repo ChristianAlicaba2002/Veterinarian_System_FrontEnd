@@ -2,11 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import "./LoginStyles/Login.css"
 import { useRouter } from 'next/navigation'
-
-type LoginProps = {
-    email: string;
-    password: string;
-}
+import { TLoginProps } from '@/app/Application/Types/AllTypes'
 
 function Login() {
     const router = useRouter()
@@ -35,7 +31,7 @@ function Login() {
             return
         }
 
-        const loginData: LoginProps = {
+        const loginData: TLoginProps = {
             email,
             password
         }
