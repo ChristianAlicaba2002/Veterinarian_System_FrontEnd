@@ -87,6 +87,7 @@ export default function Main() {
                       Special_Markings={pet.Special_Markings}
                       Microchip_Number={pet.Microchip_Number}
                       Weight={pet.Weight}
+                      Status={pet.Status}
                     />
                   );
                 })

@@ -11,6 +11,7 @@ export type TUsePetsData = {
   Special_Markings: string;
   Species: string;
   Weight: number;
+  Status: string;
 };
 
 export type TUseUserData = {
