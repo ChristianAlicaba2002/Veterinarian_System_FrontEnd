@@ -4,32 +4,7 @@ import { getUser } from "../../../../../utils";
 import LogoProfile from "@/app/Application/Components/LogoProfile/page";
 import UserMessage from "@/app/Application/Atoms/UserMessage";
 import PetsData from "@/app/Application/Atoms/PetsData";
-
-type UserData = {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  contact_number: string;
-  address: string;
-  created_at: string;
-  updated_at: string;
-};
-
-type PetsData = {
-  pet_id: number;
-  Pet_Name: string;
-  Sex: string;
-  Age: string;
-  Breed: string;
-  Color: string;
-  image: string;
-  Microchip_Number: number;
-  Neutered_Spay: string;
-  Special_Markings: string;
-  Species: string;
-  Weight: number;
-};
+import { TUseUserData , TUsePetsData } from "@/app/Application/Types/AllTypes";
 
 export default function Main() {
   const [userData, setUserData] = useState<TUseUserData | null>(null);
@@ -94,7 +69,7 @@ export default function Main() {
           <div className="main-content">
             <div className="content-card">
               {pets ? (
-                pets.map((pet: PetsData) => {
+                pets.map((pet: TUsePetsData) => {
                 pets.sort((a:any, b:any) => a.Breed - b.Breed)
                   const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
                   return (
