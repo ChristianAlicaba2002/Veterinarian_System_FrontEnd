@@ -5,12 +5,9 @@ html, body {
     padding: 0;
     font-family: 'Poppins', sans-serif;
     background: #fff0fa;
-    /* display: flex; */
-    align-items: center;
-    justify-content: center;
+
     overflow: hidden;
     scroll-behavior: smooth;
-    /* position: relative; */
 }
 
 .AppointmentContainer {
