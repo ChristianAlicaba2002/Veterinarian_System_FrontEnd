@@ -1,10 +1,18 @@
-.body {
-    min-height: 100vh;
-    background-color: none;
+.MainBody {
+    scroll-behavior: smooth;
+    background: linear-gradient(to right, #ffeaf4, #e8f0ff);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Quicksand', sans-serif;
+    color: #4a4a4a;
 }
 
-.header {
-    box-shadow: 0 1px 3px rgb(255, 255, 255);
+.MainHeader {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px dashed #fcd6ed;
 }
 
 .header-container {
@@ -16,46 +24,86 @@
     align-items: center;
 }
 
-.title {
-    font-size: 1.875rem;
-    font-weight: 600;
-    letter-spacing: .10rem;
-    color: #ffffff;
-    font-family: "Poppins";
+.Brand {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #aa45b8;
+    font-family: 'Chewy', cursive;
+    text-transform: uppercase;
+    text-shadow: 2px 3px 6px rgba(255, 182, 193, 0.3);
 }
 
 .welcome-text {
-    color: #e4e4e4;
-    margin-top: 0.25rem;
+    color: #ffffff;
+    margin-top: 0.5rem;
+    font-size: 1.3rem;
+    font-style: italic;
 }
 
 .main-content {
-    max-width: 80rem;
-    margin: 0 auto;
-    padding: 1.5rem;
+    max-width: 85rem;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
 }
 
 @media (min-width: 640px) {
     .main-content {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+        padding-left: 3rem;
+        padding-right: 3rem;
     }
 }
 
 @media (min-width: 1024px) {
     .main-content {
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-left: 4rem;
+        padding-right: 4rem;
     }
 }
 
 .content-card {
-    background-color: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
+    padding: 2rem;
+    transition: transform 0.3s ease-in-out;
 }
 
+.content-card:hover {
+    transform: translateY(-5px);
+}
+
+
+.view-more-link {
+    color: #a678d6;
+    background-color: #f8ecff;
+    border: 2px dashed #dab6f5;
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    text-align: center;
+}
+
+.view-more-link:hover {
+    color: #845ec2;
+    background-color: #f3dcff;
+    border-color: #c59fff;
+}
+
+.no-pets-message {
+    color: #e57373;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.3rem;
+    background-color: #fff0f4;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    border: 2px dashed #ffcdd2;
+}

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { getUser } from "../../../../../utils";
-import "./Grooming.css";
+import "./GroomingStyles/Grooming.css";
 import Link from "next/link";
 
 type UserData = {

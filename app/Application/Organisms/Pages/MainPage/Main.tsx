@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "./MainStyles/main.css";
 import { getUser } from "../../../../../utils";
 import LogoProfile from "@/app/Application/Components/LogoProfile/page";
 import UserMessage from "@/app/Application/Atoms/UserMessage";
 import PetsData from "@/app/Application/Atoms/PetsData";
+import "./MainStyles/main.css";
+
 
 type UserData = {
   id: number;
@@ -76,11 +77,11 @@ export default function Main() {
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet"
       />
-      <div className="body">
-        <header className="header" style={{ backgroundColor: changeColor }}>
+      <div className="MainBody">
+        <header className="MainHeader" style={{ backgroundColor: changeColor }}>
           <div className="header-container">
             <div>
-              <h1 className="title">FurEver</h1>
+              <h1 className="Brand">FurEver</h1>
               {userData && (
                 <UserMessage
                   first_name={userData.first_name}
@@ -96,7 +97,7 @@ export default function Main() {
             <div className="content-card">
               {pets ? (
                 pets.map((pet: PetsData) => {
-                pets.sort((a:any, b:any) => a.Breed - b.Breed)
+                  pets.sort((a: any, b: any) => a.Breed - b.Breed);
                   const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
                   return (
                     <PetsData
@@ -116,7 +117,12 @@ export default function Main() {
                   );
                 })
               ) : (
-                <h1 style={{ color: "red" }}>No Pets Available</h1>
+                <>
+                  <a href="/pets" className="view-more-link">
+                    View More
+                  </a>
+                  <h1 className="no-pets-message">No Pets Available</h1>
+                </>
               )}
             </div>
           </div>
@@ -125,3 +131,4 @@ export default function Main() {
     </>
   );
 }
+

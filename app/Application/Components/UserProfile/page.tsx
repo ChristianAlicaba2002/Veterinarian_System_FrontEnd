@@ -117,7 +117,7 @@ export default function UserProfile() {
       <main>
         <div className="main-content">
           <div
-            className="arrow-container ml-[-10%] p-1 w-8 flex content-center items-center rounded-2xl text-center"
+            className="arrow-container ml-[-10%] p-3 w-9 flex content-center items-center rounded-2xl text-center"
             style={{ backgroundColor: changeColor }}
           >
             <a href="/Application/Organisms/Layouts">

@@ -5,7 +5,7 @@ html, body {
     padding: 0;
     font-family: 'Poppins', sans-serif;
     background: #fff0fa;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -106,7 +106,9 @@ html, body {
     width: 50px;
     height: 50px;
     transition: transform 0.8s ease;
+    margin-left: 2rem;
     z-index: 10;
+
 }
 
 .Back img:hover {

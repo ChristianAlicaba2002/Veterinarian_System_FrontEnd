@@ -1,6 +1,5 @@
 .body {
     min-height: 100vh;
-    background-color: #f8fafc;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -13,7 +12,7 @@
 .profile-container {
     background: white;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.03);
+    box-shadow: 0 10px 30px rgba(255, 164, 228, 0.548);
     overflow: hidden;
     transition: all 0.3s ease;
 }

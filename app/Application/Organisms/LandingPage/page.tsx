@@ -115,7 +115,7 @@ const LandingPage = () => {
         <div className="pet-card">
           <img src="/img/us.jpg" alt="so us" />
           <div className="pet-card-content">
-            <h3>I</h3>
+            <h3>Mimi</h3>
             <button>Learn More</button>
           </div>
         </div>
@@ -123,7 +123,7 @@ const LandingPage = () => {
         <div className="pet-card">
           <img src="/img/kasal.jpg" alt="kasal" />
           <div className="pet-card-content">
-            <h3>LOVE</h3>
+            <h3>Kiku</h3>
             <button>Learn More</button>
           </div>
         </div>
@@ -131,7 +131,7 @@ const LandingPage = () => {
         <div className="pet-card">
           <img src="/img/kiss.jpg" alt="imy" />
           <div className="pet-card-content">
-            <h3>YOU</h3>
+            <h3>Ia</h3>
             <button>Learn More</button>
           </div>
         </div>

@@ -12,7 +12,7 @@ const SubmitButton = () => {
       }
     }, []);
   return (
-    <div style={{ backgroundColor: changeColor }} className='w-50 flex justify-center items-center p-2 rounded-full transition-all ease-in-out hover:bg-blue-500 hover:-translate-y-1.5'>
+    <div style={{ backgroundColor: changeColor }} className='w-50 flex justify-center items-center p-2 rounded-full transition-all ease-in-out hover:bg-blue-500 hover:-translate-y-1.5 '>
         <button className='cursor-pointer text-white' type="submit">Require</button>
     </div>
   )
