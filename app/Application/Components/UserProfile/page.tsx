@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { getUser } from "../../../../utils";
 import "./UserProfileStyles/UserProfile.css";
@@ -17,9 +18,7 @@ type UserData = {
 export default function UserProfile() {
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [loadingText, setLoadingText] = useState(
-    "Initializing your profile..."
-  );
+  const [loadingText, setLoadingText] = useState("Initializing your profile...");
   const [showAlert, setShowAlert] = useState(false);
   const [changeColor, setChangeColor] = useState(() => {
     return localStorage.getItem("profileHeaderColor") || "blue";
@@ -33,7 +32,6 @@ export default function UserProfile() {
     localStorage.setItem("profileHeaderColor", changeColor);
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 3000);
-    alert('✅ Color saved successfully!')
   };
 
   useEffect(() => {
@@ -83,21 +81,6 @@ export default function UserProfile() {
     );
   }
 
-  {showAlert && (
-    <div style={{
-      marginTop: "4rem",
-      padding: "0.75rem 1rem",
-      backgroundColor: "#4BB543",
-      color: "white",
-      borderRadius: "5px",
-      boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-      transition: "opacity 0.3s ease",
-      zIndex: '10000'
-    }}>
-      ✅ Color saved successfully!
-    </div>
-  )}
-
   if (!userData) {
     return (
       <div className="body">
@@ -116,23 +99,34 @@ export default function UserProfile() {
     <div className="body">
       <main>
         <div className="main-content">
+          {showAlert && (
+            <div
+              style={{
+                marginBottom: "1rem",
+                padding: "0.75rem 1rem",
+                backgroundColor: "#4BB543",
+                color: "white",
+                borderRadius: "5px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                transition: "opacity 0.3s ease",
+                zIndex: 10000,
+              }}
+            >
+              ✅ Color saved successfully!
+            </div>
+          )}
+
           <div
-            className="arrow-container ml-[-10%] p-3 w-9 flex content-center items-center rounded-2xl text-center"
+            className="arrow-container w-9 h-9 flex items-center justify-center rounded-full text-center"
             style={{ backgroundColor: changeColor }}
           >
             <a href="/Application/Organisms/Layouts">
-              <i
-                className="fa-solid fa-arrow-left"
-                style={{ color: "#ffffff" , textAlign: 'center'}}
-              >
-              </i>
+              <i className="fa-solid fa-arrow-left" style={{ color: "#ffffff" }}></i>
             </a>
           </div>
+
           <div className="profile-container">
-            <div
-              className="profile-header"
-              style={{ backgroundColor: changeColor }}
-            >
+            <div className="profile-header" style={{ backgroundColor: changeColor }}>
               <h2 className="profile-title">User Profile</h2>
               <p className="profile-subtitle">
                 Welcome back, {userData.first_name}!
@@ -161,15 +155,32 @@ export default function UserProfile() {
 
               <div className="change-color-background">
                 <div className="profile-label">Change Color</div>
-                <div className="profile-value">
+                <div className="profile-value d-flex align-items-center gap-3 flex-wrap">
                   <input
                     type="color"
-                    className="color-input"
+                    className="form-control form-control-color mb-5"
                     value={changeColor}
                     onChange={(e) => setChangeColor(e.target.value)}
+                    title="Choose your color"
+                    style={{
+                      width: "3rem",
+                      height: "3rem",
+                      padding: "0",
+                      border: "none",
+                    }}
                   />
-                  <button type="submit" onClick={saveColor}>
-                    save
+                  <button
+                    type="submit"
+                    onClick={saveColor}
+                    className="btn btn-outline-primary px-5 py-5 rounded-pill shadow-sm ml-2"
+                    style={{
+                      backgroundColor: "#d8b4fe",
+                      color: "#4a154b",
+                      border: "none",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Save
                   </button>
                 </div>
               </div>

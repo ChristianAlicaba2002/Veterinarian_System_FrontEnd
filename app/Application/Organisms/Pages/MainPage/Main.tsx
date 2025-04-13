@@ -5,6 +5,8 @@ import LogoProfile from "@/app/Application/Components/LogoProfile/page";
 import UserMessage from "@/app/Application/Atoms/UserMessage";
 import PetsData from "@/app/Application/Atoms/PetsData";
 import { TUseUserData , TUsePetsData } from "@/app/Application/Types/AllTypes";
+import './MainStyles/main.css';
+
 
 export default function Main() {
   const [userData, setUserData] = useState<TUseUserData | null>(null);
@@ -73,8 +75,8 @@ export default function Main() {
                 pets.sort((a:any, b:any) => a.Breed - b.Breed)
                   const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
                   return (
+                    <div className="pet-card" key={pet.pet_id}>
                     <PetsData
-                      key={pet.pet_id}
                       pet_id={pet.pet_id}
                       image={imageUrl}
                       Pet_Name={pet.Pet_Name}
@@ -88,6 +90,7 @@ export default function Main() {
                       Microchip_Number={pet.Microchip_Number}
                       Weight={pet.Weight}
                     />
+                  </div>
                   );
                 })
               ) : (
