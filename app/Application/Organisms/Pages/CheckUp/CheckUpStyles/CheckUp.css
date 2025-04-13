@@ -89,6 +89,8 @@
   }
   
   .submit-button {
+    display: flex;
+    align-items: flex-end;
     margin-left: 0.8rem;
     margin-top: -0.4rem;
     padding: 8px 25px;
