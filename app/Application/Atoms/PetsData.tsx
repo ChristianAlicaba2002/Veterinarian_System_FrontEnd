@@ -32,7 +32,13 @@ const PetsData = (props: TUsePetsData) => {
             <span className="pet-detail">{props.Sex}</span>
             <span className="pet-detail">{props.Color}</span>
             <span className="pet-detail">{props.Breed}</span>
-            <span className={`${props.Status === "Available" ? 'text-green-700' : 'pet-detail'}`}>{props.Status}</span>
+            <span
+              className={`${
+                props.Status === "Available" ? "text-green-700" : "pet-detail"
+              }`}
+            >
+              {props.Status}
+            </span>
           </div>
           <Link
             href={`/Application/Organisms/Pages/PetDetails/${encodeURIComponent(
@@ -41,13 +47,15 @@ const PetsData = (props: TUsePetsData) => {
               props.Age
             )}/${encodeURIComponent(props.Species)}/${encodeURIComponent(
               props.Sex
-            )}/${encodeURIComponent(props.Color)}/${encodeURIComponent(
+            )}/${decodeURIComponent(props.Color)}/${encodeURIComponent(
               props.Breed
             )}/${encodeURIComponent(
               props.Microchip_Number
-            )}/${encodeURIComponent(props.Neutered_Spay)}/${encodeURIComponent(
+            )}/${encodeURIComponent(props.Neutered_Spay)}/${decodeURIComponent(
               props.Special_Markings
-            )}/${encodeURIComponent(props.Weight)}`}
+            )}/${encodeURIComponent(props.Weight)}/${encodeURIComponent(
+              props.Status
+            )}`}
             className="view-more-link"
           >
             View more

@@ -6,6 +6,7 @@ import UserMessage from "@/app/Application/Atoms/UserMessage";
 import PetsData from "@/app/Application/Atoms/PetsData";
 import { TUseUserData , TUsePetsData } from "@/app/Application/Types/AllTypes";
 import './MainStyles/main.css';
+import Link from "next/link";
 
 
 export default function Main() {
@@ -96,9 +97,9 @@ export default function Main() {
                 })
               ) : (
                 <>
-                  <a href="/pets" className="view-more-link">
+                  <Link href="/pets" className="view-more-link">
                     View More
-                  </a>
+                  </Link>
                   <h1 className="no-pets-message">No Pets Available</h1>
                 </>
               )}

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import '../../../../../../../../../../../PetDetailsStyle/PetDetails.css'; 
+import React, { useState, useEffect , use} from 'react';
+import '../../../../../../../../../../../../PetDetailsStyle/PetDetails.css'; 
 import Image from 'next/image';
 import SubmitButton from '@/app/Application/Atoms/Button'; 
 import Link from 'next/link';
@@ -18,9 +18,10 @@ type PetParams = {
     Neutered_Spay: string;
     Special_Markings: string;
     Weight: string;
+    Status: string;
 };
 
-const PetDetails = (props: { params: PetParams }) => { // Changed type of props.params
+const PetDetails = (props: { params: Promise<PetParams>  }) => { // Changed type of props.params
     const {
         image,
         Pet_Name,
@@ -32,8 +33,9 @@ const PetDetails = (props: { params: PetParams }) => { // Changed type of props.
         Microchip_Number,
         Neutered_Spay,
         Special_Markings,
-        Weight
-    } = props.params; // Directly destructure from props.params
+        Weight,
+        Status,
+    } = use(props.params);
 
     const [changeColor, setChangeColor] = useState<string>("#3b82f6");
 
@@ -69,7 +71,7 @@ const PetDetails = (props: { params: PetParams }) => { // Changed type of props.
                                     width={500}
                                     height={500}
                                     className="pet-image"
-                                    unoptimized 
+                                    // unoptimized 
                                     priority
                                 />
                             </div>
@@ -88,7 +90,7 @@ const PetDetails = (props: { params: PetParams }) => { // Changed type of props.
                                 <InfoItem label="Age: " value={Age} />
                                 <InfoItem label="Species: " value={Species} />
                                 <InfoItem label="Sex: " value={Sex} />
-                                <InfoItem label="Color: " value={Color} />
+                                <InfoItem label="Color: " value={decodeURIComponent(Color)} />
                                 <InfoItem label="Breed: " value={Breed} />
                                 <InfoItem label="Weight: " value={Weight} />
                             </div>
@@ -99,7 +101,8 @@ const PetDetails = (props: { params: PetParams }) => { // Changed type of props.
                             <div className="info-grid">
                                 <InfoItem label="Microchip Number: " value={Microchip_Number} />
                                 <InfoItem label="Neutered/Spayed: " value={Neutered_Spay} />
-                                <InfoItem label="Special Markings: " value={Special_Markings} />
+                                <InfoItem label="Special Markings: " value={decodeURIComponent(Special_Markings)} />
+                                <InfoItem label="Status: " value={Status} />
                             </div>
                         </div>
                     </div>

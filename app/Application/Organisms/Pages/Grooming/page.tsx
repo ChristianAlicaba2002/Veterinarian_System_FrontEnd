@@ -2,8 +2,10 @@
 
   import React, { useEffect, useState } from "react";
   import { getUser } from "../../../../../utils";
+  import TimePicker from 'react-time-picker';
   import "./GroomingStyles/Grooming.css";
   import Link from "next/link";
+  import {TAppointmentData} from "@/app/Application/Types/AllTypes"; 
 
   type UserData = {
     id: number;
@@ -15,19 +17,11 @@
     address: string;
   };
 
-  type AppointmentData = {
-    pet_name?: string;
-    breed?: string;
-    service_type: string;
-    appointment_date: string;
-    appointment_time: string;
-    groomer_name?: string;
-    notes: string;
-  };
+
 
   const Grooming = () => {
     const [userData, setUserData] = useState<UserData | null>(null);
-    const [appointment, setAppointment] = useState<AppointmentData>({
+    const [appointment, setAppointment] = useState<TAppointmentData>({
       pet_name: "",
       breed: "",
       service_type: "Basic Grooming",

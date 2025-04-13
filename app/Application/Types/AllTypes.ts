@@ -14,6 +14,16 @@ export type TUsePetsData = {
   Status: string;
 };
 
+export type TAppointmentData = {
+  pet_name?: string;
+  breed?: string;
+  service_type: string;
+  appointment_date: string;
+  appointment_time: string;
+  groomer_name?: string;
+  notes: string;
+};
+
 export type TUseUserData = {
   id: number;
   first_name: string;
@@ -26,9 +36,9 @@ export type TUseUserData = {
 };
 
 export type TLoginProps = {
-    email: string;
-    password: string;
-}
+  email: string;
+  password: string;
+};
 
 export type TRegisterProps = {
   first_name: string;
