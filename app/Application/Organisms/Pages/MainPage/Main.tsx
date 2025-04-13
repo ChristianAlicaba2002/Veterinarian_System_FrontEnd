@@ -5,12 +5,11 @@ import { getUser } from "../../../../../utils";
 import LogoProfile from "@/app/Application/Components/LogoProfile/page";
 import UserMessage from "@/app/Application/Atoms/UserMessage";
 import PetsData from "@/app/Application/Atoms/PetsData";
-import { UseUserData } from "@/app/Application/Types/UserData";
-import { UsePetsData } from "@/app/Application/Types/PetsData";
+import { TUseUserData , TUsePetsData } from "@/app/Application/Types/AllTypes";
 
 
 export default function Main() {
-  const [userData, setUserData] = useState<UseUserData | null>(null);
+  const [userData, setUserData] = useState<TUseUserData | null>(null);
   const [pets, setPets] = useState([]);
   const [changeColor, setChangeColor] = useState<string>("#3b82f6");
 
@@ -72,7 +71,7 @@ export default function Main() {
           <div className="main-content">
             <div className="content-card">
               {pets ? (
-                pets.map((pet:UsePetsData) => {
+                pets.map((pet:TUsePetsData) => {
                 pets.sort((a:any, b:any) => a.Breed - b.Breed)
                   const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
                   return (

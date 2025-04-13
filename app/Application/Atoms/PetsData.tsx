@@ -2,9 +2,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import "../../../public/css/PetsData.css";
-import { UsePetsData } from "../Types/PetsData";
-
-const PetsData = (props: UsePetsData) => {
+import { TUsePetsData } from "../Types/AllTypes";
+const PetsData = (props: TUsePetsData) => {
   return (
     <>
       <div key={props.pet_id} className="pet-card">
