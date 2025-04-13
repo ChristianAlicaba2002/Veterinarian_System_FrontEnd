@@ -4,8 +4,6 @@ import { getUser } from "../../../../../utils";
 import LogoProfile from "@/app/Application/Components/LogoProfile/page";
 import UserMessage from "@/app/Application/Atoms/UserMessage";
 import PetsData from "@/app/Application/Atoms/PetsData";
-import "./MainStyles/main.css";
-
 
 type UserData = {
   id: number;
@@ -34,7 +32,7 @@ type PetsData = {
 };
 
 export default function Main() {
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [userData, setUserData] = useState<TUseUserData | null>(null);
   const [pets, setPets] = useState([]);
   const [changeColor, setChangeColor] = useState<string>("#3b82f6");
 
@@ -54,7 +52,7 @@ export default function Main() {
         console.log(`Status: ${response.status}`);
       }
       const data = await response.json();
-      console.log("All pets data:", data.Data);
+      localStorage.setItem("pets", JSON.stringify(data.Data));
 
       setPets(data.Data);
     } catch (err) {
@@ -97,11 +95,12 @@ export default function Main() {
             <div className="content-card">
               {pets ? (
                 pets.map((pet: PetsData) => {
-                  pets.sort((a: any, b: any) => a.Breed - b.Breed);
+                pets.sort((a:any, b:any) => a.Breed - b.Breed)
                   const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
                   return (
                     <PetsData
                       key={pet.pet_id}
+                      pet_id={pet.pet_id}
                       image={imageUrl}
                       Pet_Name={pet.Pet_Name}
                       Age={pet.Age}

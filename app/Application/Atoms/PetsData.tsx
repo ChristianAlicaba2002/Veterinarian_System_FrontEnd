@@ -2,12 +2,11 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import "../../../public/css/PetsData.css";
-
-
-const PetsData = (props:any) => {
+import { TUsePetsData } from "../Types/AllTypes";
+const PetsData = (props: TUsePetsData) => {
   return (
     <>
-      <div key={props.Pet_Name} className="pet-card">
+      <div key={props.pet_id} className="pet-card">
         <div className="pet-image-container">
           {props.image ? (
             <Image
