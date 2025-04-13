@@ -3,37 +3,38 @@ html {
   color: #6a1b9a;
   margin: 0;
   padding: 0;
-  height: 100vh;
-  overflow: hidden;
+  overflow: auto;
+  box-sizing: border-box;
 }
 
 .grooming-container {
-  margin-top: 5rem;
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
+  width: auto;
+  height: fit-content;
   gap: 2rem;
+  width: auto;
 }
 
-.user-info{
-    text-align: center;
-    font-size: x-large;
-    font-weight: bolder;
-
+.user-info {
+  text-align: center;
+  font-size: x-large;
+  font-weight: bolder;
 }
 
-.user-info p{
-    margin-top: 2rem;
-    font-size: large;
-    font-weight: bold;
-    color: #4a148c;
+.user-info p {
+  margin-top: 2rem;
+  font-size: large;
+  font-weight: bold;
+  color: #4a148c;
 }
 
-.user-info a{
-    font-size: medium;
-    font-weight: 500;
-    color: #7b1fa2;
-    margin-bottom: 10px;
+.user-info a {
+  font-size: medium;
+  font-weight: 500;
+  color: #7b1fa2;
+  margin-bottom: 10px;
 }
 
 .left-panel {
@@ -57,6 +58,7 @@ html {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  width: auto;
 }
 
 .grooming-header h1 {
@@ -70,7 +72,7 @@ html {
 .appointment-form {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1rem 2rem;
+  gap: 2rem;
 }
 
 .form-group {
@@ -97,6 +99,8 @@ textarea {
   color: #4a148c;
   outline: none;
   transition: all 0.3s ease;
+  width: 100%; 
+  box-sizing: border-box;  
 }
 
 input:focus,
@@ -107,28 +111,29 @@ textarea:focus {
 }
 
 .submit-button {
-    font-weight: bold;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #9a57a781;
-    border: 2px dashed #976ebb;
-    border-radius: 50px;
-    cursor: pointer;
-    width: 50%;
-    height: fit-content;
-    padding: 20px 14px;
-    margin-top: 5rem;
-    margin-left: 450px;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  
+  font-weight: bold;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #9a57a781;
+  border: 2px dashed #976ebb;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 50%;
+  height: fit-content;
+  padding: 20px 14px;
+  margin-top: 3rem;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+  margin-right: auto;
+  margin-left: 400px;
+}
+
 .submit-button:hover {
-    background-color: #4c186d71;
-    border: 1.5px dashed #5d3381;
-    box-shadow: 0 4px 10px rgba(238, 186, 238, 0.952);
-    transform: translateY(-2px);
-  }
-  
+  background-color: #4c186d71;
+  border: 1.5px dashed #5d3381;
+  box-shadow: 0 4px 10px rgba(238, 186, 238, 0.952);
+  transform: translateY(-2px);
+}
 
 .Back {
   margin-top: 2rem;

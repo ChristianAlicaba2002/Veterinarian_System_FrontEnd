@@ -5,7 +5,6 @@ html, body {
     padding: 0;
     font-family: 'Poppins', sans-serif;
     background: #fff0fa;
-
     overflow: hidden;
     scroll-behavior: smooth;
 }
