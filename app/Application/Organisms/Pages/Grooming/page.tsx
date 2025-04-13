@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { getUser } from "../../../../../utils";
-import "./Grooming.css";
+import "./GroomingStyles/Grooming.css";
 import Link from "next/link";
 
 type UserData = {
@@ -74,8 +74,6 @@ const Grooming = () => {
         groomer_name: appointment.groomer_name,
         notes: appointment.notes.trim() || "No additional notes"
       };
-
-      console.log("Sending data:", appointmentData);
 
       const response = await fetch("http://127.0.0.1:8000/api/grooming", {
         method: "POST",

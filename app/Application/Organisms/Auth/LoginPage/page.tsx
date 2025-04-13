@@ -94,7 +94,7 @@ function Login() {
         </div>
         <div className="login-form-container">
           <div>
-            <h1 className="login-title">Login to Your Account</h1>
+            <h1 className="login-title">Welcome Back!</h1>
           </div>
           <form onSubmit={handleSubmit} className="login-form">
             <div className="form-group">

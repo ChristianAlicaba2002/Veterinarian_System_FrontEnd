@@ -89,7 +89,7 @@ function Register() {
             <img src="/img/cutepuppy.gif" alt="Running Corgi" className="register-image-landscape" />
           </div>
           <div className="register-form-container-landscape">
-            <h1 className="register-title-landscape">Register page</h1>
+            <h1 className="register-title-landscape">Create your account</h1>
             <form onSubmit={handleSubmit} className="register-form-landscape">
               <div className="form-grid-landscape">
                 <div className="form-group-landscape">
