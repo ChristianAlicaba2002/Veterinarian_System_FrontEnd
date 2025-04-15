@@ -12,6 +12,7 @@ import Link from "next/link";
 export default function Main() {
   const [userData, setUserData] = useState<TUseUserData | null>(null);
   const [pets, setPets] = useState([]);
+  const [isLoading , setIsloading] = useState(false)
   const [changeColor, setChangeColor] = useState<string>("#3b82f6");
 
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function Main() {
   }, []);
 
   const getAllPets = async () => {
+    setIsloading(true)
     try {
       const response = await fetch("http://127.0.0.1:8000/api/Pets");
 
@@ -30,11 +32,14 @@ export default function Main() {
         console.log(`Status: ${response.status}`);
       }
       const data = await response.json();
-      localStorage.setItem("pets", JSON.stringify(data.Data));
-
+  
       setPets(data.Data);
     } catch (err) {
       console.log(err);
+    }
+    finally
+    {
+      setIsloading(false)
     }
   };
 
@@ -69,6 +74,7 @@ export default function Main() {
           </div>
         </header>
         <main>
+          {isLoading ? 'Loading' : ''}
           <div className="main-content">
             <div className="content-card">
               {pets ? (
@@ -96,12 +102,7 @@ export default function Main() {
                   );
                 })
               ) : (
-                <>
-                  <Link href="/pets" className="view-more-link">
-                    View More
-                  </Link>
                   <h1 className="no-pets-message">No Pets Available</h1>
-                </>
               )}
             </div>
           </div>

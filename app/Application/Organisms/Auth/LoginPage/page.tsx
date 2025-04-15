@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react'
 import "./LoginStyles/Login.css"
 import { useRouter } from 'next/navigation'
 import { TLoginProps } from '@/app/Application/Types/AllTypes'
+import SubmitButton from '@/app/Application/Atoms/Button'
 
 function Login() {
     const router = useRouter()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isLoggedIn , setIsLoggedIn] = useState(false)
+    const [buttonSubmit , setButtonSubmit] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
     // Check if user is already logged in
@@ -25,6 +27,7 @@ function Login() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setIsLoggedIn(false)
+        setButtonSubmit(true)
 
         if (!email || !password) {
             setErrorMessage("All fields are required")
@@ -56,7 +59,8 @@ function Login() {
                 } else {
                     setErrorMessage(data.message || 'Login failed. Please check your credentials.')
                 }
-                return
+                await new Promise(resolve => setTimeout(resolve, 2000))
+                setButtonSubmit(false)
             }
 
             if (data.token) {
@@ -65,16 +69,18 @@ function Login() {
                 document.cookie = `token=${data.token}; path=/; max-age=86400; secure; samesite=strict`
                 
                 // The Data of the user also pass in the localStorage
-                localStorage.setItem('user', JSON.stringify(data.data))
+                localStorage.setItem('user', JSON.stringify(data.data)) 
 
             
                 // Replace the current history entry and redirect
                 router.push('/Application/Organisms/Layouts')
                 router.refresh() // Force a refresh of the navigation
+
+                await new Promise(resolve => setTimeout(resolve, 2000))
+                setButtonSubmit(false)
             }
 
-
-            console.log("Login success:", data)
+    
           
         } catch (error) {
             console.error("Error during login:", error)
@@ -100,7 +106,6 @@ function Login() {
               <input
                 id="email"
                 type="email"
-                required
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -114,7 +119,6 @@ function Login() {
               <input
                 id="password"
                 type="password"
-                required
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -125,8 +129,9 @@ function Login() {
             {errorMessage && <div className="error-message">{errorMessage}</div>}
 
             <div>
-              <button type="submit" className="login-button">
-                Sign in
+            
+              <button type="submit"  className="login-button">
+                {buttonSubmit ? 'Loading...' : 'Login'}
               </button>
             </div>
 

@@ -23,11 +23,11 @@ export const logout = async () => {
             throw new Error(data.message || 'Failed to logout. Please try again.')
         }
 
-        // Clear authentication data
+        // // Clear authentication data
         localStorage.removeItem('token')
         localStorage.removeItem('user')
         
-        // Remove the cookie
+        // // Remove the cookie
         document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
         
         // Redirect to login page
@@ -35,7 +35,7 @@ export const logout = async () => {
 
     } catch (error) {
         console.error('Logout error:', error)
-        // Even if the API call fails, clear local data and redirect
+        // // Even if the API call fails, clear local data and redirect
         localStorage.removeItem('token')
         localStorage.removeItem('user')
         document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;'

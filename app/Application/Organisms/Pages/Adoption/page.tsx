@@ -1,269 +1,132 @@
-// 'use client'
-// import PetsData from '@/app/Application/Atoms/PetsData';
-// import React, { useEffect, useState } from 'react'
-
-
-// type PetsData = {
-//   pet_id: number;
-//   Pet_Name: string;
-//   Sex: string;
-//   Age: string;
-//   Breed: string;
-//   Color: string;
-//   image: string;
-//   Microchip_Number: number;
-//   Neutered_Spay: string;
-//   Special_Markings: string;
-//   Species: string;
-//   Weight: number;
-// };
-
-
-
-// const Adoption = () => {
-
-//   const [pets , setPets] = useState([])
-
-//   useEffect(()=> {
-//     const getAllPets = async () => {
-//       try {
-//         const response = await fetch("http://127.0.0.1:8000/api/Pets");
-  
-//         if (!response.ok) {
-//           console.log(`Status: ${response.status}`);
-//         }
-//         const data = await response.json();
-//         console.log("All pets data:", data.Data);
-  
-//         setPets(data.Data);
-//       } catch (err) {
-//         console.log(err);
-//       }
-//     };
-//     getAllPets()
-//   }, [])
-
-//   return (
-//     <>
-//       <div>
-//         <h1>Adoption</h1>
-//         {pets.map((pet: PetsData) => {
-//           pets.sort((a:any, b:any) => a.Breed - b.Breed)
-//           const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
-//           return ( 
-//             <div>
-//               <PetsData
-//                       key={pet.pet_id}
-//                       image={imageUrl}
-//                       Pet_Name={pet.Pet_Name}
-//                       Age={pet.Age}
-//                       Species={pet.Species}
-//                       Sex={pet.Sex}
-//                       Color={pet.Color}
-//                       Breed={pet.Breed}
-//                       Neutered_Spay={pet.Neutered_Spay}
-//                       Special_Markings={pet.Special_Markings}
-//                       Microchip_Number={pet.Microchip_Number}
-//                       Weight={pet.Weight}
-//                     />
-//             </div>
-//           )
-//         })}
-//       </div>
-//     </>
-//   )
-// }
-
-// export default Adoption
 "use client";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import { TUsePetsData, TUseUserData } from "@/app/Application/Types/AllTypes";
+import Link from "next/link";
 
-import { useState } from "react";
+const Adoption = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [pets, setPets] = useState([]);
 
-type AdoptionFormData = {
-  full_name: string;
-  email: string;
-  phone_number: string;
-  address: string;
-  preferred_pet: string;
-  reason: string;
-  has_other_pets: string;
-  home_type: string;
-  agreeTerms: boolean;
-};
-
-export default function PetAdoptionForm() {
-  const [formData, setFormData] = useState<AdoptionFormData>({
-    full_name: "",
-    email: "",
-    phone_number: "",
-    address: "",
-    preferred_pet: "",
-    reason: "",
-    has_other_pets: "",
-    home_type: "",
-    agreeTerms: false,
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value, type } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      // [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.agreeTerms) {
-      alert("Please agree to the terms and conditions before submitting.");
-      return;
-    }
-
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/adopt", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || "Failed to submit form");
+  useEffect(() => {
+    const FetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/Pets");
+        if (!response.ok) {
+          throw new Error(`Fetch Failed : ${response.status}`);
+        }
+        const data = await response.json();
+        setPets(data.Data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
       }
-
-      const data = await response.json();
-      alert("Adoption form submitted successfully!");
-      console.log(data);
-
-      setFormData({
-        full_name: "",
-        email: "",
-        phone_number: "",
-        address: "",
-        preferred_pet: "",
-        reason: "",
-        has_other_pets: "",
-        home_type: "",
-        agreeTerms: false,
-      });
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong. Please try again later.");
-    }
-  };
+    };
+    FetchData();
+  }, []);
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4 p-6 shadow rounded bg-white">
-      <h2 className="text-2xl font-bold mb-2">Pet Adoption Form</h2>
-
-      <input
-        name="full_name"
-        type="text"
-        placeholder="Full Name"
-        value={formData.full_name}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      />
-
-      <input
-        name="email"
-        type="email"
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      />
-
-      <input
-        name="phone_number"
-        type="tel"
-        placeholder="Phone Number"
-        value={formData.phone_number}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      />
-
-      <textarea
-        name="address"
-        placeholder="Home Address"
-        value={formData.address}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      />
-
-      <select
-        name="preferred_pet"
-        value={formData.preferred_pet}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      >
-        <option value="">Select Preferred Pet</option>
-        <option value="Dog">Dog</option>
-        <option value="Cat">Cat</option>
-        <option value="Rabbit">Rabbit</option>
-        <option value="Other">Other</option>
-      </select>
-
-      <textarea
-        name="reason"
-        placeholder="Why do you want to adopt a pet?"
-        value={formData.reason}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-        rows={3}
-      />
-
-      <select
-        name="has_other_pets"
-        value={formData.has_other_pets}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      >
-        <option value="">Do you have other pets?</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-
-      <select
-        name="home_type"
-        value={formData.home_type}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      >
-        <option value="">Type of Home</option>
-        <option value="House">House</option>
-        <option value="Apartment">Apartment</option>
-        <option value="Condo">Condo</option>
-        <option value="Other">Other</option>
-      </select>
-
-      <label className="flex gap-2 items-start text-sm">
-        <input
-          type="checkbox"
-          name="agreeTerms"
-          checked={formData.agreeTerms}
-          onChange={handleChange}
-          required
-        />
-        <span>
-          I agree to the terms and conditions of the pet adoption. I understand that adopting a pet is a long-term responsibility and I am committed to providing a safe, loving home.
-        </span>
-      </label>
-
-      <button type="submit" className="w-full bg-orange-500 text-white p-2 rounded hover:bg-orange-600">
-        Submit Adoption Form
-      </button>
-    </form>
+    <>
+      <div className="container mx-auto p-6">
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold text-gray-800">Adopt a Pet Today!</h1>
+          <p className="text-gray-600 mt-2">
+        Every pet deserves a loving home. Browse through our list of adorable pets and find your perfect companion.
+          </p>
+          {isLoading ? (
+        <p className="text-lg font-semibold text-gray-600 mt-4">Loading...</p>
+          ) : null}
+        </div>
+        {pets && pets.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {pets.map((pet: TUsePetsData, index: number) => {
+          const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
+          return (
+            <div
+          key={pet.pet_id || index}
+          className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
+            >
+          <Image
+            src={imageUrl}
+            alt={pet.Pet_Name}
+            width={300}
+            height={200}
+            className="w-full h-48 object-cover"
+          />
+          <div className="p-4">
+            <h2 className="text-lg font-bold text-gray-800 mb-2">
+              {pet.Pet_Name}
+            </h2>
+            <p className="text-sm text-gray-600">Sex: {pet.Sex}</p>
+            <p className="text-sm text-gray-600">Breed: {pet.Breed}</p>
+            <p className="text-sm text-gray-600">Age: {pet.Age}</p>
+            <p className="text-sm text-gray-600">
+              Microchip: {pet.Microchip_Number}
+            </p>
+            <p className="text-sm text-gray-600">
+              Neutered/Spayed: {pet.Neutered_Spay}
+            </p>
+            <p className="text-sm text-gray-600">
+              Markings: {pet.Special_Markings}
+            </p>
+            <p className="text-sm text-gray-600">
+              Species: {pet.Species}
+            </p>
+            <p className="text-sm text-gray-600">
+              Weight: {pet.Weight} kg
+            </p>
+            <p
+              className={`text-sm font-semibold mt-2 ${
+            pet.Status === "Available"
+              ? "text-green-500"
+              : "text-red-500"
+              }`}
+            >
+              {pet.Status}
+            </p>
+            <Link
+              href={`/Application/Organisms/Pages/Adoption/${encodeURIComponent(
+            pet.pet_id
+              )}/${encodeURIComponent(pet.Pet_Name)}/${encodeURIComponent(
+            pet.image
+              )}/${encodeURIComponent(pet.Age)}/${encodeURIComponent(
+            pet.Species
+              )}/${encodeURIComponent(pet.Sex)}/${encodeURIComponent(
+            pet.Color
+              )}/${encodeURIComponent(pet.Breed)}/${encodeURIComponent(
+            pet.Microchip_Number
+              )}/${encodeURIComponent(
+            pet.Special_Markings
+              )}/${encodeURIComponent(pet.Weight)}/${encodeURIComponent(
+            pet.Status
+              )}/${encodeURIComponent(pet.Neutered_Spay)}`}
+              className="block mt-4 text-center bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300"
+            >
+              Inquire
+            </Link>
+          </div>
+            </div>
+          );
+        })}
+          </div>
+        ) : (
+          <p className="text-center text-gray-600 text-lg">
+        No pets found. Please check back later.
+          </p>
+        )}
+        <div className="text-center mt-8">
+          <p className="text-gray-600">
+        Adopting a pet is a lifelong commitment. Make sure you're ready to provide a loving and caring home.
+          </p>
+          <p className="text-gray-600 mt-2">
+        Thank you for considering adoption and giving these pets a second chance at life!
+          </p>
+        </div>
+      </div>
+    </>
   );
-}
+};
+
+export default Adoption;
