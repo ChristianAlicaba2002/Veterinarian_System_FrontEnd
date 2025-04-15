@@ -2,8 +2,7 @@
 import React, { use, useState } from "react";
 import Image from "next/image";
 import {
-  TUseUserData,
-  TAdoptionInquireData,
+  TUseUserData,TAdoptionInquireData
 } from "@/app/Application/Types/AllTypes";
 
 type otherProps = {

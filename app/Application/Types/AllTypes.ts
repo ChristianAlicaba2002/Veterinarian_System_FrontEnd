@@ -62,18 +62,17 @@ export type TCheckUpAppointmentData = {
 };
 
 export type TAdoptionInquireData = {
-  pet_id:number
-  image: string
-  Pet_Name: string
-  Age: number
-  Species: string
-  Sex: string
-  Color: string
-  Breed: string
-  Microchip_Number: number
-  Neutered_Spay: string
-  Special_Markings: string
-  Weight: number
-  adoption_date: string
-  Status: string
-};
+  pet_id?: number,
+  image?:string,
+  Pet_Name?:string,
+  Age?:number,
+  Species?:string,
+  Sex?:string,
+  Color?:string,
+  Breed?:string,
+  Microchip_Number?:number,
+  Special_Markings?:string,
+  Weight?:string,
+  Status?:string,
+  Neutered_Spay?:string,
+}

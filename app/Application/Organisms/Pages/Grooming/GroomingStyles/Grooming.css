@@ -3,57 +3,46 @@ html {
   color: #6a1b9a;
   margin: 0;
   padding: 0;
-  height: 100vh;
-  overflow: hidden;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  font-family: sans-serif;
+  height: 100%;
+  width: 100%;
 }
 
 .grooming-container {
-  margin-top: 5rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  flex-wrap: nowrap;
   gap: 2rem;
+  margin-top: 3rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.user-info{
-    text-align: center;
-    font-size: x-large;
-    font-weight: bolder;
-
-}
-
-.user-info p{
-    margin-top: 2rem;
-    font-size: large;
-    font-weight: bold;
-    color: #4a148c;
-}
-
-.user-info a{
-    font-size: medium;
-    font-weight: 500;
-    color: #7b1fa2;
-    margin-bottom: 10px;
+.left-panel,
+.right-panel {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(130, 100, 180, 0.2);
+  border: 3px dashed #c6a4e7;
+  width: 100%;
 }
 
 .left-panel {
   flex: 1;
+  min-width: 280px;
   max-width: 400px;
-  background-color: rgba(255, 255, 255, 0.9);
-  padding: 2rem;
-  border-radius: 15px;
-  border: 3px dashed #ba68c8;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .right-panel {
   flex: 2;
+  min-width: 320px;
   max-width: 1000px;
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 2rem 3rem;
-  border-radius: 20px;
-  border: 3px dashed #c6a4e7;
-  box-shadow: 0 8px 20px rgba(130, 100, 180, 0.2);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -67,10 +56,29 @@ html {
   font-weight: 600;
 }
 
+.user-info {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.user-info p {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: #4a148c;
+}
+
+.user-info a {
+  font-size: 0.95rem;
+  color: #7b1fa2;
+  display: block;
+  margin-top: 0.25rem;
+}
+
 .appointment-form {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
 .form-group {
@@ -97,6 +105,7 @@ textarea {
   color: #4a148c;
   outline: none;
   transition: all 0.3s ease;
+  width: 100%;
 }
 
 input:focus,
@@ -107,28 +116,28 @@ textarea:focus {
 }
 
 .submit-button {
-    font-weight: bold;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #9a57a781;
-    border: 2px dashed #976ebb;
-    border-radius: 50px;
-    cursor: pointer;
-    width: 50%;
-    height: fit-content;
-    padding: 20px 14px;
-    margin-top: 5rem;
-    margin-left: 450px;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  
+  font-weight: bold;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #9a57a781;
+  border: 2px dashed #976ebb;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+  align-self: center;
+  margin: 2rem auto 0 auto;
+  text-align: center;
+}
+
 .submit-button:hover {
-    background-color: #4c186d71;
-    border: 1.5px dashed #5d3381;
-    box-shadow: 0 4px 10px rgba(238, 186, 238, 0.952);
-    transform: translateY(-2px);
-  }
-  
+  background-color: #4c186d71;
+  border: 1.5px dashed #5d3381;
+  box-shadow: 0 4px 10px rgba(238, 186, 238, 0.952);
+  transform: translateY(-2px);
+}
 
 .Back {
   margin-top: 2rem;
@@ -149,19 +158,46 @@ textarea:focus {
 
 @media screen and (max-width: 1024px) {
   .grooming-container {
-    flex-direction: column;
-    padding: 2rem;
+    padding: 1rem;
   }
 
   .left-panel,
   .right-panel {
     width: 100%;
-    max-width: none;
     margin-bottom: 2rem;
   }
 
   .submit-button {
-    margin-left: 0;
-    justify-self: center;
+    max-width: 90%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .appointment-form {
+    grid-template-columns: 1fr;
+  }
+
+  .submit-button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .grooming-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .user-info {
+    font-size: 1rem;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 0.85rem;
   }
 }

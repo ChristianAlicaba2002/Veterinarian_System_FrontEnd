@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { getUser } from "../../../../../utils";
+import './CheckUpStyles/CheckUp.css';
 import Link from "next/link";
-import "./CheckUpStyles/CheckUp.css";
 import { TCheckUpAppointmentData } from "@/app/Application/Types/AllTypes";
 
 type UserData = {
@@ -111,39 +111,38 @@ export default function CheckUp() {
         </Link>
       </div>
 
-      <form onSubmit={handleSubmit} className="Form">
+        <form onSubmit={handleSubmit} className="Form">
         <div className="CardRow">
-          <div className="Card">
-            <h2 className="CardSection">Owner Information</h2>
-            <input
-              type="text"
-              value={userData.first_name}
-              onChange={(e) =>
-                setUserData((prev) => ({ ...prev, first_name: e.target.value }))
-              }
-              placeholder="Full Name"
-            />
-            <input
-              type="email"
-              value={userData.email}
-              onChange={(e) =>
-                setUserData((prev) => ({ ...prev, email: e.target.value }))
-              }
-              placeholder="Email"
-            />
-            <input
-              type="tel"
-              value={userData.phone_number}
-              onChange={(e) =>
-                setUserData((prev) => ({
-                  ...prev,
-                  phone_number: e.target.value,
-                }))
-              }
-              placeholder="Phone Number"
-            />
-          </div>
-        </div>
+      <div className="Card">
+        <h2 className="CardSection">Owner Information</h2>
+        <input
+          type="text"
+          value={userData.first_name}
+          onChange={(e) =>
+            setUserData((prev) => ({ ...prev, first_name: e.target.value }))
+          }
+          placeholder="Full Name"
+        />
+        <input
+          type="email"
+          value={userData.email}
+          onChange={(e) =>
+            setUserData((prev) => ({ ...prev, email: e.target.value }))
+          }
+          placeholder="Email"
+        />
+        <input
+          type="tel"
+          value={userData.phone_number}
+          onChange={(e) =>
+            setUserData((prev) => ({
+              ...prev,
+              phone_number: e.target.value,
+            }))
+          }
+          placeholder="Phone Number"
+        />
+      </div>
 
         <div className="Card">
           <h2 className="CardSection">Pet Information</h2>
@@ -253,26 +252,26 @@ export default function CheckUp() {
             placeholder="Preferred Vet (optional)"
           />
         </div>
-        <div className="Terms">
+      </div>
+      <div className="TermWrap">
+        <div className="ButtonWrap">
           <input
             type="checkbox"
+            id="agreeTerms"
             checked={agreeTerms}
             onChange={() => setAgreeTerms((prev) => !prev)}
           />
-          <div>
-            <span>
-              I hereby agree to the terms and conditions regarding pet check-up.
-              I confirm that all information provided is accurate and
-              acknowledge that it is my responsibility to ensure my pet is
-              up-to-date on all required vaccinations as per the guidelines.
-            </span>
-          </div>
-          <button type="submit" className="submit-button">
-            Book Appointment
-          </button>
+          <label className="agreeTerms">
+            I hereby agree to the terms and conditions regarding pet check-up.
+            I confirm that all information provided is accurate and acknowledge that it is my responsibility to ensure
+            my pet is up-to-date on all required vaccinations as per the guidelines.
+          </label>
         </div>
-          
-      </form>
+        <button type="submit" className="submit-button">
+          Book Appointment
+        </button>
+      </div>
+    </form>
     </>
   );
 }

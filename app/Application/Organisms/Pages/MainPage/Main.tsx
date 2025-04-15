@@ -4,19 +4,17 @@ import { getUser } from "../../../../../utils";
 import LogoProfile from "@/app/Application/Components/LogoProfile/page";
 import UserMessage from "@/app/Application/Atoms/UserMessage";
 import PetsData from "@/app/Application/Atoms/PetsData";
-import { TUseUserData , TUsePetsData } from "@/app/Application/Types/AllTypes";
+import { TUseUserData, TUsePetsData } from "@/app/Application/Types/AllTypes";
 import './MainStyles/main.css';
 import Link from "next/link";
 
-
 export default function Main() {
   const [userData, setUserData] = useState<TUseUserData | null>(null);
-  const [pets, setPets] = useState([]);
+  const [pets, setPets] = useState<TUsePetsData[]>([]);
   const [isLoading , setIsloading] = useState(false)
   const [changeColor, setChangeColor] = useState<string>("#3b82f6");
 
   useEffect(() => {
-    // Access localStorage only on client side
     const storedColor = localStorage.getItem("profileHeaderColor");
     if (storedColor) {
       setChangeColor(storedColor);
@@ -27,9 +25,9 @@ export default function Main() {
     setIsloading(true)
     try {
       const response = await fetch("http://127.0.0.1:8000/api/Pets");
-
       if (!response.ok) {
         console.log(`Status: ${response.status}`);
+        return;
       }
       const data = await response.json();
   
@@ -73,34 +71,36 @@ export default function Main() {
             <LogoProfile />
           </div>
         </header>
+
         <main>
           {isLoading ? 'Loading' : ''}
           <div className="main-content">
             <div className="content-card">
-              {pets ? (
-                pets.map((pet: TUsePetsData) => {
-                pets.sort((a:any, b:any) => a.Breed - b.Breed)
-                  const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
-                  return (
-                    <div className="pet-card" key={pet.pet_id}>
-                    <PetsData
-                      pet_id={pet.pet_id}
-                      image={imageUrl}
-                      Pet_Name={pet.Pet_Name}
-                      Age={pet.Age}
-                      Species={pet.Species}
-                      Sex={pet.Sex}
-                      Color={pet.Color}
-                      Breed={pet.Breed}
-                      Neutered_Spay={pet.Neutered_Spay}
-                      Special_Markings={pet.Special_Markings}
-                      Microchip_Number={pet.Microchip_Number}
-                      Weight={pet.Weight}
-                      Status={pet.Status}
-                    />
-                  </div>
-                  );
-                })
+              {pets && pets.length > 0 ? (
+                [...pets]
+                  .sort((a, b) => a.Breed.localeCompare(b.Breed))
+                  .map((pet) => {
+                    const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
+                    return (
+                      <div className="pet-card" key={pet.pet_id}>
+                        <PetsData
+                          pet_id={pet.pet_id}
+                          image={imageUrl}
+                          Pet_Name={pet.Pet_Name}
+                          Age={pet.Age}
+                          Species={pet.Species}
+                          Sex={pet.Sex}
+                          Color={pet.Color}
+                          Breed={pet.Breed}
+                          Neutered_Spay={pet.Neutered_Spay}
+                          Special_Markings={pet.Special_Markings}
+                          Microchip_Number={pet.Microchip_Number}
+                          Weight={pet.Weight}
+                          Status={pet.Status}
+                        />
+                      </div>
+                    );
+                  })
               ) : (
                   <h1 className="no-pets-message">No Pets Available</h1>
               )}
@@ -111,4 +111,3 @@ export default function Main() {
     </>
   );
 }
-
