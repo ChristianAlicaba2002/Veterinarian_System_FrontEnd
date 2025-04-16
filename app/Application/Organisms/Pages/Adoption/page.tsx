@@ -1,10 +1,88 @@
 "use client";
+
+
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { TUsePetsData } from "@/app/Application/Types/AllTypes";
 import Link from "next/link";
+import styles from "./AdoptionStyles/AdoptionStyles.module.css"; 
 
-const Adoption = () => {
+type AdoptionFormData = {
+  full_name: string;
+  email: string;
+  phone_number: string;
+  address: string;
+  preferred_pet: string;
+  reason: string;
+  has_other_pets: string;
+  home_type: string;
+  agreeTerms: boolean;
+};  
+
+ function PetAdoptionForm() {
+  const [formData, setFormData] = useState<AdoptionFormData>({
+    full_name: "",
+    email: "",
+    phone_number: "",
+    address: "",
+    preferred_pet: "",
+    reason: "",
+    has_other_pets: "",
+    home_type: "",
+    agreeTerms: false,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      // [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.agreeTerms) {
+      alert("Please agree to the terms and conditions before submitting.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/adopt", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || "Failed to submit form");
+      }
+
+      const data = await response.json();
+      alert("Adoption form submitted successfully!");
+      console.log(data);
+
+      setFormData({
+        full_name: "",
+        email: "",
+        phone_number: "",
+        address: "",
+        preferred_pet: "",
+        reason: "",
+        has_other_pets: "",
+        home_type: "",
+        agreeTerms: false,
+      });
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong. Please try again later.");
+    }
+  };
+
   const [isLoading, setIsLoading] = useState(false);
   const [pets, setPets] = useState<TUsePetsData[]>([]);
 
@@ -106,4 +184,4 @@ const Adoption = () => {
   );
 };
 
-export default Adoption;
+export default PetAdoptionForm;

@@ -1,86 +1,86 @@
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(145deg, #f3e8ff, #e9d5ff);
-  }
-  
   .MainBody {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  .MainHeader {
-    padding: 1rem 2rem;
-    border-bottom: 2px dashed #a855f7; 
-    background: linear-gradient(to right, #d8b4fe, #f5d0fe);
-    color: white;
-  }
-  
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .Brand {
-    font-weight: 700;
-    font-size: 2.2rem;
-    color: #9333ea;
-    letter-spacing: 1px;
-  }
-  
-  .main-content {
-    display: flex;
-    justify-content: center;
-    padding: 2rem;
-  }
-  
-  .content-card {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 1200px;
-  }
-  
-  .view-more-link {
-    font-weight: 500;
-    text-decoration: none;
-    color: #9333ea;
-    border: 2px dashed #a855f7;
-    background-color: #ffffff;
-    padding: 0.6rem 1rem;
-    border-radius: 10px;
-    display: inline-block;
-    transition: all 0.3s ease-in-out;
-    margin: 1rem auto;
-    text-align: center;
-  }
-  
-  .view-more-link:hover {
-    background-color: #eee1eec0;
-    color: #6b21a8;
-    transform: scale(1.05);
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.2);
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-  .pet-card {
-    border: 2px dashed #c084fc;
-    border-radius: 16px;
-    align-items: center;
-    display: flex;
-    width: auto;
-    height: fit-content;  
-  }
-  
-    .no-pets-message {
-    color: #6b21a8;
-    font-size: 1.5rem;
-    text-align: center;
-    margin-top: 1rem;
-  }
+.MainHeader {
+  padding: 2rem;
+  border-bottom: 4px dashed #f9d8ff;
+  color: white;
+  /* background: linear-gradient(to right, #c084fc, #e879f9); */
+  box-shadow: 0 4px 40px rgb(201, 130, 255);
+  border-radius: 0 0 30px 30px;
+}
 
-  
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Brand {
+  font-weight: 800;
+  font-size: 3em;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem;
+}
+
+.content-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.pet-card {
+  background-color: #ffffff;
+  border: 2px solid rgb(250, 215, 241);
+  border-radius: 24px;
+  padding: 1.8rem;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(255, 150, 220, 0.733);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pet-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border: 2px solid rgb(255, 170, 227);
+  box-shadow: 0 16px 32px rgba(238, 122, 222, 0.692);
+}
+
+.view-more-link {
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  border: 2px solid rgb(255, 194, 235);
+  background: linear-gradient(to right, #c084fc, #f472b6);
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  margin: 2rem auto 1rem;
+  text-align: center;
+  box-shadow: 0 8px 18px rgba(240, 142, 255, 0.3);
+}
+
+.view-more-link:hover {
+  background: linear-gradient(to right, #a855f7, #ec4899);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(173, 77, 255, 0.4);
+}
+
+.no-pets-message {
+  color: #9333ea;
+  font-size: 1.6rem;
+  text-align: center;
+  margin-top: 2rem;
+}

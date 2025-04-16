@@ -61,6 +61,7 @@ export type TCheckUpAppointmentData = {
   preferred_vet?: string;
 };
 
+
 export type TAdoptionInquireData = {
   pet_id?: number,
   image?:string,

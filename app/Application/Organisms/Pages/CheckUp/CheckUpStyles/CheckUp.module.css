@@ -1,11 +1,14 @@
-body, html{
-  overflow: auto;
+body{
+  background-color: #f5c3ee21;
 }
+.Back {
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
 .Back img {
   width: 30px;
   height: 30px;
-  margin-top: 2rem;
-  margin-left: 2rem;
   cursor: pointer;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
@@ -19,10 +22,9 @@ body, html{
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
   gap: 2rem;
   max-width: 1200px;
-  margin: auto;
+  margin: .5rem auto;
 }
 
 .CardRow {
@@ -35,10 +37,9 @@ body, html{
 
 .Card {
   flex: 1 1 300px;
-  background: #fff5f9;
   border-radius: 20px;
   padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(153, 15, 112, 0.568);
   border: 2px dashed #d29ecb;
 }
 
@@ -49,25 +50,53 @@ body, html{
   font-weight: bold;
 }
 
-input, select, textarea {
+.input,
+.select,
+.textarea {
   width: 100%;
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   border-radius: 40px;
-  border: 2px dashed #c69acb;
+  border: 2px dashed #f0b2d3;
   outline: none;
-  background: #ffffff;
+  background-color: #fff0fa83;
   transition: all 0.3s ease;
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(244, 200, 255, 0.05);
+  color: #7d4691;
+  font-weight: 500;
 }
 
-input:hover, select:hover, textarea:hover {
-  background: #fdf0f8;
-  box-shadow: 0 0 5px #f0b2d3;
-}
-
-input:focus, select:focus, textarea:focus {
+.input:hover,
+.select:hover,
+.textarea:hover {
+  background-color: #ffe6f7;
   border-color: #ff8fd8;
-  background: #fff0fa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: #ff8fd8;
+  background-color: #fff5f9;
+  box-shadow: 0 0 0 2px rgba(255, 143, 216, 0.2);
+}
+
+.select {
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+}
+
+.select::-ms-expand {
+  display: none;
+}
+
+.textarea {
+  resize: vertical;
+  border-radius: 20px;
 }
 
 .TermWrap {
@@ -80,15 +109,15 @@ input:focus, select:focus, textarea:focus {
   width: 100%;
   border-color: #ff8fd8;
   background: #fff0fa;
-  border: #bb80bd 1px dashed;
+  border: 1px dashed #bb80bd;
   border-radius: 30px;
 }
 
 .TermWrap input[type="checkbox"] {
   appearance: none;
   padding-right: 2px;
-  width: 2rem;
-  height: 1rem;
+  width: 3rem;
+  height: 2rem;
   border: 2px dashed #bb80bd;
   border-radius: 6px;
   background-color: #fff5f9;
@@ -123,11 +152,12 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 8px #f0b2d3;
 }
 
-.TermWrap label{
+.TermWrap label {
   font-size: medium;
   color: #5c2a6e;
   font-weight: 400;
 }
+
 .ButtonWrap {
   display: flex;
   align-items: flex-start;
@@ -138,7 +168,7 @@ input:focus, select:focus, textarea:focus {
   color: #333;
 }
 
-.submit-button {
+.submitButton {
   padding: 0.75rem 2rem;
   border-radius: 40px;
   border: 2px dashed #bb80bd;
@@ -149,7 +179,7 @@ input:focus, select:focus, textarea:focus {
   transition: all 0.3s ease;
 }
 
-.submit-button:hover {
+.submitButton:hover {
   background-color: #ffe6f7;
   transform: scale(1.05);
   box-shadow: 0 0 10px #f0a6e8;
