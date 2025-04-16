@@ -1,80 +1,3 @@
-// 'use client'
-// import PetsData from '@/app/Application/Atoms/PetsData';
-// import React, { useEffect, useState } from 'react'
-
-
-// type PetsData = {
-//   pet_id: number;
-//   Pet_Name: string;
-//   Sex: string;
-//   Age: string;
-//   Breed: string;
-//   Color: string;
-//   image: string;
-//   Microchip_Number: number;
-//   Neutered_Spay: string;
-//   Special_Markings: string;
-//   Species: string;
-//   Weight: number;
-// };
-
-
-
-// const Adoption = () => {
-
-//   const [pets , setPets] = useState([])
-
-//   useEffect(()=> {
-//     const getAllPets = async () => {
-//       try {
-//         const response = await fetch("http://127.0.0.1:8000/api/Pets");
-  
-//         if (!response.ok) {
-//           console.log(`Status: ${response.status}`);
-//         }
-//         const data = await response.json();
-//         console.log("All pets data:", data.Data);
-  
-//         setPets(data.Data);
-//       } catch (err) {
-//         console.log(err);
-//       }
-//     };
-//     getAllPets()
-//   }, [])
-
-//   return (
-//     <>
-//       <div>
-//         <h1>Adoption</h1>
-//         {pets.map((pet: PetsData) => {
-//           pets.sort((a:any, b:any) => a.Breed - b.Breed)
-//           const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
-//           return ( 
-//             <div>
-//               <PetsData
-//                       key={pet.pet_id}
-//                       image={imageUrl}
-//                       Pet_Name={pet.Pet_Name}
-//                       Age={pet.Age}
-//                       Species={pet.Species}
-//                       Sex={pet.Sex}
-//                       Color={pet.Color}
-//                       Breed={pet.Breed}
-//                       Neutered_Spay={pet.Neutered_Spay}
-//                       Special_Markings={pet.Special_Markings}
-//                       Microchip_Number={pet.Microchip_Number}
-//                       Weight={pet.Weight}
-//                     />
-//             </div>
-//           )
-//         })}
-//       </div>
-//     </>
-//   )
-// }
-
-// export default Adoption
 "use client";
 
 import { useState } from "react";
@@ -156,17 +79,37 @@ export default function PetAdoptionForm() {
       alert("Something went wrong. Please try again later.");
     }
   };
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import { TUsePetsData, TUseUserData } from "@/app/Application/Types/AllTypes";
+import Link from "next/link";
+
+const Adoption = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [pets, setPets] = useState([]);
+
+  useEffect(() => {
+    const FetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/Pets");
+        if (!response.ok) {
+          throw new Error(`Fetch Failed : ${response.status}`);
+        }
+        const data = await response.json();
+        setPets(data.Data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    FetchData();
+  }, []);
 
   return (
-    <>
-    <div className={styles.Back}>
-    <Link href="/Application/Organisms/Pages/Appointment">
-      <img src="/img/back.png" alt="back icon" />
-    </Link>
-  </div>
-
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <h2 className={styles.formTitle}>Pet Adoption Form</h2>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4 p-6 shadow rounded bg-white">
+      <h2 className="text-2xl font-bold mb-2">Pet Adoption Form</h2>
 
       <input
         name="full_name"
@@ -175,7 +118,7 @@ export default function PetAdoptionForm() {
         value={formData.full_name}
         onChange={handleChange}
         required
-        className={styles.input}
+        className="w-full p-2 border rounded"
       />
 
       <input
@@ -185,7 +128,7 @@ export default function PetAdoptionForm() {
         value={formData.email}
         onChange={handleChange}
         required
-        className={styles.input}
+        className="w-full p-2 border rounded"
       />
 
       <input
@@ -195,7 +138,7 @@ export default function PetAdoptionForm() {
         value={formData.phone_number}
         onChange={handleChange}
         required
-        className={styles.input}
+        className="w-full p-2 border rounded"
       />
 
       <textarea
@@ -204,7 +147,7 @@ export default function PetAdoptionForm() {
         value={formData.address}
         onChange={handleChange}
         required
-        className={styles.textarea}
+        className="w-full p-2 border rounded"
       />
 
       <select
@@ -212,13 +155,13 @@ export default function PetAdoptionForm() {
         value={formData.preferred_pet}
         onChange={handleChange}
         required
-        className={styles.select}
+        className="w-full p-2 border rounded"
       >
-        <option value="" className={styles.option}>Select Preferred Pet</option>
-        <option value="Dog" className={styles.option}>Dog</option>
-        <option value="Cat" className={styles.option}>Cat</option>
-        <option value="Rabbit" className={styles.option}>Rabbit</option>
-        <option value="Other" className={styles.option}>Other</option>
+        <option value="">Select Preferred Pet</option>
+        <option value="Dog">Dog</option>
+        <option value="Cat">Cat</option>
+        <option value="Rabbit">Rabbit</option>
+        <option value="Other">Other</option>
       </select>
 
       <textarea
@@ -227,7 +170,7 @@ export default function PetAdoptionForm() {
         value={formData.reason}
         onChange={handleChange}
         required
-        className={styles.textarea}
+        className="w-full p-2 border rounded"
         rows={3}
       />
 
@@ -236,11 +179,11 @@ export default function PetAdoptionForm() {
         value={formData.has_other_pets}
         onChange={handleChange}
         required
-        className={styles.select}
+        className="w-full p-2 border rounded"
       >
-        <option value="" className={styles.option}>Do you have other pets?</option>
-        <option value="Yes" className={styles.option}>Yes</option>
-        <option value="No" className={styles.option}>No</option>
+        <option value="">Do you have other pets?</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
       </select>
 
       <select
@@ -248,33 +191,31 @@ export default function PetAdoptionForm() {
         value={formData.home_type}
         onChange={handleChange}
         required
-        className={styles.select}
+        className="w-full p-2 border rounded"
       >
-        <option value="" className={styles.option}>Type of Home</option>
-        <option value="House" className={styles.option}>House</option>
-        <option value="Apartment" className={styles.option}>Apartment</option>
-        <option value="Condo" className={styles.option}>Condo</option>
-        <option value="Other" className={styles.option}>Other</option>
+        <option value="">Type of Home</option>
+        <option value="House">House</option>
+        <option value="Apartment">Apartment</option>
+        <option value="Condo">Condo</option>
+        <option value="Other">Other</option>
       </select>
 
-      <label className={styles.label}>
+      <label className="flex gap-2 items-start text-sm">
         <input
           type="checkbox"
           name="agreeTerms"
           checked={formData.agreeTerms}
           onChange={handleChange}
           required
-          className={styles.checkbox}
         />
         <span>
           I agree to the terms and conditions of the pet adoption. I understand that adopting a pet is a long-term responsibility and I am committed to providing a safe, loving home.
         </span>
       </label>
 
-      <button type="submit" className={styles.submitButton}>
+      <button type="submit" className="w-full bg-orange-500 text-white p-2 rounded hover:bg-orange-600">
         Submit Adoption Form
       </button>
     </form>
-    </>
   );
 }

@@ -25,14 +25,12 @@ export type TAppointmentData = {
 };
 
 export type TUseUserData = {
-  id: number;
+  client_id: number;
   first_name: string;
   last_name: string;
   email: string;
-  contact_number: string;
+  phone_number: string;
   address: string;
-  created_at: string;
-  updated_at: string;
 };
 
 export type TLoginProps = {
@@ -62,3 +60,31 @@ export type TCheckUpAppointmentData = {
   symptoms?: string;
   preferred_vet?: string;
 };
+export type TCheckUpAppointmentData = {
+  pet_name?: string;
+  breed?: string;
+  weight?: string;
+  species?: string;
+  age?: number;
+  sex?: string;
+  appointment_date?: string;
+  checkup_type?: string;
+  symptoms?: string;
+  preferred_vet?: string;
+};
+
+export type TAdoptionInquireData = {
+  pet_id?: number,
+  image?:string,
+  Pet_Name?:string,
+  Age?:number,
+  Species?:string,
+  Sex?:string,
+  Color?:string,
+  Breed?:string,
+  Microchip_Number?:number,
+  Special_Markings?:string,
+  Weight?:string,
+  Status?:string,
+  Neutered_Spay?:string,
+}
