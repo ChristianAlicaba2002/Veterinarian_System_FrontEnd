@@ -1,11 +1,11 @@
 "use client";
 
-import styles from "./AdoptionStyles/AdoptionStyles.module.css"; 
-import Link from "next/link";
+
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { TUsePetsData, TUseUserData } from "@/app/Application/Types/AllTypes";
-
+import { TUsePetsData } from "@/app/Application/Types/AllTypes";
+import Link from "next/link";
+import styles from "./AdoptionStyles/AdoptionStyles.module.css"; 
 
 type AdoptionFormData = {
   full_name: string;
@@ -19,7 +19,7 @@ type AdoptionFormData = {
   agreeTerms: boolean;
 };  
 
-export default function PetAdoptionForm() {
+ function PetAdoptionForm() {
   const [formData, setFormData] = useState<AdoptionFormData>({
     full_name: "",
     email: "",
@@ -84,7 +84,7 @@ export default function PetAdoptionForm() {
   };
 
   const [isLoading, setIsLoading] = useState(false);
-  const [pets, setPets] = useState([]);
+  const [pets, setPets] = useState<TUsePetsData[]>([]);
 
   useEffect(() => {
     const FetchData = async () => {
@@ -95,9 +95,9 @@ export default function PetAdoptionForm() {
           throw new Error(`Fetch Failed : ${response.status}`);
         }
         const data = await response.json();
-        setPets(data.Data);
+        setPets(data.data || []);
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching pets:", error);
       } finally {
         setIsLoading(false);
       }
@@ -105,115 +105,83 @@ export default function PetAdoptionForm() {
     FetchData();
   }, []);
 
+
+
+  // Fallback image if pet.image is not available
+  const getImageUrl = (pet: TUsePetsData) => {
+    if (!pet.image) return "/default-pet.jpg";
+    return `http://127.0.0.1:8000/api/storage/${pet.image}`;
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4 p-6 shadow rounded bg-white">
-      <h2 className="text-2xl font-bold mb-2">Pet Adoption Form</h2>
+    <div className="container mx-auto p-6">
+      <div className="text-center mb-6">
+        <h1 className="text-2xl font-bold text-gray-800">Adopt a Pet Today!</h1>
+        <p className="text-gray-600 mt-2">
+          Every pet deserves a loving home. Browse through our list of adorable pets and find your perfect companion.
+        </p>
+        {isLoading && (
+          <p className="text-lg font-semibold text-gray-600 mt-4">Loading...</p>
+        )}
+      </div>
 
-      <input
-        name="full_name"
-        type="text"
-        placeholder="Full Name"
-        value={formData.full_name}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      />
-
-      <input
-        name="email"
-        type="email"
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      />
-
-      <input
-        name="phone_number"
-        type="tel"
-        placeholder="Phone Number"
-        value={formData.phone_number}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      />
-
-      <textarea
-        name="address"
-        placeholder="Home Address"
-        value={formData.address}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      />
-
-      <select
-        name="preferred_pet"
-        value={formData.preferred_pet}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      >
-        <option value="">Select Preferred Pet</option>
-        <option value="Dog">Dog</option>
-        <option value="Cat">Cat</option>
-        <option value="Rabbit">Rabbit</option>
-        <option value="Other">Other</option>
-      </select>
-
-      <textarea
-        name="reason"
-        placeholder="Why do you want to adopt a pet?"
-        value={formData.reason}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-        rows={3}
-      />
-
-      <select
-        name="has_other_pets"
-        value={formData.has_other_pets}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      >
-        <option value="">Do you have other pets?</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-
-      <select
-        name="home_type"
-        value={formData.home_type}
-        onChange={handleChange}
-        required
-        className="w-full p-2 border rounded"
-      >
-        <option value="">Type of Home</option>
-        <option value="House">House</option>
-        <option value="Apartment">Apartment</option>
-        <option value="Condo">Condo</option>
-        <option value="Other">Other</option>
-      </select>
-
-      <label className="flex gap-2 items-start text-sm">
-        <input
-          type="checkbox"
-          name="agreeTerms"
-          checked={formData.agreeTerms}
-          onChange={handleChange}
-          required
-        />
-        <span>
-          I agree to the terms and conditions of the pet adoption. I understand that adopting a pet is a long-term responsibility and I am committed to providing a safe, loving home.
-        </span>
-      </label>
-
-      <button type="submit" className="w-full bg-orange-500 text-white p-2 rounded hover:bg-orange-600">
-        Submit Adoption Form
-      </button>
-    </form>
+      {pets.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {pets.map((pet) => (
+            <div
+              key={pet.pet_id}
+              className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
+            >
+              <Image
+                src={getImageUrl(pet)}
+                alt={pet.Pet_Name || "Pet image"}
+                width={300}
+                height={200}
+                className="w-full h-48 object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "/default-pet.jpg";
+                }}
+              />
+              <div className="p-4">
+                <h2 className="text-lg font-bold text-gray-800 mb-2">
+                  {pet.Pet_Name}
+                </h2>
+                <p className="text-sm text-gray-600">Sex: {pet.Sex}</p>
+                <p className="text-sm text-gray-600">Breed: {pet.Breed}</p>
+                <p className="text-sm text-gray-600">Age: {pet.Age}</p>
+                <p className="text-sm text-gray-600">
+                  Microchip: {pet.Microchip_Number || "N/A"}
+                </p>
+                <p className="text-sm text-gray-600">
+                  Neutered/Spayed: {pet.Neutered_Spay}
+                </p>
+                <p className="text-sm text-gray-600">
+                  Markings: {pet.Special_Markings || "None"}
+                </p>
+                <p className="text-sm text-gray-600">Species: {pet.Species}</p>
+                <p className="text-sm text-gray-600">Weight: {pet.Weight} kg</p>
+                <p
+                  className={`text-sm font-semibold mt-2 ${
+                    pet.Status === "Available" ? "text-green-500" : "text-red-500"
+                  }`}
+                >
+                  {pet.Status}
+                </p>
+                  <Link href={`/Application/Organisms/Pages/Adoption/${ pet.pet_id }`}>Inquire now</Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        !isLoading && (
+          <p className="text-center text-gray-600 text-lg">
+            No pets found. Please check back later.
+          </p>
+        )
+      )}
+    </div>
   );
-}
+};
+
+export default PetAdoptionForm;
