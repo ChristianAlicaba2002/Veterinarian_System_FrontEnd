@@ -72,7 +72,7 @@ export type TAdoptionInquireData = {
   Breed?:string,
   Microchip_Number?:number,
   Special_Markings?:string,
-  Weight?:string,
+  Weight?:number,
   Status?:string,
   Neutered_Spay?:string,
 }
