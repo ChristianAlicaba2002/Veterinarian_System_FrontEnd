@@ -49,3 +49,16 @@ export type TRegisterProps = {
   address: string;
   notes?: string;
 };
+
+export type TCheckUpAppointmentData = {
+  pet_name?: string;
+  breed?: string;
+  weight?: string;
+  species?: string;
+  age?: number;
+  sex?: string;
+  appointment_date?: string;
+  checkup_type?: string;
+  symptoms?: string;
+  preferred_vet?: string;
+};

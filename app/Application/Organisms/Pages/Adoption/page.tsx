@@ -78,6 +78,8 @@
 "use client";
 
 import { useState } from "react";
+import styles from "./AdoptionStyles/AdoptionStyles.module.css"; 
+import Link from "next/link";
 
 type AdoptionFormData = {
   full_name: string;
@@ -89,7 +91,7 @@ type AdoptionFormData = {
   has_other_pets: string;
   home_type: string;
   agreeTerms: boolean;
-};
+};  
 
 export default function PetAdoptionForm() {
   const [formData, setFormData] = useState<AdoptionFormData>({
@@ -156,8 +158,15 @@ export default function PetAdoptionForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-4 p-6 shadow rounded bg-white">
-      <h2 className="text-2xl font-bold mb-2">Pet Adoption Form</h2>
+    <>
+    <div className={styles.Back}>
+    <Link href="/Application/Organisms/Pages/Appointment">
+      <img src="/img/back.png" alt="back icon" />
+    </Link>
+  </div>
+
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <h2 className={styles.formTitle}>Pet Adoption Form</h2>
 
       <input
         name="full_name"
@@ -166,7 +175,7 @@ export default function PetAdoptionForm() {
         value={formData.full_name}
         onChange={handleChange}
         required
-        className="w-full p-2 border rounded"
+        className={styles.input}
       />
 
       <input
@@ -176,7 +185,7 @@ export default function PetAdoptionForm() {
         value={formData.email}
         onChange={handleChange}
         required
-        className="w-full p-2 border rounded"
+        className={styles.input}
       />
 
       <input
@@ -186,7 +195,7 @@ export default function PetAdoptionForm() {
         value={formData.phone_number}
         onChange={handleChange}
         required
-        className="w-full p-2 border rounded"
+        className={styles.input}
       />
 
       <textarea
@@ -195,7 +204,7 @@ export default function PetAdoptionForm() {
         value={formData.address}
         onChange={handleChange}
         required
-        className="w-full p-2 border rounded"
+        className={styles.textarea}
       />
 
       <select
@@ -203,13 +212,13 @@ export default function PetAdoptionForm() {
         value={formData.preferred_pet}
         onChange={handleChange}
         required
-        className="w-full p-2 border rounded"
+        className={styles.select}
       >
-        <option value="">Select Preferred Pet</option>
-        <option value="Dog">Dog</option>
-        <option value="Cat">Cat</option>
-        <option value="Rabbit">Rabbit</option>
-        <option value="Other">Other</option>
+        <option value="" className={styles.option}>Select Preferred Pet</option>
+        <option value="Dog" className={styles.option}>Dog</option>
+        <option value="Cat" className={styles.option}>Cat</option>
+        <option value="Rabbit" className={styles.option}>Rabbit</option>
+        <option value="Other" className={styles.option}>Other</option>
       </select>
 
       <textarea
@@ -218,7 +227,7 @@ export default function PetAdoptionForm() {
         value={formData.reason}
         onChange={handleChange}
         required
-        className="w-full p-2 border rounded"
+        className={styles.textarea}
         rows={3}
       />
 
@@ -227,11 +236,11 @@ export default function PetAdoptionForm() {
         value={formData.has_other_pets}
         onChange={handleChange}
         required
-        className="w-full p-2 border rounded"
+        className={styles.select}
       >
-        <option value="">Do you have other pets?</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
+        <option value="" className={styles.option}>Do you have other pets?</option>
+        <option value="Yes" className={styles.option}>Yes</option>
+        <option value="No" className={styles.option}>No</option>
       </select>
 
       <select
@@ -239,31 +248,33 @@ export default function PetAdoptionForm() {
         value={formData.home_type}
         onChange={handleChange}
         required
-        className="w-full p-2 border rounded"
+        className={styles.select}
       >
-        <option value="">Type of Home</option>
-        <option value="House">House</option>
-        <option value="Apartment">Apartment</option>
-        <option value="Condo">Condo</option>
-        <option value="Other">Other</option>
+        <option value="" className={styles.option}>Type of Home</option>
+        <option value="House" className={styles.option}>House</option>
+        <option value="Apartment" className={styles.option}>Apartment</option>
+        <option value="Condo" className={styles.option}>Condo</option>
+        <option value="Other" className={styles.option}>Other</option>
       </select>
 
-      <label className="flex gap-2 items-start text-sm">
+      <label className={styles.label}>
         <input
           type="checkbox"
           name="agreeTerms"
           checked={formData.agreeTerms}
           onChange={handleChange}
           required
+          className={styles.checkbox}
         />
         <span>
           I agree to the terms and conditions of the pet adoption. I understand that adopting a pet is a long-term responsibility and I am committed to providing a safe, loving home.
         </span>
       </label>
 
-      <button type="submit" className="w-full bg-orange-500 text-white p-2 rounded hover:bg-orange-600">
+      <button type="submit" className={styles.submitButton}>
         Submit Adoption Form
       </button>
     </form>
+    </>
   );
 }

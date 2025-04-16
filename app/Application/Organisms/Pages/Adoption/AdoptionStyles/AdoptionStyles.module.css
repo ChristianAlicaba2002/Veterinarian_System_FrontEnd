@@ -1,0 +1,119 @@
+
+body {
+  background: linear-gradient(490deg, #ffc7db7c, #e8caff);
+}
+
+.Back {
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
+.Back img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.Back img:hover {
+  transform: scale(1.2);
+  filter: brightness(1.2);
+}
+.form {
+  max-width: 1200px;
+  margin: 0.8rem auto;
+  border-radius: 20px;
+  background-color: white;
+  border: 2px dashed #e870c5;
+  box-shadow: 4px 8px 8px rgba(248, 145, 243, 0.767);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.formTitle {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+  color: #6a4a7a;
+}
+
+.input,
+.select,
+.textarea,
+.option {
+  min-height: 60px;
+  border: 2px dashed #f16fff;
+  border-radius: 8px;
+  background: linear-gradient(125deg, #f5b1ca2a, #dfcbee3f);
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus,
+.option:focus {
+  border-color: #ff8fd8;
+  box-shadow: 0 0 6px rgba(255, 143, 216, 0.5);
+  outline: none;
+}
+
+.textarea {
+  min-height: 50px;
+  resize: vertical;
+}
+
+.label {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #5c2a6e;
+  text-align: justify;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+.label span {
+  display: inline;
+}
+
+.submitButton {
+  grid-column: 1 / -1;
+  width: 45%;
+  padding: 1rem 1.8rem;
+  justify-self: center;
+  background-color: #f5e5f3;
+  color: #5c2a6e;
+  font-weight: 500;
+  border: 2px dashed #ff2fb6;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.submitButton:hover {
+  filter: brightness(1.1);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(228, 117, 204, 0.315);
+}
+
+.checkbox {
+  margin-top: 0.25rem;
+  align-self: flex-start;
+}
+
+@media (max-width: 768px) {
+  .form {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1rem;
+  }
+}

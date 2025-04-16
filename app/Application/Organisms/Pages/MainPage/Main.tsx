@@ -54,7 +54,7 @@ export default function Main() {
         <header className="MainHeader" style={{ backgroundColor: changeColor }}>
           <div className="header-container">
             <div>
-              <h1 className="Brand">FurEver</h1>
+              <h1 className="Brand">FurEver 🐾</h1>
               {userData && (
                 <UserMessage
                   first_name={userData.first_name}
@@ -75,7 +75,7 @@ export default function Main() {
                   .map((pet) => {
                     const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
                     return (
-                      <div className="pet-card" key={pet.pet_id}>
+                      <div key={pet.pet_id}>
                         <PetsData
                           pet_id={pet.pet_id}
                           image={imageUrl}

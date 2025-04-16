@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { getUser } from "../../../../../utils";
-import './CheckUpStyles/CheckUp.css';
+import styles from './CheckUpStyles/CheckUp.module.css'; 
 import Link from "next/link";
 import { TCheckUpAppointmentData } from "@/app/Application/Types/AllTypes";
 
@@ -77,7 +77,6 @@ export default function CheckUp() {
         console.log("Submitted Data:", data);
       }
 
-      // Reset form and state
       setAppointment({
         pet_name: "",
         breed: "",
@@ -105,173 +104,184 @@ export default function CheckUp() {
 
   return (
     <>
-      <div className="Back">
-        <Link href="/Application/Organisms/Layouts">
+      <div className={styles.Back}>
+        <Link href="/Application/Organisms/Pages/Appointment">
           <img src="/img/back.png" alt="back icon" />
         </Link>
       </div>
 
-        <form onSubmit={handleSubmit} className="Form">
-        <div className="CardRow">
-      <div className="Card">
-        <h2 className="CardSection">Owner Information</h2>
-        <input
-          type="text"
-          value={userData.first_name}
-          onChange={(e) =>
-            setUserData((prev) => ({ ...prev, first_name: e.target.value }))
-          }
-          placeholder="Full Name"
-        />
-        <input
-          type="email"
-          value={userData.email}
-          onChange={(e) =>
-            setUserData((prev) => ({ ...prev, email: e.target.value }))
-          }
-          placeholder="Email"
-        />
-        <input
-          type="tel"
-          value={userData.phone_number}
-          onChange={(e) =>
-            setUserData((prev) => ({
-              ...prev,
-              phone_number: e.target.value,
-            }))
-          }
-          placeholder="Phone Number"
-        />
-      </div>
+      <form onSubmit={handleSubmit} className={styles.Form}>
+        <div className={styles.CardRow}>
+          <div className={styles.Card}>
+            <label className={styles.CardSection}>Owner Information</label>
+            <input
+              type="text"
+              value={userData.first_name}
+              onChange={(e) =>
+                setUserData((prev) => ({ ...prev, first_name: e.target.value }))
+              }
+              placeholder="Full Name"
+              className={styles.input}
+            />
+            <input
+              type="email"
+              value={userData.email}
+              onChange={(e) =>
+                setUserData((prev) => ({ ...prev, email: e.target.value }))
+              }
+              placeholder="Email"
+              className={styles.input}
+            />
+            <input
+              type="tel"
+              value={userData.phone_number}
+              onChange={(e) =>
+                setUserData((prev) => ({
+                  ...prev,
+                  phone_number: e.target.value,
+                }))
+              }
+              placeholder="Phone Number"
+              className={styles.input}
+            />
+          </div>
 
-        <div className="Card">
-          <h2 className="CardSection">Pet Information</h2>
-          <input
-            type="text"
-            value={appointment.pet_name}
-            onChange={(e) =>
-              setAppointment((prev) => ({ ...prev, pet_name: e.target.value }))
-            }
-            placeholder="Pet Name"
-          />
-          <select
-            value={appointment.species}
-            onChange={(e) =>
-              setAppointment((prev) => ({ ...prev, species: e.target.value }))
-            }
-          >
-            <option value="">Select Species</option>
-            <option value="Dog">Dog</option>
-            <option value="Cat">Cat</option>
-            <option value="Other">Other</option>
-          </select>
-          <input
-            type="text"
-            value={appointment.breed}
-            onChange={(e) =>
-              setAppointment((prev) => ({ ...prev, breed: e.target.value }))
-            }
-            placeholder="Breed"
-          />
-          <input
-            type="number"
-            value={appointment.age}
-            onChange={(e) =>
-              setAppointment((prev) => ({
-                ...prev,
-                age: Number(e.target.value),
-              }))
-            }
-            placeholder="Age (years)"
-          />
-          <select
-            value={appointment.sex}
-            onChange={(e) =>
-              setAppointment((prev) => ({ ...prev, sex: e.target.value }))
-            }
-          >
-            <option value="">Sex</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
-          <input
-            type="text"
-            value={appointment.weight}
-            onChange={(e) =>
-              setAppointment((prev) => ({ ...prev, weight: e.target.value }))
-            }
-            placeholder="Weight (kg)"
-          />
-        </div>
+          <div className={styles.Card}>
+            <h2 className={styles.CardSection}>Pet Information</h2>
+            <input
+              type="text"
+              value={appointment.pet_name}
+              onChange={(e) =>
+                setAppointment((prev) => ({ ...prev, pet_name: e.target.value }))
+              }
+              placeholder="Pet Name"
+              className={styles.input}
+            />
+            <select
+              value={appointment.species}
+              onChange={(e) =>
+                setAppointment((prev) => ({ ...prev, species: e.target.value }))
+              }
+              className={styles.select}
+            >
+              <option value="">Select Species</option>
+              <option value="Dog">Dog</option>
+              <option value="Cat">Cat</option>
+              <option value="Other">Other</option>
+            </select>
+            <input
+              type="text"
+              value={appointment.breed}
+              onChange={(e) =>
+                setAppointment((prev) => ({ ...prev, breed: e.target.value }))
+              }
+              placeholder="Breed"
+              className={styles.input}
+            />
+            <input
+              type="number"
+              value={appointment.age}
+              onChange={(e) =>
+                setAppointment((prev) => ({
+                  ...prev,
+                  age: Number(e.target.value),
+                }))
+              }
+              placeholder="Age (years)"
+              className={styles.input}
+            />
+            <select
+              value={appointment.sex}
+              onChange={(e) =>
+                setAppointment((prev) => ({ ...prev, sex: e.target.value }))
+              }
+              className={styles.select}
+            >
+              <option value="">Sex</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+            <input
+              type="text"
+              value={appointment.weight}
+              onChange={(e) =>
+                setAppointment((prev) => ({ ...prev, weight: e.target.value }))
+              }
+              placeholder="Weight (kg)"
+              className={styles.input}
+            />
+          </div>
 
-        <div className="Card">
-          <h2 className="CardSection">Appointment Details</h2>
-          <input
-            type="date"
-            value={appointment.appointment_date}
-            onChange={(e) =>
-              setAppointment((prev) => ({
-                ...prev,
-                appointment_date: e.target.value,
-              }))
-            }
-          />
-          <select
-            value={appointment.checkup_type}
-            onChange={(e) =>
-              setAppointment((prev) => ({
-                ...prev,
-                checkup_type: e.target.value,
-              }))
-            }
-          >
-            <option value="">Select Check-Up Type</option>
-            <option value="General">General</option>
-            <option value="Vaccination">Vaccination</option>
-            <option value="Dental">Dental</option>
-            <option value="Follow-up">Follow-up</option>
-          </select>
-          <textarea
-            value={appointment.symptoms}
-            onChange={(e) =>
-              setAppointment((prev) => ({ ...prev, symptoms: e.target.value }))
-            }
-            placeholder="Any symptoms or concerns?"
-            rows={3}
-          />
-          <input
-            type="text"
-            value={appointment.preferred_vet}
-            onChange={(e) =>
-              setAppointment((prev) => ({
-                ...prev,
-                preferred_vet: e.target.value,
-              }))
-            }
-            placeholder="Preferred Vet (optional)"
-          />
+          <div className={styles.Card}>
+            <h2 className={styles.CardSection}>Appointment Details</h2>
+            <input
+              type="date"
+              value={appointment.appointment_date}
+              onChange={(e) =>
+                setAppointment((prev) => ({
+                  ...prev,
+                  appointment_date: e.target.value,
+                }))
+              }
+              className={styles.input}
+            />
+            <select
+              value={appointment.checkup_type}
+              onChange={(e) =>
+                setAppointment((prev) => ({
+                  ...prev,
+                  checkup_type: e.target.value,
+                }))
+              }
+              className={styles.select}
+            >
+              <option value="">Select Check-Up Type</option>
+              <option value="General">General</option>
+              <option value="Vaccination">Vaccination</option>
+              <option value="Dental">Dental</option>
+              <option value="Follow-up">Follow-up</option>
+            </select>
+            <textarea
+              value={appointment.symptoms}
+              onChange={(e) =>
+                setAppointment((prev) => ({ ...prev, symptoms: e.target.value }))
+              }
+              placeholder="Any symptoms or concerns?"
+              rows={3}
+              className={styles.textarea}
+            />
+            <input
+              type="text"
+              value={appointment.preferred_vet}
+              onChange={(e) =>
+                setAppointment((prev) => ({
+                  ...prev,
+                  preferred_vet: e.target.value,
+                }))
+              }
+              placeholder="Preferred Vet (optional)"
+              className={styles.input}
+            />
+          </div>
         </div>
-      </div>
-      <div className="TermWrap">
-        <div className="ButtonWrap">
-          <input
-            type="checkbox"
-            id="agreeTerms"
-            checked={agreeTerms}
-            onChange={() => setAgreeTerms((prev) => !prev)}
-          />
-          <label className="agreeTerms">
-            I hereby agree to the terms and conditions regarding pet check-up.
-            I confirm that all information provided is accurate and acknowledge that it is my responsibility to ensure
-            my pet is up-to-date on all required vaccinations as per the guidelines.
-          </label>
+        <div className={styles.TermWrap}>
+          <div className={styles.ButtonWrap}>
+            <input
+              type="checkbox"
+              id="agreeTerms"
+              checked={agreeTerms}
+              onChange={() => setAgreeTerms((prev) => !prev)}
+            />
+            <label className={styles.agreeTerms}>
+              I hereby agree to the terms and conditions regarding pet check-up. I confirm that all information provided is accurate and acknowledge that it is my responsibility to ensure my pet is up-to-date on all required vaccinations as per the guidelines.
+            </label>
+          </div>
+          <button type="submit" className={styles.submitButton}>
+            Book Appointment
+          </button>
         </div>
-        <button type="submit" className="submit-button">
-          Book Appointment
-        </button>
-      </div>
-    </form>
+      </form>
     </>
   );
 }
