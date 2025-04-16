@@ -5,13 +5,13 @@ import LogoProfile from "@/app/Application/Components/LogoProfile/page";
 import UserMessage from "@/app/Application/Atoms/UserMessage";
 import PetsData from "@/app/Application/Atoms/PetsData";
 import { TUseUserData, TUsePetsData } from "@/app/Application/Types/AllTypes";
-import './MainStyles/main.css';
+import "./MainStyles/main.css";
 import Link from "next/link";
 
 export default function Main() {
   const [userData, setUserData] = useState<TUseUserData | null>(null);
   const [pets, setPets] = useState<TUsePetsData[]>([]);
-  const [isLoading , setIsloading] = useState(false)
+  const [isLoading, setIsloading] = useState(false);
   const [changeColor, setChangeColor] = useState<string>("#3b82f6");
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function Main() {
   }, []);
 
   const getAllPets = async () => {
-    setIsloading(true)
+    setIsloading(true);
     try {
       const response = await fetch("http://127.0.0.1:8000/api/Pets");
       if (!response.ok) {
@@ -30,14 +30,12 @@ export default function Main() {
         return;
       }
       const data = await response.json();
-  
-      setPets(data.Data);
+
+      setPets(data.data);
     } catch (err) {
       console.log(err);
-    }
-    finally
-    {
-      setIsloading(false)
+    } finally {
+      setIsloading(false);
     }
   };
 
@@ -73,37 +71,31 @@ export default function Main() {
         </header>
 
         <main>
-          {isLoading ? 'Loading' : ''}
+          {isLoading ? 'loading...' : ""}
           <div className="main-content">
             <div className="content-card">
-              {pets && pets.length > 0 ? (
-                [...pets]
-                  .sort((a, b) => a.Breed.localeCompare(b.Breed))
-                  .map((pet) => {
-                    const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
-                    return (
-                      <div key={pet.pet_id}>
-                        <PetsData
-                          pet_id={pet.pet_id}
-                          image={imageUrl}
-                          Pet_Name={pet.Pet_Name}
-                          Age={pet.Age}
-                          Species={pet.Species}
-                          Sex={pet.Sex}
-                          Color={pet.Color}
-                          Breed={pet.Breed}
-                          Neutered_Spay={pet.Neutered_Spay}
-                          Special_Markings={pet.Special_Markings}
-                          Microchip_Number={pet.Microchip_Number}
-                          Weight={pet.Weight}
-                          Status={pet.Status}
-                        />
-                      </div>
-                    );
-                  })
-              ) : (
-                  <h1 className="no-pets-message">No Pets Available</h1>
-              )}
+              {pets.length > 0 ? pets.map((pet: TUsePetsData) => {
+                pets.sort((a:any, b:any) => a.Breed.locareCompare(b.Breed))
+                const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
+                return (
+                  <PetsData
+                    key={pet.pet_id}
+                    pet_id={pet.pet_id}
+                    image={imageUrl}
+                    Pet_Name={pet.Pet_Name}
+                    Age={pet.Age}
+                    Species={pet.Species}
+                    Sex={pet.Sex}
+                    Color={pet.Color}
+                    Breed={pet.Breed}
+                    Neutered_Spay={pet.Neutered_Spay}
+                    Special_Markings={pet.Special_Markings}
+                    Microchip_Number={pet.Microchip_Number}
+                    Weight={pet.Weight}
+                    Status={pet.Status}
+                  />
+                );
+              }) : <h1>No Available pets..</h1>}
             </div>
           </div>
         </main>
