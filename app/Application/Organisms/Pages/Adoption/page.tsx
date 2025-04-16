@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import styles from "./AdoptionStyles/AdoptionStyles.module.css"; 
 import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import { TUsePetsData, TUseUserData } from "@/app/Application/Types/AllTypes";
+
 
 type AdoptionFormData = {
   full_name: string;
@@ -79,12 +82,7 @@ export default function PetAdoptionForm() {
       alert("Something went wrong. Please try again later.");
     }
   };
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { TUsePetsData, TUseUserData } from "@/app/Application/Types/AllTypes";
-import Link from "next/link";
 
-const Adoption = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [pets, setPets] = useState([]);
 
