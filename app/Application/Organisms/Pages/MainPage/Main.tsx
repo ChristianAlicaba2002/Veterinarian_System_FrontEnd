@@ -75,7 +75,7 @@ export default function Main() {
           <div className="main-content">
             <div className="content-card">
               {pets.length > 0 ? pets.map((pet: TUsePetsData) => {
-                pets.sort((a:any, b:any) => a.Breed.locareCompare(b.Breed))
+                pets.sort((a: any, b: any) => a.Breed.localeCompare(b.Breed));
                 const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
                 return (
                   <PetsData
@@ -102,4 +102,7 @@ export default function Main() {
       </div>
     </>
   );
+  
 }
+
+

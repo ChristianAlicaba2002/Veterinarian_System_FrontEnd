@@ -10,7 +10,7 @@ import { getUser } from "@/utils";
 
 type Params = {
   params: Promise<{
-    id: number;
+    id: number
   }>;
 };
 

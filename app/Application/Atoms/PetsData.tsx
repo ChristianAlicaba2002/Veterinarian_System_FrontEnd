@@ -41,21 +41,7 @@ const PetsData = (props: TUsePetsData) => {
             </span>
           </div>
           <Link
-            href={`/Application/Organisms/Pages/PetDetails/${encodeURIComponent(
-              props.image
-            )}/${encodeURIComponent(props.Pet_Name)}/${encodeURIComponent(
-              props.Age
-            )}/${encodeURIComponent(props.Species)}/${encodeURIComponent(
-              props.Sex
-            )}/${decodeURIComponent(props.Color)}/${encodeURIComponent(
-              props.Breed
-            )}/${encodeURIComponent(
-              props.Microchip_Number
-            )}/${encodeURIComponent(props.Neutered_Spay)}/${decodeURIComponent(
-              props.Special_Markings
-            )}/${encodeURIComponent(props.Weight)}/${encodeURIComponent(
-              props.Status
-            )}`}
+            href={`/Application/Organisms/Pages/PetDetails/${props.pet_id}`}
             className="view-more-link"
           >
             View more
@@ -67,3 +53,20 @@ const PetsData = (props: TUsePetsData) => {
 };
 
 export default PetsData;
+
+
+// ${encodeURIComponent(
+//   props.image
+// )}/${encodeURIComponent(props.Pet_Name)}/${encodeURIComponent(
+//   props.Age
+// )}/${encodeURIComponent(props.Species)}/${encodeURIComponent(
+//   props.Sex
+// )}/${decodeURIComponent(props.Color)}/${encodeURIComponent(
+//   props.Breed
+// )}/${encodeURIComponent(
+//   props.Microchip_Number
+// )}/${encodeURIComponent(props.Neutered_Spay)}/${decodeURIComponent(
+//   props.Special_Markings
+// )}/${encodeURIComponent(props.Weight)}/${encodeURIComponent(
+//   props.Status
+// )}
