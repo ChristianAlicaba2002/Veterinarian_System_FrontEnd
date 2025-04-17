@@ -58,9 +58,15 @@ const PetDetails = ({ params }: Params) => {
 
   return (
     <>
+            <div className="Back">
+              <Link href="/Application/Organisms/Layouts">
+                <img src="/img/back.png" alt="back icon" />
+              </Link>
+            </div>
+
       {petData.map((pet: TUsePetsData) => {
         return (
-            <div key={pet.pet_id}>
+            <div key={pet.pet_id} className="PetCard">
                 <h1>{pet.Pet_Name} Information</h1>
                 <Image
                     src={`http://127.0.0.1:8000/api/storage/${pet.image}`}
@@ -68,17 +74,21 @@ const PetDetails = ({ params }: Params) => {
                     width={150}
                     height={150}
                 /> 
-                <h1>{pet.Pet_Name}</h1>
-                <h1>{pet.Species}</h1>
-                <h1>{pet.Age} year's old</h1>
-                <h1>{pet.Sex}</h1>
-                <h1>{pet.Neutered_Spay}</h1>
-                <h1>{pet.Color}</h1>
-                <h1>{pet.Weight} lbs</h1>
-                <h1>{pet.Special_Markings}</h1>
-                <h1>{pet.Microchip_Number}</h1>
-                <h1>{pet.Status}</h1>
-                <Link href={`/Application/Organisms/Pages/Adoption/${ pet.pet_id }`}>Inquire now</Link>
+                <div className="PetInfo">
+                <span>{pet.Species}</span>
+                <span>{pet.Age} year's old</span>
+                <span>{pet.Sex}</span>
+                <span>{pet.Weight} lbs</span>
+                <span>{pet.Microchip_Number}</span>
+                <span>{pet.Neutered_Spay}</span>
+                <span>{pet.Color}</span>
+                <span>{pet.Special_Markings}</span>
+                <span className={`styles.petStat ${`mt-3text-lg font-extrabold ${
+                    pet.Status === "Available" ? "text-green-500" : "text-red-500"
+                  }`}`}
+                    >{pet.Status}</span>
+                </div>
+                <Link  className="Inquirebutton" href={`/Application/Organisms/Pages/Adoption/${ pet.pet_id }`}>Inquire now</Link>
             </div>           
         )
       })}

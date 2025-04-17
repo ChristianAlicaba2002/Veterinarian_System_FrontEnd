@@ -6,7 +6,6 @@ import UserMessage from "@/app/Application/Atoms/UserMessage";
 import PetsData from "@/app/Application/Atoms/PetsData";
 import { TUseUserData, TUsePetsData } from "@/app/Application/Types/AllTypes";
 import "./MainStyles/main.css";
-import Link from "next/link";
 
 export default function Main() {
   const [userData, setUserData] = useState<TUseUserData | null>(null);
@@ -77,8 +76,10 @@ export default function Main() {
               {pets.length > 0 ? pets.map((pet: TUsePetsData) => {
                 pets.sort((a: any, b: any) => a.Breed.localeCompare(b.Breed));
                 const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
+                
                 return (
-                  <PetsData
+                  <div key={pet.pet_id} className="Datas">
+                    <PetsData
                     key={pet.pet_id}
                     pet_id={pet.pet_id}
                     image={imageUrl}
@@ -94,6 +95,7 @@ export default function Main() {
                     Weight={pet.Weight}
                     Status={pet.Status}
                   />
+                  </div>
                 );
               }) : <h1>No Available pets..</h1>}
             </div>

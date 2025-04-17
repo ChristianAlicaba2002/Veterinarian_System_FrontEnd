@@ -1,141 +1,106 @@
-.pet-details-container {
-    max-width: 90%;
-    margin: 2rem auto;
-    min-height: 100px;
-    overflow: hidden;
-    padding: 2rem;
-    background: linear-gradient(135deg, #f5cce7, #aad1e4);
-    border-radius: 20px;
-    box-shadow: 5px 8px 15px rgba(221, 109, 231, 0.15);
+body {
+    background: linear-gradient(490deg, #ffc7db7c, #e8caff);
 }
 
-.pet-header {
-    padding: 1.5rem;
-    color: white;
-    position: relative;
-    background: transparent;
-    border-radius: 60px;
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.568);
-}
-
-.back-button img {
+.Back {
+    margin-top: 2rem;
     margin-left: 2rem;
-    height: 40px;
-    width: 40px;
-    margin-top: 1rem;
-    transition: transform 0.3s ease-in-out;
 }
-
-.back-button img:hover {
-    transform: scale(1.1);
+  
+.Back img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    filter: brightness(100%);
+    transition: filter 0.3s ease;
 }
-
-.pet-name-details {
-    font-size: 2.2rem;
-    font-weight: 700;
-    text-align: center;
-    margin-top: -50px;
-    padding-bottom: 1.5rem;
-    color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  
+.Back img:hover {
+    filter: brightness(80%);
 }
-
-.pet-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+  
+.PetCard {
+    background-color: white;
     padding: 2rem;
-}
-
-.pet-image-section {
-    max-width: 100%;
-}
-
-.image-wrapper {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    max-width: 100%;
-    transition: transform 0.3s ease-in-out;
-}
-
-.pet-image {
-    width: 100%;
     height: auto;
-    object-fit: cover;
-    max-height: 320px;
-    aspect-ratio: 1;
-    transition: transform 0.3s ease-in-out;
-    border-radius: 12px;
+    width: fit-content;
+    border: 2px dashed #e8caff;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+
 }
 
-.pet-image:hover {
+.PetCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.PetCard img {
+    display: block;
+    margin: 1rem auto;
+    max-width: 100%;
+    border: 5px dashed #d6b1f3;
+    border-radius: 15px;
+    width: 50%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.PetCard img:hover {
+    transform: scale(1.5);
+}
+
+h1 {
+    font-size: 2.2em;
+    color: #632b97;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.PetInfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    gap: 10px;
+    width: fit-content;
+    margin: 1rem auto;
+}
+
+.PetInfo span {
+    background: linear-gradient(490deg, #ffc7db7c, #e8caff);
+    border: #ffdaff 1px solid;
+    font-weight: 500;
+    font-size: small;
+    border-radius: 30px;
+    padding: 0.5rem 1rem;
+}
+
+.PetInfo span:hover {
+    background-color: rgba(255, 181, 172, 0.5);
     transform: scale(1.03);
 }
 
-.pet-info-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.info-card {
-    padding: 1.5rem;
-    font-size: 1rem;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.section-title {
-    font-size: 1.6rem;
+.Inquirebutton {
     font-weight: 600;
-    color: #75216e;
-    margin-bottom: 1.2rem;
-    border-bottom: 2px dashed #91618d;
-    padding-bottom: 0.5rem;
+    text-decoration: none;
+    color: white;
+    border: 2px solid rgb(255, 194, 235);
+    background: linear-gradient(to right, #c084fc, #f472b6);
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    display: inline-block;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 8px 18px rgba(240, 142, 255, 0.3);
 }
 
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 1.2rem;
-}
-
-.info-label {
-    font-size: 1.1rem;
-    color: rgb(135, 85, 148);
-    font-weight: 700;
-}
-
-.info-value {
-    font-size: 1.1rem;
-    color: rgb(89, 31, 104);
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border: #91618d 2px dashed;
-    border-radius: 20px;
-    background: #f3e8f7;
-}
-
-@media (max-width: 768px) {
-    .pet-content {
-        grid-template-columns: 1fr;
-        padding: 1rem;
-    }
-
-    .pet-name-details {
-        font-size: 1.5rem;
-    }
-
-    .back-button {
-        top: 1rem;
-        left: 1rem;
-        height: 50px;
-        width: 50px;
-    }
-
-    .pet-image {
-        max-height: 250px;
-    }
+.Inquirebutton:hover {
+    background: linear-gradient(to right, #a855f7, #ec4899);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(173, 77, 255, 0.4);
 }

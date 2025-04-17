@@ -41,6 +41,14 @@
   max-width: 1200px;
 }
 
+.Datas span{
+  background: linear-gradient(490deg, #ffc7db7c, #e8caff);
+  border: #ffdaff 1px solid;
+  font-weight: 700;
+  border-radius: 30px;
+  padding: 0.5rem 1rem;
+
+}
 .pet-card {
   background-color: #ffffff;
   border: 2px solid rgb(250, 215, 241);
