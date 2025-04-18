@@ -113,25 +113,34 @@ const Adoption = ({ params }: Params) => {
       });
     }
 
+    try {
+
+      
     const allForm = {
       ...submitForm,
-      ...petForm,
+      ...(getData[0] || petForm),
       ...isDate,
     };
-
+    
     console.log(allForm);
-    try {
+
+
       const res = await fetch("http://127.0.0.1:8000/api/adoption", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
+          "Accept": "application/json",
         },
-        body: JSON.stringify(allForm),
+        body: JSON.stringify({...submitForm,...(getData[0] || petForm) , ...isDate}),
       });
+
       if (!res.ok) {
         console.log(`Error Failed: ${res.status}`);
       }
+
+      const data = await res.json()
+      console.log(data.message)
+      console.log(data)
     } catch (error) {
       console.log(error);
     } finally {
