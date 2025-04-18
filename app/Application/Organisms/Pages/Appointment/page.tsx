@@ -6,9 +6,9 @@ const Appointment = () => {
   return (
     <>
       <div className='Back'>
-        <Link href='/Application/Organisms/Layouts'>
+        <a href='/Application/Organisms/Layouts'>
           <img src="/img/back.png" alt="back icon" />
-        </Link>
+        </a>
       </div>
 
       <div className="AppointmentContainer">
@@ -18,24 +18,24 @@ const Appointment = () => {
         </div>
 
         <div className='Options'>
-          <Link href='/Application/Organisms/Pages/Grooming'>
+          <a href='/Application/Organisms/Pages/Grooming'>
             <button>
               <img src="/img/groomer.png" alt="groom icon" />
               Need Grooming?
             </button>
-          </Link>
-          <Link href='/Application/Organisms/Pages/CheckUp'>
+          </a>
+          <a href='/Application/Organisms/Pages/CheckUp'>
             <button>
               <img src="/img/check.png" alt="check icon" />
               Check Up?
             </button>
-          </Link>
-          <Link href='/Application/Organisms/Pages/Adoption'>
+          </a>
+          <a href='/Application/Organisms/Pages/Adoption'>
             <button>
               <img src="/img/adoption.png" alt="adoption icon" />
               Looking for Adoption?
             </button>
-          </Link>
+          </a>
         </div>
       </div>
     </>

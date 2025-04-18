@@ -42,9 +42,9 @@ import styles from "./AdoptionStyles/AdoptionStyles.module.css"
   return (
         <>
           <div className={styles.Back}>
-            <Link href="/Application/Organisms/Pages/Appointment">
+            <a href="/Application/Organisms/Pages/Appointment">
               <img src="/img/back.png" alt="back icon" />
-            </Link>
+            </a>
           </div>
 
           <div className={styles.container}>

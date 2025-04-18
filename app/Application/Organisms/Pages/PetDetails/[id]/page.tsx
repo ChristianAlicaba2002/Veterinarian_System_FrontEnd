@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import "../PetDetailsStyle/PetDetails.css";
+import "../PetDetailsStyle/PetDetails.css"
 import { TUsePetsData } from "@/app/Application/Types/AllTypes";
 import Image from "next/image";
 
@@ -59,9 +58,9 @@ const PetDetails = ({ params }: Params) => {
   return (
     <>
             <div className="Back">
-              <Link href="/Application/Organisms/Layouts">
+              <a href="/Application/Organisms/Layouts">
                 <img src="/img/back.png" alt="back icon" />
-              </Link>
+              </a>
             </div>
 
       {petData.map((pet: TUsePetsData) => {
@@ -88,7 +87,7 @@ const PetDetails = ({ params }: Params) => {
                   }`}`}
                     >{pet.Status}</span>
                 </div>
-                <Link  className="Inquirebutton" href={`/Application/Organisms/Pages/Adoption/${ pet.pet_id }`}>Inquire now</Link>
+                <a  className="Inquirebutton" href={`/Application/Organisms/Pages/Adoption/${ pet.pet_id }`}>Inquire now</a>
             </div>           
         )
       })}

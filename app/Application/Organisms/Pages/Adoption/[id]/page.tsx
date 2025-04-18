@@ -158,7 +158,7 @@ const Adoption = ({ params }: Params) => {
           key={pet.pet_id}
           className="bg-gradient-to-br from-purple-100 via-purple-200 to-purple-300
           shadow-xl rounded-2xl border-2 border-purple-300 
-          flex flex-col h-full overflow-hidden p-8 w-120 h-fit"
+          flex flex-col h-full overflow-hidden p-8 w-120"
         >
           <Image
             src={`http://127.0.0.1:8000/api/storage/${pet.image}`}

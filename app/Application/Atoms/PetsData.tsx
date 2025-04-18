@@ -41,12 +41,12 @@ const PetsData = (props: TUsePetsData) => {
               {props.Status}
             </span>
           </div> */}
-          <Link
+          <a
             href={`/Application/Organisms/Pages/PetDetails/${props.pet_id}`}
             className="view-more-link"
           >
             View more
-          </Link>
+          </a>
         </div>
       </div>
     </>
