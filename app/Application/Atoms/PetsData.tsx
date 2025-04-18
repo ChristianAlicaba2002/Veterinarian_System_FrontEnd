@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import "../../../public/css/PetsData.css";
 import { TUsePetsData } from "../Types/AllTypes";
+
 const PetsData = (props: TUsePetsData) => {
   return (
     <>
@@ -26,7 +27,7 @@ const PetsData = (props: TUsePetsData) => {
 
         <div className="pet-info">
           <h1 className="pet-name">{props.Pet_Name}</h1>
-          <div className="pet-details">
+          {/* <div className="pet-details">
             <span className="pet-detail">{props.Age}</span>
             <span className="pet-detail">{props.Species}</span>
             <span className="pet-detail">{props.Sex}</span>
@@ -39,7 +40,7 @@ const PetsData = (props: TUsePetsData) => {
             >
               {props.Status}
             </span>
-          </div>
+          </div> */}
           <Link
             href={`/Application/Organisms/Pages/PetDetails/${props.pet_id}`}
             className="view-more-link"
