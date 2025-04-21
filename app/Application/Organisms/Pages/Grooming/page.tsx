@@ -19,6 +19,7 @@ type UserData = {
 
 const Grooming = () => {
   const [userData, setUserData] = useState<UserData | null>(null);
+  const [isSubmmiting , setIsSubmmiting] = useState<boolean>(false);
   const [appointment, setAppointment] = useState<TAppointmentData>({
     pet_name: "",
     breed: "",
@@ -38,6 +39,7 @@ const Grooming = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmmiting(true);
     try {
       // Validate required fields
       if (!appointment.pet_name || !appointment.breed || !appointment.appointment_date ||
@@ -99,6 +101,9 @@ const Grooming = () => {
     } catch (error) {
       console.error("Error creating appointment:", error);
       alert(error instanceof Error ? error.message : "Failed to schedule appointment. Please try again.");
+    }
+    finally{
+      setIsSubmmiting(false)
     }
   };
 
@@ -255,7 +260,7 @@ const Grooming = () => {
             </div>
 
             <button type="submit" className={styles.submitButton}>
-              Submit
+              {isSubmmiting ? 'Submiting...' : 'Submit'}
             </button>
           </form>
         </div>
