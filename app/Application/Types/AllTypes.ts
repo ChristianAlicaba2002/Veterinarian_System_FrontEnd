@@ -6,7 +6,7 @@ export type TUsePetsData = {
   Breed: string;
   Color: string;
   image: string;
-  Microchip_Number: number;
+  Microchip_Number: string;
   Neutered_Spay: string;
   Special_Markings: string;
   Species: string;
@@ -70,7 +70,7 @@ export type TAdoptionInquireData = {
   Sex?:string,
   Color?:string,
   Breed?:string,
-  Microchip_Number?:number,
+  Microchip_Number?:string,
   Special_Markings?:string,
   Weight?:number,
   Status?:string,

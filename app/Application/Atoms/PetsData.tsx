@@ -27,20 +27,6 @@ const PetsData = (props: TUsePetsData) => {
 
         <div className="pet-info">
           <h1 className="pet-name">{props.Pet_Name}</h1>
-          {/* <div className="pet-details">
-            <span className="pet-detail">{props.Age}</span>
-            <span className="pet-detail">{props.Species}</span>
-            <span className="pet-detail">{props.Sex}</span>
-            <span className="pet-detail">{props.Color}</span>
-            <span className="pet-detail">{props.Breed}</span>
-            <span
-              className={`${
-                props.Status === "Available" ? "text-green-700" : "pet-detail"
-              }`}
-            >
-              {props.Status}
-            </span>
-          </div> */}
           <a
             href={`/Application/Organisms/Pages/PetDetails/${props.pet_id}`}
             className="view-more-link"

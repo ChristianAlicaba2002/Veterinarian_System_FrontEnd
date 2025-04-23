@@ -8,10 +8,10 @@ import {
 import Image from "next/image";
 import { getUser } from "@/utils";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 type Params = {
   params: Promise<{
-    id: number
+    id: number;
   }>;
 };
 
@@ -20,6 +20,7 @@ type adoption_date = {
 };
 
 const Adoption = ({ params }: Params) => {
+  const router = useRouter()
   const [getData, setGetData] = useState<TAdoptionInquireData[]>([]);
   const [id, setId] = useState<number | null>(null);
   const [isSubmmiting, setIsSubmmiting] = useState(false);
@@ -42,7 +43,7 @@ const Adoption = ({ params }: Params) => {
     Sex: "",
     Color: "",
     Breed: "",
-    Microchip_Number: 0,
+    Microchip_Number: "",
     Special_Markings: "",
     Weight: 0,
     Status: "",
@@ -51,7 +52,14 @@ const Adoption = ({ params }: Params) => {
 
   useEffect(() => {
     const user = getUser();
-    setSubmitForm((prev) => ({ ...prev, client_id: user.client_id }));
+    setSubmitForm((prev) => ({...prev , 
+      client_id: user.client_id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      phone_number: user.phone_number,
+      address: user.address,
+    }));
   }, []);
 
   useEffect(() => {
@@ -114,208 +122,295 @@ const Adoption = ({ params }: Params) => {
     }
 
     try {
-
-      
-    const allForm = {
-      ...submitForm,
-      ...(getData[0] || petForm),
-      ...isDate,
-    };
-    
-    console.log(allForm);
-
-
       const res = await fetch("http://127.0.0.1:8000/api/adoption", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
+          Accept: "application/json",
         },
-        body: JSON.stringify({...submitForm,...(getData[0] || petForm) , ...isDate}),
+        body: JSON.stringify({
+          ...submitForm,
+          ...(getData[0] || petForm),
+          ...isDate,
+        }),
       });
 
       if (!res.ok) {
         console.log(`Error Failed: ${res.status}`);
       }
 
-      const data = await res.json()
-      console.log(data.message)
-      console.log(data)
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      const data = await res.json();
+      alert(data.message);
     } catch (error) {
       console.log(error);
     } finally {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 100));
       setIsSubmmiting(false);
+      setSubmitForm((prev) => ({
+        ...prev,
+        client_id: 0,
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone_number: "",
+        address: "",
+      }));
     }
+    router.replace('/Application/Organisms/Layouts')
+    router.refresh()
   };
 
   return (
     <>
-            <div className="Back mt-5 ml-5 mr-auto mb-auto h-10 w-10">
-              <Link href="/Application/Organisms/Pages/Adoption">
-                <img src="/img/back.png" alt="back icon" />
-              </Link>
-            </div>
+      <div className="Back mt-5 ml-5 mr-auto mb-auto h-10 w-10">
+        <Link href="/Application/Organisms/Pages/Adoption">
+          <img src="/img/back.png" alt="back icon" />
+        </Link>
+      </div>
 
-            <h1 className="text-4xl font-extrabold text-center text-violet-900">
-              Adopt a Pet
-            </h1>
-          <div className="container mx-auto p-6 flex flex-col md:flex-row items-start justify-center">   
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 p-4 ">
-      {getData.map((pet: TAdoptionInquireData) => (
-        <div
-          key={pet.pet_id}
-          className="bg-gradient-to-br from-purple-100 via-purple-200 to-purple-300
+      <h1 className="text-4xl font-extrabold text-center text-violet-900">
+        Adopt a Pet
+      </h1>
+      <div className="container mx-auto p-6 flex flex-col md:flex-row items-start justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 p-4 ">
+          {getData.map((pet: TAdoptionInquireData) => (
+            <div
+              key={pet.pet_id}
+              className="bg-gradient-to-br from-purple-100 via-purple-200 to-purple-300
           shadow-xl rounded-2xl border-2 border-purple-300 
           flex flex-col h-full overflow-hidden p-8 w-120"
-        >
-          <Image
-            src={`http://127.0.0.1:8000/api/storage/${pet.image}`}
-            alt={`Pet Image ${pet.Pet_Name}`}
-            width={300}
-            height={300}
-            className="w-60 h-50 object-cover rounded-xl border-2 border-purple-300 border-dashed mx-auto block p-1"
-            priority
-          />
-          <div className="p-5 flex flex-col justify-between flex-grow space-y-3">
-            <h2 className="text-2xl font-bold text-purple-800 text-center">
-              {pet.Pet_Name}
-            </h2>
+            >
+              <Image
+                src={`http://127.0.0.1:8000/api/storage/${pet.image}`}
+                alt={`Pet Image ${pet.Pet_Name}`}
+                width={300}
+                height={300}
+                className="w-60 h-50 object-cover rounded-xl border-2 border-purple-300 border-dashed mx-auto block p-1"
+                priority
+              />
+              <div className="p-5 flex flex-col justify-between flex-grow space-y-3">
+                <h2 className="text-2xl font-bold text-purple-800 text-center">
+                  {pet.Pet_Name}
+                </h2>
 
-            <div className="text-sm text-purple-700 flex flex-col gap-2">
-              <p className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-1">
-                {pet.Species} - {pet.Breed}
-              </p>
-              <p className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-1">
-                Age: {pet.Age} years
-              </p>
-              <p className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-1">
-                Sex: {pet.Sex}
-              </p>
-              <p className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-1">
-                Weight: {pet.Weight} kg
-              </p>
-              <p className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-1">
-                Special Markings: {pet.Special_Markings}
-              </p>
-              <p className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-1">
-                Microchip: {pet.Microchip_Number}
-              </p>
-              <p
-                className={`font-semibold px-3 py-1 rounded-xl border text-center ${
-                  pet.Status === "Available"
-                    ? "bg-green-100 text-green-700 border-green-300"
-                    : "bg-red-100 text-red-700 border-red-300"
-                }`}
-              >
-                Status: {pet.Status}
-              </p>
+                <div className="text-sm text-purple-700 flex flex-col gap-2">
+                  <p className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-1">
+                    {pet.Species} - {pet.Breed}
+                  </p>
+                  <p className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-1">
+                    Age: {pet.Age} years
+                  </p>
+                  <p className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-1">
+                    Sex: {pet.Sex}
+                  </p>
+                  <p className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-1">
+                    Weight: {pet.Weight} kg
+                  </p>
+                  <p className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-1">
+                    Special Markings: {pet.Special_Markings}
+                  </p>
+                  <p className="bg-purple-50 border border-purple-200 rounded-xl px-3 py-1">
+                    Microchip: {pet.Microchip_Number}
+                  </p>
+                  <p
+                    className={`font-semibold px-3 py-1 rounded-xl border text-center ${
+                      pet.Status === "Available"
+                        ? "bg-green-100 text-green-700 border-green-300"
+                        : "bg-red-100 text-red-700 border-red-300"
+                    }`}
+                  >
+                    Status: {pet.Status}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
-    </div>
 
-  <form
-      onSubmit={adoptionForm}
-      className="bg-gradient-to-br from-purple-100 via-purple-200 to-purple-300 shadow-lg rounded-2xl p-8 border-2 border-purple-300 h-fit w-590"
-    >
-      <h2 className="text-3xl font-bold text-purple-700 mb-6 text-center">Adoption Form</h2>
-
-      {getData.map((pet: TAdoptionInquireData) => (
-        <div
-          key={pet.pet_id}
-          className="grid grid-cols-2 gap-2 bg-white/50 p-4 rounded-xl mb-4 shadow-inner text-sm"
+        <form
+          onSubmit={adoptionForm}
+          className="bg-gradient-to-br from-purple-100 via-purple-200 to-purple-300 shadow-lg rounded-2xl p-8 border-2 border-purple-300 h-fit w-590"
         >
-          <input type="number" value={pet.pet_id} readOnly className="form-style" />
-          <input type="text" value={pet.Pet_Name} readOnly className="form-style" />
-          <input type="text" value={pet.image} readOnly className="form-style" />
-          <input type="number" value={pet.Age} readOnly className="form-style" />
-          <input type="text" value={pet.Species} readOnly className="form-style" />
-          <input type="text" value={pet.Sex} readOnly className="form-style" />
-          <input type="text" value={pet.Color} readOnly className="form-style" />
-          <input type="text" value={pet.Breed} readOnly className="form-style" />
-          <input type="number" value={pet.Microchip_Number} readOnly className="form-style" />
-          <input type="text" value={pet.Neutered_Spay} readOnly className="form-style" />
-          <input type="text" value={pet.Special_Markings} readOnly className="form-style" />
-          <input type="number" value={pet.Weight} readOnly className="form-style" />
-          <input type="text" value={pet.Status} readOnly className="form-style" />
-        </div>
-      ))}
+          <h2 className="text-3xl font-bold text-purple-700 mb-6 text-center">
+            Adoption Form
+          </h2>
 
-    <div className="space-y-4">
-      <div>
-        <input
-          type="text"
-          value={submitForm?.first_name}
-          onChange={(e) =>
-            setSubmitForm((prev) => ({ ...prev, first_name: e.target.value }))
-          }
-          placeholder="First Name"
-          className="form-style"
-        />
-        {isError && !submitForm.first_name && (
-          <span className="text-red-600 text-sm">First name is required</span>
-        )}
-      </div>
-      <div>
-        <input
-          type="text"
-          value={submitForm?.last_name}
-          onChange={(e) =>
-            setSubmitForm((prev) => ({ ...prev, last_name: e.target.value }))
-          }
-          placeholder="Last Name"
-          className="form-style"
-        />
-        {isError && !submitForm.last_name && (
-          <span className="text-red-600 text-sm">Last name is required</span>
-        )}
-      </div>
-      <div>
-        <input
-          type="tel"
-          maxLength={11}
-          value={submitForm?.phone_number}
-          onChange={(e) =>
-            setSubmitForm((prev) => ({ ...prev, phone_number: e.target.value }))
-          }
-          placeholder="Phone Number"
-          className="form-style"
-        />
-        {isError && !submitForm.phone_number && (
-          <span className="text-red-600 text-sm">Phone number is required</span>
-        )}
-      </div>
-      <div>
-        <input
-          type="email"
-          value={submitForm?.email}
-          onChange={(e) =>
-            setSubmitForm((prev) => ({ ...prev, email: e.target.value }))
-          }
-          placeholder="Email"
-          className="form-style"
-        />
-        {isError && !submitForm.email && (
-          <span className="text-red-600 text-sm">Email is required</span>
-        )}
-      </div>
-      <div>
-        <input
-          type="text"
-          list="addressList"
-          value={submitForm.address}
-          onChange={(e) =>
-            setSubmitForm((prev) => ({ ...prev, address: e.target.value }))
-          }
-          placeholder="Address"
-          className="form-style"
-        />
-        <datalist id="addressList">
+          {getData.map((pet: TAdoptionInquireData) => (
+            <div
+              key={pet.pet_id}
+              className="grid grid-cols-2 gap-2 bg-white/50 p-4 rounded-xl mb-4 shadow-inner text-sm"
+            >
+              <input
+                type="number"
+                value={pet.pet_id}
+                readOnly
+                className="form-style"
+              />
+              <input
+                type="text"
+                value={pet.Pet_Name}
+                readOnly
+                className="form-style"
+              />
+              <input
+                type="text"
+                value={pet.image}
+                readOnly
+                className="form-style"
+              />
+              <input
+                type="number"
+                value={pet.Age}
+                readOnly
+                className="form-style"
+              />
+              <input
+                type="text"
+                value={pet.Species}
+                readOnly
+                className="form-style"
+              />
+              <input
+                type="text"
+                value={pet.Sex}
+                readOnly
+                className="form-style"
+              />
+              <input
+                type="text"
+                value={pet.Color}
+                readOnly
+                className="form-style"
+              />
+              <input
+                type="text"
+                value={pet.Breed}
+                readOnly
+                className="form-style"
+              />
+              <input
+                type="number"
+                value={pet.Microchip_Number}
+                readOnly
+                className="form-style"
+              />
+              <input
+                type="text"
+                value={pet.Neutered_Spay}
+                readOnly
+                className="form-style"
+              />
+              <input
+                type="text"
+                value={pet.Special_Markings}
+                readOnly
+                className="form-style"
+              />
+              <input
+                type="number"
+                value={pet.Weight}
+                readOnly
+                className="form-style"
+              />
+              <input
+                type="text"
+                value={pet.Status}
+                readOnly
+                className="form-style"
+              />
+            </div>
+          ))}
 
-
-      <option value="Alcantara, Cebu">Alcantara, Cebu</option>
+          <div className="space-y-4">
+            <div>
+              <input
+                type="text"
+                value={submitForm?.first_name}
+                onChange={(e) =>
+                  setSubmitForm((prev) => ({
+                    ...prev,
+                    first_name: e.target.value,
+                  }))
+                }
+                placeholder="First Name"
+                className="form-style"
+              />
+              {isError && !submitForm.first_name && (
+                <span className="text-red-600 text-sm">
+                  First name is required
+                </span>
+              )}
+            </div>
+            <div>
+              <input
+                type="text"
+                value={submitForm?.last_name}
+                onChange={(e) =>
+                  setSubmitForm((prev) => ({
+                    ...prev,
+                    last_name: e.target.value,
+                  }))
+                }
+                placeholder="Last Name"
+                className="form-style"
+              />
+              {isError && !submitForm.last_name && (
+                <span className="text-red-600 text-sm">
+                  Last name is required
+                </span>
+              )}
+            </div>
+            <div>
+              <input
+                type="tel"
+                maxLength={11}
+                value={submitForm?.phone_number}
+                onChange={(e) =>
+                  setSubmitForm((prev) => ({
+                    ...prev,
+                    phone_number: e.target.value,
+                  }))
+                }
+                placeholder="Phone Number"
+                className="form-style"
+              />
+              {isError && !submitForm.phone_number && (
+                <span className="text-red-600 text-sm">
+                  Phone number is required
+                </span>
+              )}
+            </div>
+            <div>
+              <input
+                type="email"
+                value={submitForm?.email}
+                onChange={(e) =>
+                  setSubmitForm((prev) => ({ ...prev, email: e.target.value }))
+                }
+                placeholder="Email"
+                className="form-style"
+              />
+              {isError && !submitForm.email && (
+                <span className="text-red-600 text-sm">Email is required</span>
+              )}
+            </div>
+            <div>
+              <input
+                type="text"
+                list="addressList"
+                value={submitForm.address}
+                onChange={(e) =>
+                  setSubmitForm((prev) => ({
+                    ...prev,
+                    address: e.target.value,
+                  }))
+                }
+                placeholder="Address"
+                className="form-style"
+              />
+              <datalist id="addressList">
+                <option value="Alcantara, Cebu">Alcantara, Cebu</option>
                 <option value="Alcoy, Cebu">Alcoy, Cebu</option>
                 <option value="Alegria, Cebu">Alegria, Cebu</option>
                 <option value="Argao, Cebu">Argao, Cebu</option>
@@ -369,27 +464,32 @@ const Adoption = ({ params }: Params) => {
                 <option value="Valencia, Cebu">Valencia, Cebu</option>
                 <option value="Valladolid, Cebu">Valladolid, Cebu</option>
                 <option value="Zambujal, Cebu">Zambujal, Cebu</option>
-          </datalist>
-          {isError && !submitForm.address && (
-            <span className="text-red-600 text-sm">Address is required</span>
-          )}
-        </div>
-        <div className="text-sm text-purple-800 font-medium">
-          Adoption Date:
-          <input
-            type="date"
-            value={isDate.adoption_date}
-            onChange={(e) =>
-              setIsDate((prev) => ({ ...prev, adoption_date: e.target.value }))
-            }
-            className="form-style mt-1"
-          />
-        </div>
-      </div>
+              </datalist>
+              {isError && !submitForm.address && (
+                <span className="text-red-600 text-sm">
+                  Address is required
+                </span>
+              )}
+            </div>
+            <div className="text-sm text-purple-800 font-medium">
+              Adoption Date:
+              <input
+                type="date"
+                value={isDate.adoption_date}
+                onChange={(e) =>
+                  setIsDate((prev) => ({
+                    ...prev,
+                    adoption_date: e.target.value,
+                  }))
+                }
+                className="form-style mt-1"
+              />
+            </div>
+          </div>
           <div className="mt-6">
             <button
               type="submit"
-              className="w-full bg-purple-600 text-white py-2 px-4 rounded-xl hover:bg-purple-700 transition duration-300 shadow-md"
+              className="cursor-pointer w-full bg-purple-600 text-white py-2 px-4 rounded-xl hover:bg-purple-700 transition duration-300 shadow-md"
             >
               {isSubmmiting ? "Submitting..." : "Submit"}
             </button>

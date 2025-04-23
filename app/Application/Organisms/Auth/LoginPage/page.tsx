@@ -19,7 +19,7 @@ function Login() {
         if (token) {
         setIsLoggedIn(true)
           
-            router.push('/Application/Organisms/Layouts')
+            router.replace('/Application/Organisms/Layouts')
             router.refresh()
         }
     }, [router])
@@ -73,7 +73,7 @@ function Login() {
 
             
                 // Replace the current history entry and redirect
-                router.push('/Application/Organisms/Layouts')
+                router.replace('/Application/Organisms/Layouts')
                 router.refresh() // Force a refresh of the navigation
 
                 await new Promise(resolve => setTimeout(resolve, 2000))
