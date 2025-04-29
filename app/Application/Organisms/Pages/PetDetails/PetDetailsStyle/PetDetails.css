@@ -1,5 +1,6 @@
 body {
     background: linear-gradient(490deg, #ffc7db7c, #e8caff);
+
 }
 
 .Back {
@@ -31,7 +32,7 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     justify-content: center;
     align-items: center;
-    margin: 2rem;
+    margin: 1rem auto;
 
 }
 
@@ -42,17 +43,18 @@ body {
 
 .PetCard img {
     display: block;
-    margin: 1rem auto;
+    margin: 2rem auto;
     max-width: 100%;
     border: 5px dashed #d6b1f3;
     border-radius: 15px;
     width: 50%;
     height: auto;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
 }
 
 .PetCard img:hover {
-    transform: scale(1.5);
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px #c084fc;
 }
 
 h1 {

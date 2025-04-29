@@ -2,9 +2,10 @@
 import React, { useState } from 'react'
 import "./RegisterStyles/register.css"
 import { TRegisterProps } from '@/app/Application/Types/AllTypes'
-
+import { useRouter } from 'next/navigation'
 
 function Register() {
+  const route = useRouter()
     const [submitForm , setSubmitForm] = useState<TRegisterProps>({
         first_name: '',
         last_name: '',
@@ -14,18 +15,25 @@ function Register() {
         address: ''
     })
 
+    const [ isSubmiting , setIsSubmiting ] = useState(false)
+
     const [confirm_password, setConfirmPassword] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        setErrorMessage("")
+        setIsSubmiting(true)
+        await new Promise(resolve => setTimeout(resolve, 1000))
 
         if (confirm_password !== submitForm.password) {
+            setIsSubmiting(false)
             setErrorMessage("Passwords do not match")
             return
         }
 
         if (!submitForm.first_name || !submitForm.last_name || !submitForm.phone_number || !submitForm.address || !submitForm.email || !submitForm.password) {
+            setIsSubmiting(false)
             setErrorMessage("All fields are required")
             return
         }
@@ -49,11 +57,11 @@ function Register() {
                 },
                 body: JSON.stringify(registerData),
             })
-
+        
             const data = await response.json()
-
+        
             if (!response.ok) {
-                
+        
                 if (data.errors) {
                     const errorMessages = Object.values(data.errors).flat().join('\n')
                     setErrorMessage(errorMessages)
@@ -62,18 +70,20 @@ function Register() {
                 }
                 return
             }
-
+        
             // Store the token in localStorage
             if (data.token) {
                 localStorage.setItem('token', data.token)
             }
-
-            console.log("Registration success:", data)
             alert("Registration successful!")
-            window.location.href = '/Application/Organisms/Auth/LoginPage'
+            route.push('/Application/Organisms/Auth/LoginPage')
         } catch (error) {
             console.error("Error during registration:", error)
             setErrorMessage("An error occurred. Please try again later.")
+        }
+        finally {
+            await new Promise(resolve => setTimeout(resolve, 500))
+            setIsSubmiting(false)
         }
     }
 
@@ -179,7 +189,9 @@ function Register() {
                 </div>
               </div>
               {errorMessage && <p className="error-message-landscape">{errorMessage}</p>}
-              <div><button type="submit" className="register-button-landscape">Register</button></div>
+              <div><button type="submit" className="register-button-landscape">
+                  {isSubmiting ?  <span className="loader"></span>  :"Register" }
+              </button></div>
               <div className="login-link-container-landscape">
                 <label><a href="/Application/Organisms/Auth/LoginPage" className="login-link-landscape">Already have an account? Login here</a></label>
               </div>

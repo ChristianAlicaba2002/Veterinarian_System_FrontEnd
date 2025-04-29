@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TAdoptionInquireData,
   TUseUserData,
@@ -20,7 +20,7 @@ type adoption_date = {
 };
 
 const Adoption = ({ params }: Params) => {
-  const router = useRouter()
+  const router = useRouter();
   const [getData, setGetData] = useState<TAdoptionInquireData[]>([]);
   const [id, setId] = useState<number | null>(null);
   const [isSubmmiting, setIsSubmmiting] = useState(false);
@@ -52,14 +52,14 @@ const Adoption = ({ params }: Params) => {
 
   useEffect(() => {
     const user = getUser();
-    setSubmitForm((prev) => ({...prev , 
-      client_id: user.client_id,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      phone_number: user.phone_number,
-      address: user.address,
-    }));
+    setSubmitForm((prev) => (
+      { ...prev,
+        client_id: user.client_id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        phone_number: user.phone_number,
+        address: user.address }));
   }, []);
 
   useEffect(() => {
@@ -102,6 +102,7 @@ const Adoption = ({ params }: Params) => {
   const adoptionForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmmiting(true);
+    await new Promise((resolve) => setTimeout(resolve, 5000));
 
     if (
       submitForm.first_name == "" ||
@@ -126,7 +127,7 @@ const Adoption = ({ params }: Params) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
+          "Accept": "application/json",
         },
         body: JSON.stringify({
           ...submitForm,
@@ -139,9 +140,10 @@ const Adoption = ({ params }: Params) => {
         console.log(`Error Failed: ${res.status}`);
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 5000));
       const data = await res.json();
+      console.log(data.message)
       alert(data.message);
+      console.log({ ...submitForm, ...(getData[0] || petForm), ...isDate });
     } catch (error) {
       console.log(error);
     } finally {
@@ -157,8 +159,7 @@ const Adoption = ({ params }: Params) => {
         address: "",
       }));
     }
-    router.replace('/Application/Organisms/Layouts')
-    router.refresh()
+    router.push('/Application/Organisms/Layouts')
   };
 
   return (
@@ -290,7 +291,7 @@ const Adoption = ({ params }: Params) => {
                 className="form-style"
               />
               <input
-                type="number"
+                type="text"
                 value={pet.Microchip_Number}
                 readOnly
                 className="form-style"
@@ -326,7 +327,7 @@ const Adoption = ({ params }: Params) => {
             <div>
               <input
                 type="text"
-                value={submitForm?.first_name}
+                value={submitForm.first_name}
                 onChange={(e) =>
                   setSubmitForm((prev) => ({
                     ...prev,
@@ -345,7 +346,7 @@ const Adoption = ({ params }: Params) => {
             <div>
               <input
                 type="text"
-                value={submitForm?.last_name}
+                value={submitForm.last_name}
                 onChange={(e) =>
                   setSubmitForm((prev) => ({
                     ...prev,
@@ -365,7 +366,7 @@ const Adoption = ({ params }: Params) => {
               <input
                 type="tel"
                 maxLength={11}
-                value={submitForm?.phone_number}
+                value={submitForm.phone_number}
                 onChange={(e) =>
                   setSubmitForm((prev) => ({
                     ...prev,
@@ -384,7 +385,7 @@ const Adoption = ({ params }: Params) => {
             <div>
               <input
                 type="email"
-                value={submitForm?.email}
+                value={submitForm.email}
                 onChange={(e) =>
                   setSubmitForm((prev) => ({ ...prev, email: e.target.value }))
                 }
@@ -482,6 +483,7 @@ const Adoption = ({ params }: Params) => {
                     adoption_date: e.target.value,
                   }))
                 }
+                required
                 className="form-style mt-1"
               />
             </div>
@@ -491,7 +493,7 @@ const Adoption = ({ params }: Params) => {
               type="submit"
               className="cursor-pointer w-full bg-purple-600 text-white py-2 px-4 rounded-xl hover:bg-purple-700 transition duration-300 shadow-md"
             >
-              {isSubmmiting ? "Submitting..." : "Submit"}
+              {isSubmmiting ?  "Submiting..." : "Submit"}
             </button>
           </div>
         </form>

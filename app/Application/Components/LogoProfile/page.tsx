@@ -3,12 +3,16 @@ import React from 'react'
 import { logout } from '../../../../utils'
 import Link from 'next/link'
 import './LogoStyles/LogoProfile.css'
+import { useRouter } from 'next/navigation'
 
 export default function LogoProfile() {
+    const route = useRouter()
     const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         try {
             await logout()
+            route.push('/Application/Organisms/LandingPage')
+            route.refresh()
         } catch (error) {
             console.error('Logout failed:', error)
         }

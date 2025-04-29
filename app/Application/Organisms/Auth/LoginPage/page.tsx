@@ -1,98 +1,111 @@
-'use client'
-import React, { useEffect, useState } from 'react'
-import "./LoginStyles/Login.css"
-import { useRouter } from 'next/navigation'
-import { TLoginProps } from '@/app/Application/Types/AllTypes'
-import SubmitButton from '@/app/Application/Atoms/Button'
+"use client";
+import React, { useEffect, useState } from "react";
+import "./LoginStyles/Login.css";
+import { useRouter } from "next/navigation";
+import { TLoginProps } from "@/app/Application/Types/AllTypes";
 
 function Login() {
-    const router = useRouter()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [isLoggedIn , setIsLoggedIn] = useState(false)
-    const [buttonSubmit , setButtonSubmit] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('')
+  const [email, setEmail] = useState("");
+  const [accessToken , setAccessToken] = useState<string | null>(null)
+  const [password, setPassword] = useState("");
+  const [buttonSubmit, setButtonSubmit] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const route = useRouter()
 
-    // Check if user is already logged in
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        if (token) {
-        setIsLoggedIn(true)
-          
-            router.replace('/Application/Organisms/Layouts')
-            router.refresh()
-        }
-    }, [router])
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        setIsLoggedIn(false)
-        setButtonSubmit(true)
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
-        if (!email || !password) {
-            setErrorMessage("All fields are required")
-            return
-        }
+    if (token) {
+      route.push("/Application/Organisms/Layouts")
+      route.refresh()
+      setAccessToken(token)
+    }
+  },[route]);
 
-        const loginData: TLoginProps = {
-            email,
-            password
-        }
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setErrorMessage("")
+    setButtonSubmit(true);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
-        try {
-            const response = await fetch('http://127.0.0.1:8000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(loginData),
-            })
 
-            const data = await response.json()
-
-            //Check the RESPONSE if is not OK
-            if (!response.ok) {
-                if (data.errors) {
-                    const errorMessages = Object.values(data.errors).join('\n')
-                    setErrorMessage(errorMessages)
-                } else {
-                    setErrorMessage(data.message || 'Login failed. Please check your credentials.')
-                }
-                await new Promise(resolve => setTimeout(resolve, 2000))
-                setButtonSubmit(false)
-            }
-
-            if (data.token) {
-                // Set the User token in the localStorage and cookie
-                localStorage.setItem('token', data.token)
-                document.cookie = `token=${data.token}; path=/; max-age=86400; secure; samesite=strict`
-                
-                // The Data of the user also pass in the localStorage
-                localStorage.setItem('user', JSON.stringify(data.data)) 
-
-            
-                // Replace the current history entry and redirect
-                router.replace('/Application/Organisms/Layouts')
-                router.refresh() // Force a refresh of the navigation
-
-                await new Promise(resolve => setTimeout(resolve, 2000))
-                setButtonSubmit(false)
-            }
-
-    
-          
-        } catch (error) {
-            console.error("Error during login:", error)
-            setErrorMessage("An error occurred. Please try again later.")
-        }
+    if (!email && !password) {
+      setErrorMessage("All fields are required");
+      setButtonSubmit(false);
+      return;
     }
 
-    return (
-<div className="login-container">
+    if (!email) {
+      setErrorMessage("Username is required");
+      setButtonSubmit(false);
+      return;
+    }
+
+    if (!password) {
+      setErrorMessage("Password is required");
+      setButtonSubmit(false);
+      return;
+    }
+
+    const loginData: TLoginProps = {
+      email,
+      password,
+    };
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/login", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+
+      const data = await response.json();
+
+      //Check the RESPONSE if is not OK
+      if (!response.ok) {
+        if (data.errors) {
+          const errorMessages = Object.values(data.errors).join("\n");
+          setErrorMessage(errorMessages);
+        } else {
+          setErrorMessage(
+            data.message || "Login failed. Please check your credentials."
+          );
+        }
+        setButtonSubmit(false);
+      }
+
+      if (data.token) {
+        // Set the User token in the localStorage and cookie
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.data));
+        document.cookie = `token=${data.token}; path=/; max-age=86400; secure; samesite=strict`;
+
+        // Replace the current history entry and redirect
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        setButtonSubmit(false);
+        route.push("/Application/Organisms/Layouts")
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setErrorMessage("An error occurred. Please try again later.");
+    }
+  };
+
+  return (
+    <div className="login-container">
+      
       <div className="login-card">
         <div className="login-image-container">
-          <img src="/img/runningcorgi.gif" alt="Running Corgi" className="login-image" />
+          <img
+            src="/img/runningcorgi.gif"
+            alt="Running Corgi"
+            className="login-image"
+          />
         </div>
         <div className="login-form-container">
           <div>
@@ -126,17 +139,21 @@ function Login() {
               />
             </div>
 
-            {errorMessage && <div className="error-message">{errorMessage}</div>}
+            {errorMessage && (
+              <div className="error-message">{errorMessage}</div>
+            )}
 
             <div>
-            
-              <button type="submit"  className="login-button">
-                {buttonSubmit ? 'Loading...' : 'Login'}
+              <button type="submit" className="login-button">
+                {buttonSubmit ? <span className="loader"></span> : "Login"}
               </button>
             </div>
 
             <div className="register-link-container">
-              <a href="/Application/Organisms/Auth/RegisterPage" className="register-link">
+              <a
+                href="/Application/Organisms/Auth/RegisterPage"
+                className="register-link"
+              >
                 Don't have an account? Register here
               </a>
             </div>
@@ -145,6 +162,6 @@ function Login() {
       </div>
     </div>
   );
-};
+}
 
-export default Login
+export default Login;

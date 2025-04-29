@@ -8,12 +8,19 @@ export function middleware(request: NextRequest) {
     // Public paths that don't require authentication
     const publicPaths = [
         '/Application/Organisms/Auth/LoginPage',
-        '/Application/Organisms/Auth/RegisterPage'
+        '/Application/Organisms/Auth/RegisterPage',
+        '/Application/Organisms/LandingPage',
     ]
 
     // Protected paths that require authentication
     const protectedPaths = [
-        '/Application/Organisms/Layouts'
+        '/Application/Organisms/Layouts',
+        '/Application/Organisms/Pages/Apointment',
+        '/Application/Organisms/Pages/CheckUp',
+        '/Application/Organisms/Pages/Grooming',
+        '/Application/Organisms/Pages/MainPage',
+        '/Application/Organisms/Pages/PetDetails',
+
     ]
 
     // Check if the current path is protected
@@ -23,7 +30,8 @@ export function middleware(request: NextRequest) {
 
     // If user is logged in and trying to access public paths (login/register)
     if (isPublicPath && token) {
-        return NextResponse.redirect(new URL('/Application/Organisms/Layouts', request.url))
+        return NextResponse.redirect(
+            new URL('/Application/Organisms/Layouts', request.url))
     }
 
     // If user is not logged in and trying to access protected paths

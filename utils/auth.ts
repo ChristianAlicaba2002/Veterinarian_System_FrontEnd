@@ -1,14 +1,8 @@
 export const logout = async () => {
 
-    // Get the token from localStorage
     const token = localStorage.getItem('token')
-    
-    if (!token) {
-        throw new Error('No authentication token found')
-    }
 
     try {
-        // Call the backend logout endpoint with the correct path
         const response = await fetch('http://127.0.0.1:8000/api/logout', {
             method: 'POST',
             headers: {
@@ -23,23 +17,19 @@ export const logout = async () => {
             throw new Error(data.message || 'Failed to logout. Please try again.')
         }
 
-        // // Clear authentication data
         localStorage.removeItem('token')
         localStorage.removeItem('user')
         
-        // // Remove the cookie
         document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
         
-        // Redirect to login page
-        window.location.assign('/Application/Organisms/LandingPage')
+       window.location.href = '/Application/Organisms/LandingPage'
 
     } catch (error) {
-        console.error('Logout error:', error)
-        // // Even if the API call fails, clear local data and redirect
+        // console.error('Logout error:', error)
         localStorage.removeItem('token')
         localStorage.removeItem('user')
         document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;'
-        window.location.assign('/Application/Organisms/LandingPage')
+        window.location.href = '/Application/Organisms/LandingPage'
     }
 }
 

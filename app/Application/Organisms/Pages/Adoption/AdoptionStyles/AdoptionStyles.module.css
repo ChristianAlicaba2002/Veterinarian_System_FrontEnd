@@ -45,6 +45,7 @@ body {
   color: #8b5cf6;
 }
 
+
 .loading {
   font-size: 1.125rem;
   font-weight: 600;
@@ -53,7 +54,7 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
   padding-top: 1rem;
 }
@@ -112,4 +113,24 @@ body {
 .Inquirebutton a:hover {
   background: linear-gradient(to right, #a6c1ee, #fbc2eb);
   color: #4b2e83;
+}
+
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

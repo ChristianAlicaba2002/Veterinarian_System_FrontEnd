@@ -6,45 +6,53 @@ import UserMessage from "@/app/Application/Atoms/UserMessage";
 import PetsData from "@/app/Application/Atoms/PetsData";
 import { TUseUserData, TUsePetsData } from "@/app/Application/Types/AllTypes";
 import "./MainStyles/main.css";
+import { useRouter } from "next/navigation";
+import GETRequest from "@/app/Application/Hooks/GETRequest";
+
 
 export default function Main() {
+  const route = useRouter()
   const [userData, setUserData] = useState<TUseUserData | null>(null);
-  const [pets, setPets] = useState<TUsePetsData[]>([]);
-  const [isLoading, setIsloading] = useState(false);
   const [changeColor, setChangeColor] = useState<string>("#3b82f6");
+
+  const {data:petsData , isLoading , error} = GETRequest('http://127.0.0.1:8000/api/Pets')
 
   useEffect(() => {
     const storedColor = localStorage.getItem("profileHeaderColor");
     if (storedColor) {
       setChangeColor(storedColor);
     }
-  }, []);
 
-  const getAllPets = async () => {
-    setIsloading(true);
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/Pets");
-      if (!response.ok) {
-        console.log(`Status: ${response.status}`);
-        return;
-      }
-      const data = await response.json();
-
-      setPets(data.data);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setIsloading(false);
-    }
-  };
-
-  useEffect(() => {
     const user = getUser();
     if (user) {
       setUserData(user);
     }
-    getAllPets();
-  }, []);
+
+    const token = localStorage.getItem('token')
+    if(token){
+      route.push("/Application/Organisms/Layouts")
+    }
+    else{
+      route.push("/Application/Organisms/Auth/LoginPage")
+    }
+  }, [route]);
+
+  // useEffect(()=> {
+  //   const token = localStorage.getItem('token')
+  //   if(token){
+  //     route.push("/Application/Organisms/Layouts")
+  //   }
+  //   else{
+  //     route.push("/Application/Organisms/Auth/LoginPage")
+  //   }
+  // },[route])
+
+  // useEffect(() => {
+  //   const user = getUser();
+  //   if (user) {
+  //     setUserData(user);
+  //   }
+  // }, []);
 
   return (
     <>
@@ -69,42 +77,51 @@ export default function Main() {
           </div>
         </header>
 
+        {isLoading && (
+          <h1 className="text-center text-violet-600 text-lg mt-10">
+            Waiting our available pets to relaod..
+          </h1>
+        )}
         <main>
-          {isLoading ? 'loading...' : ""}
           <div className="main-content">
             <div className="content-card">
-              {pets.length > 0 ? pets.map((pet: TUsePetsData) => {
-                pets.sort((a: any, b: any) => a.Breed.localeCompare(b.Breed));
-                const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
-                
-                return (
-                  <div key={pet.pet_id} className="Datas">
-                    <PetsData
-                    key={pet.pet_id}
-                    pet_id={pet.pet_id}
-                    image={imageUrl}
-                    Pet_Name={pet.Pet_Name}
-                    Age={pet.Age}
-                    Species={pet.Species}
-                    Sex={pet.Sex}
-                    Color={pet.Color}
-                    Breed={pet.Breed}
-                    Neutered_Spay={pet.Neutered_Spay}
-                    Special_Markings={pet.Special_Markings}
-                    Microchip_Number={pet.Microchip_Number}
-                    Weight={pet.Weight}
-                    Status={pet.Status}
-                  />
-                  </div>
-                );
-              }) : <h1>No Available pets..</h1>}
+              {petsData?.length > 0
+                ? petsData?.map((pet: TUsePetsData) => {
+                    petsData?.sort((a: any, b: any) =>
+                      a.Breed.localeCompare(b.Breed)
+                    );
+                    const imageUrl = `http://127.0.0.1:8000/api/storage/${pet.image}`;
+
+                    return (
+                      <div key={pet.pet_id} className="Datas">
+                        <PetsData
+                          key={pet.pet_id}
+                          pet_id={pet.pet_id}
+                          image={imageUrl}
+                          Pet_Name={pet.Pet_Name}
+                          Age={pet.Age}
+                          Species={pet.Species}
+                          Sex={pet.Sex}
+                          Color={pet.Color}
+                          Breed={pet.Breed}
+                          Neutered_Spay={pet.Neutered_Spay}
+                          Special_Markings={pet.Special_Markings}
+                          Microchip_Number={pet.Microchip_Number}
+                          Weight={pet.Weight}
+                          Status={pet.Status}
+                        />
+                      </div>
+                    );
+                  })
+                : !isLoading && (
+                    <p className="text-center text-violet-600 text-lg">
+                      No pets found. Please check back later.
+                    </p>
+                  )}
             </div>
           </div>
         </main>
       </div>
     </>
   );
-  
 }
-
-

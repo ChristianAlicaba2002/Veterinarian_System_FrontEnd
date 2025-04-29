@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { getUser } from "../../../../../utils";
 import styles from './CheckUpStyles/CheckUp.module.css'; 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { TCheckUpAppointmentData } from "@/app/Application/Types/AllTypes";
 
 type UserData = {
@@ -16,6 +17,7 @@ type UserData = {
 };
 
 export default function CheckUp() {
+  const routeTo = useRouter()
   const [userData, setUserData] = useState<UserData>({
     client_id: 0,
     first_name: "",
@@ -75,6 +77,7 @@ export default function CheckUp() {
         const data = await response.json();
         alert("Appointment booked successfully!");
         console.log("Submitted Data:", data);
+        routeTo.push('/Application/Organisms/Layouts')
       }
 
       setAppointment({

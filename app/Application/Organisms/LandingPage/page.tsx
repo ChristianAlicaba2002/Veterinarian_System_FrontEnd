@@ -1,8 +1,21 @@
-import React from "react";
+'use client'
+import React , {useEffect} from "react";
 import "./LandingStyles/Landing.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const LandingPage = () => {
+  const route = useRouter()
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        route.push("/Application/Organisms/Layouts")
+        route.refresh()
+      }
+    },[route]);
+
+
   return (
     <div className="landing-container">
       <nav className="navbar">

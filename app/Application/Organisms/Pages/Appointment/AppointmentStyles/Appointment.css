@@ -1,4 +1,3 @@
-
 html, body {
     height: 100vh;
     margin: 0;
@@ -13,8 +12,6 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* height: 100%; */
-    /* padding: 8rem 10rem; */
     gap: 2rem;
     animation: fadeIn 1s ease;
     -webkit-backdrop-filter: blur(4px);

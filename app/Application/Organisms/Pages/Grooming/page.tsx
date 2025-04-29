@@ -5,6 +5,7 @@ import { getUser } from "../../../../../utils";
 import TimePicker from 'react-time-picker';
 import styles from "./GroomingStyles/Grooming.module.css"; 
 import Link from "next/link";
+import {useRouter} from "next/navigation";
 import { TAppointmentData } from "@/app/Application/Types/AllTypes";
 
 type UserData = {
@@ -18,6 +19,7 @@ type UserData = {
 };
 
 const Grooming = () => {
+  const routeTo = useRouter()
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isSubmmiting , setIsSubmmiting] = useState<boolean>(false);
   const [appointment, setAppointment] = useState<TAppointmentData>({
@@ -40,6 +42,7 @@ const Grooming = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmmiting(true);
+    await new Promise(resolve => setTimeout(resolve, 5000));
     try {
       // Validate required fields
       if (!appointment.pet_name || !appointment.breed || !appointment.appointment_date ||
@@ -86,7 +89,10 @@ const Grooming = () => {
       const result = await response.json();
       console.log("Appointment created:", result);
 
+      await new Promise(resolve => setTimeout(resolve, 500));
       alert("Appointment scheduled successfully!");
+      routeTo.push('/Application/Organisms/Layouts');
+
 
       // Reset form
       setAppointment({
