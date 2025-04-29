@@ -1,0 +1,108 @@
+body {
+    background: linear-gradient(490deg, #ffc7db7c, #e8caff);
+
+}
+
+.Back {
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+  
+.Back img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    filter: brightness(100%);
+    transition: filter 0.3s ease;
+}
+  
+.Back img:hover {
+    filter: brightness(80%);
+}
+  
+.PetCard {
+    background-color: white;
+    padding: 2rem;
+    height: auto;
+    width: fit-content;
+    border: 2px dashed #e8caff;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto;
+
+}
+
+.PetCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.PetCard img {
+    display: block;
+    margin: 2rem auto;
+    max-width: 100%;
+    border: 5px dashed #d6b1f3;
+    border-radius: 15px;
+    width: 50%;
+    height: auto;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+.PetCard img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px #c084fc;
+}
+
+h1 {
+    font-size: 2.2em;
+    color: #632b97;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.PetInfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    gap: 10px;
+    width: fit-content;
+    margin: 1rem auto;
+}
+
+.PetInfo span {
+    background: linear-gradient(490deg, #ffc7db7c, #e8caff);
+    border: #ffdaff 1px solid;
+    font-weight: 500;
+    font-size: small;
+    border-radius: 30px;
+    padding: 0.5rem 1rem;
+}
+
+.PetInfo span:hover {
+    background-color: rgba(255, 181, 172, 0.5);
+    transform: scale(1.03);
+}
+
+.Inquirebutton {
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    border: 2px solid rgb(255, 194, 235);
+    background: linear-gradient(to right, #c084fc, #f472b6);
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    display: inline-block;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 8px 18px rgba(240, 142, 255, 0.3);
+}
+
+.Inquirebutton:hover {
+    background: linear-gradient(to right, #a855f7, #ec4899);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(173, 77, 255, 0.4);
+}

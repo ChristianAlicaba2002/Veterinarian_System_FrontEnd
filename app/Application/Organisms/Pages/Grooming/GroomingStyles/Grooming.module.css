@@ -1,0 +1,196 @@
+.groomingContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.leftPanel,
+.rightPanel {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(130, 100, 180, 0.2);
+  border: 3px dashed #c6a4e7;
+  width: 100%;
+}
+
+.leftPanel {
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px;
+}
+
+.rightPanel {
+  flex: 2;
+  min-width: 320px;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.groomingHeader h1 {
+  font-size: 2rem;
+  color: #7b1fa2;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.userInfo {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.userInfo h1 {
+  font-weight: bolder;
+  color: #5d2f96;
+}
+
+.userInfo p {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: #4a148c;
+}
+
+.userInfo a {
+  font-size: 0.95rem;
+  color: #7b1fa2;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.appointmentForm {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #6a1b9a;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  font-family: inherit;
+  padding: 10px 14px;
+  border: 2px dashed #d8b2e8;
+  border-radius: 10px;
+  background: #fff0ff;
+  font-size: 0.95rem;
+  color: #4a148c;
+  outline: none;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  border-color: #ba68c8;
+  background-color: #fbeaff;
+}
+
+.submitButton {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #9a57a781;
+  border: 2px dashed #976ebb;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+  align-self: center;
+  margin: 2rem auto 0 auto;
+  text-align: center;
+}
+
+.submitButton:hover {
+  background-color: #4c186d71;
+  border: 1.5px dashed #5d3381;
+  box-shadow: 0 4px 10px rgba(238, 186, 238, 0.952);
+  transform: translateY(-2px);
+}
+
+.Back {
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
+.Back img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  filter: brightness(100%);
+  transition: filter 0.3s ease;
+}
+
+.Back img:hover {
+  filter: brightness(80%);
+}
+
+@media screen and (max-width: 1024px) {
+  .groomingContainer {
+    padding: 1rem;
+  }
+
+  .leftPanel,
+  .rightPanel {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .submitButton {
+    max-width: 90%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .appointmentForm {
+    grid-template-columns: 1fr;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .groomingHeader h1 {
+    font-size: 1.5rem;
+  }
+
+  .userInfo {
+    font-size: 1rem;
+  }
+
+  .formGroup label {
+    font-size: 0.85rem;
+  }
+
+  .formGroup input,
+  .formGroup select,
+  .formGroup textarea {
+    font-size: 0.85rem;
+  }
+}

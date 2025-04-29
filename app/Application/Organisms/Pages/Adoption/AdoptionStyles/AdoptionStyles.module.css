@@ -1,0 +1,136 @@
+body {
+  background: linear-gradient(490deg, #ffc7db7c, #e8caff);
+  font-family: 'Poppins', sans-serif;
+  color: #4b2e83;
+  margin: 0;
+  padding: 0;
+}
+
+.Back img {
+  margin: 2rem auto auto 2rem;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+.Back img:hover {
+  filter: brightness(80%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding-top: 2rem;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.title {
+  margin-top: -3rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #6b21a8;
+}
+
+.description {
+  font-size: 1rem;
+  color: #8b5cf6;
+}
+
+
+.loading {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #8b5cf6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  padding-top: 1rem;
+}
+
+.petCard {
+  background-color: #fef9ff;
+  border: 1px dashed #d8b1ff;
+  border-radius: 1.25rem;
+  box-shadow: 0 6px 14px rgba(200, 150, 255, 0.2);
+  overflow: hidden;
+  width: fit-content;
+  height: fit-content;
+  transition: transform 0.3s ease;
+}
+
+.petCard:hover {
+  transform: translateY(-6px);
+}
+
+.petInfo {
+  padding: 1.5rem;
+}
+
+.petImage {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.petName {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #5b21b6;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.Inquirebutton {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.Inquirebutton a {
+  display: inline-block;
+  background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  color: #5b21b6;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.Inquirebutton a:hover {
+  background: linear-gradient(to right, #a6c1ee, #fbc2eb);
+  color: #4b2e83;
+}
+
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 5px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
