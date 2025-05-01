@@ -5,45 +5,46 @@ import { useRouter } from "next/navigation";
 import { TLoginProps } from "@/app/Application/Types/AllTypes";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [accessToken , setAccessToken] = useState<string | null>(null)
-  const [password, setPassword] = useState("");
-  const [buttonSubmit, setButtonSubmit] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const route = useRouter()
-
+  const [email, setEmail] = useState<string>("");
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [password, setPassword] = useState<string>("");
+  const [buttonSubmit, setButtonSubmit] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorEmail, setErrorEmail] = useState<string>("");
+  const [errorPassword, setErrorPassword] = useState<string>("");
+  const routeTo = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     if (token) {
-      route.push("/Application/Organisms/Layouts")
-      route.refresh()
-      setAccessToken(token)
+      routeTo.push("/Application/Organisms/Layouts");
+      routeTo.refresh();
+      setAccessToken(token);
     }
-  },[route]);
+  }, [routeTo]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setErrorMessage("")
+    setErrorMessage("");
+    setErrorEmail("");
+    setErrorPassword("");
     setButtonSubmit(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-
-    if (!email && !password) {
-      setErrorMessage("All fields are required");
+    if(email == "" && password == "")
+    {
+      setErrorMessage('All fields are required')
       setButtonSubmit(false);
       return;
     }
-
-    if (!email) {
-      setErrorMessage("Username is required");
+    if (email == "") {
+      setErrorEmail("Username is required");
       setButtonSubmit(false);
       return;
     }
-
-    if (!password) {
-      setErrorMessage("Password is required");
+    if (password == "") {
+      setErrorPassword("Password is required");
       setButtonSubmit(false);
       return;
     }
@@ -57,9 +58,9 @@ function Login() {
       const response = await fetch("http://127.0.0.1:8000/api/login", {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
-          "Accept": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify(loginData),
       });
@@ -88,7 +89,7 @@ function Login() {
         // Replace the current history entry and redirect
         await new Promise((resolve) => setTimeout(resolve, 2000));
         setButtonSubmit(false);
-        route.push("/Application/Organisms/Layouts")
+        routeTo.push("/Application/Organisms/Layouts");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -98,7 +99,6 @@ function Login() {
 
   return (
     <div className="login-container">
-      
       <div className="login-card">
         <div className="login-image-container">
           <img
@@ -110,6 +110,9 @@ function Login() {
         <div className="login-form-container">
           <div>
             <h1 className="login-title">Welcome Back!</h1>
+            {errorMessage && (
+              <div className="error-message text-center">{errorMessage}</div>
+            )}
           </div>
           <form onSubmit={handleSubmit} className="login-form">
             <div className="form-group">
@@ -124,6 +127,9 @@ function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="form-input"
               />
+              {errorEmail && (
+                <div className="error-message">{errorEmail}</div>
+              )}
             </div>
             <div className="form-group">
               <label htmlFor="password" className="form-label">
@@ -137,11 +143,10 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="form-input"
               />
+              {errorPassword && (
+                <div className="error-message">{errorPassword}</div>
+              )}
             </div>
-
-            {errorMessage && (
-              <div className="error-message">{errorMessage}</div>
-            )}
 
             <div>
               <button type="submit" className="login-button">

@@ -37,23 +37,6 @@ export default function Main() {
     }
   }, [route]);
 
-  // useEffect(()=> {
-  //   const token = localStorage.getItem('token')
-  //   if(token){
-  //     route.push("/Application/Organisms/Layouts")
-  //   }
-  //   else{
-  //     route.push("/Application/Organisms/Auth/LoginPage")
-  //   }
-  // },[route])
-
-  // useEffect(() => {
-  //   const user = getUser();
-  //   if (user) {
-  //     setUserData(user);
-  //   }
-  // }, []);
-
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
