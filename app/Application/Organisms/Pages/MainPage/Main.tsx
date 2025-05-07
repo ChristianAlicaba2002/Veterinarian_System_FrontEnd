@@ -33,7 +33,7 @@ export default function Main() {
       route.push("/Application/Organisms/Layouts")
     }
     else{
-      route.push("/Application/Organisms/Auth/LoginPage")
+      route.push("/Application/Organisms/LandingPage")
     }
   }, [route]);
 

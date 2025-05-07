@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./LoginStyles/Login.css";
 import { useRouter } from "next/navigation";
 import { TLoginProps } from "@/app/Application/Types/AllTypes";
@@ -12,6 +12,8 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [errorEmail, setErrorEmail] = useState<string>("");
   const [errorPassword, setErrorPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
+  const passwordInputRef = useRef<HTMLInputElement | null>(null);
   const routeTo = useRouter();
 
   useEffect(() => {
@@ -32,9 +34,8 @@ function Login() {
     setButtonSubmit(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    if(email == "" && password == "")
-    {
-      setErrorMessage('All fields are required')
+    if (email == "" && password == "") {
+      setErrorMessage("All fields are required");
       setButtonSubmit(false);
       return;
     }
@@ -97,6 +98,13 @@ function Login() {
     }
   };
 
+  // const handleShowPassword = () => {
+  //   if (passwordInputRef.current) {
+  //       passwordInputRef.current.type == showPassword ? 'text' : 'password';
+  //     }
+  //   setShowPassword(!false);
+  // };
+
   return (
     <div className="login-container">
       <div className="login-card">
@@ -127,9 +135,7 @@ function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 className="form-input"
               />
-              {errorEmail && (
-                <div className="error-message">{errorEmail}</div>
-              )}
+              {errorEmail && <div className="error-message">{errorEmail}</div>}
             </div>
             <div className="form-group">
               <label htmlFor="password" className="form-label">
@@ -142,11 +148,27 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="form-input"
+                ref={passwordInputRef}
               />
               {errorPassword && (
                 <div className="error-message">{errorPassword}</div>
               )}
             </div>
+            {/* <div className="">
+              <input
+                type="checkbox"
+                id="showPassword"
+                className="mr-1.5"
+                checked={showPassword}
+                onChange={handleShowPassword}
+              />
+              <label
+                className=""
+                htmlFor="showPassword"
+              >
+                Show password
+              </label>
+            </div> */}
 
             <div>
               <button type="submit" className="login-button">

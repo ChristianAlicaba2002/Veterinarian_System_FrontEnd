@@ -70,7 +70,7 @@
   text-decoration: none;
   color: white;
   border: 2px solid rgb(255, 194, 235);
-  background: linear-gradient(to right, #c084fc, #f472b6);
+  background: linear-gradient(to right, #d9b4ff, #a1e1ff);
   padding: 0.8rem 1.8rem;
   border-radius: 50px;
   display: inline-block;
@@ -81,7 +81,7 @@
 }
 
 .view-more-link:hover {
-  background: linear-gradient(to right, #a855f7, #ec4899);
+  background: linear-gradient(to right, #d2a9f8, #ff98cc);
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 10px 25px rgba(173, 77, 255, 0.4);
 }
