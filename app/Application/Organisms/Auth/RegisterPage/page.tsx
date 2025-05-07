@@ -1,11 +1,13 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./RegisterStyles/register.css"
 import { TRegisterProps } from '@/app/Application/Types/AllTypes'
 import { useRouter } from 'next/navigation'
 
+
+
 function Register() {
-  const route = useRouter()
+  const routeTo = useRouter()
     const [submitForm , setSubmitForm] = useState<TRegisterProps>({
         first_name: '',
         last_name: '',
@@ -14,28 +16,44 @@ function Register() {
         phone_number: '',
         address: ''
     })
-
     const [ isSubmiting , setIsSubmiting ] = useState(false)
 
-    const [confirm_password, setConfirmPassword] = useState('')
-    const [errorMessage, setErrorMessage] = useState('')
+    const [confirm_password, setConfirmPassword] = useState<string>('')
+    const [errorPassword, setErrorPassword] = useState<string>('')
+    const [errorEmail, setErrorEmail] = useState<string>('')
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        setErrorMessage("")
+        setErrorPassword("")
+        setErrorEmail("")
         setIsSubmiting(true)
+
         await new Promise(resolve => setTimeout(resolve, 1000))
 
-        if (confirm_password !== submitForm.password) {
-            setIsSubmiting(false)
-            setErrorMessage("Passwords do not match")
-            return
+        const hasUppercase = /[A-Z]/.test(submitForm.password);
+        const hasLowercase = /[a-z]/.test(submitForm.password);
+        const hasNumber = /[0-9]/.test(submitForm.password);
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(submitForm.password);
+      
+        if (!hasUppercase) {
+          setIsSubmiting(false)
+          setErrorPassword( "Password must include at least one uppercase letter.");
+          return
         }
-
-        if (!submitForm.first_name || !submitForm.last_name || !submitForm.phone_number || !submitForm.address || !submitForm.email || !submitForm.password) {
-            setIsSubmiting(false)
-            setErrorMessage("All fields are required")
-            return
+        if (!hasLowercase) {
+          setIsSubmiting(false)
+          setErrorPassword( "Password must include at least one lowercase letter.");
+          return
+        }
+        if (!hasNumber) {
+          setIsSubmiting(false)
+          setErrorPassword( "Password must include at least one number.");
+          return
+        }
+        if (!hasSpecialChar) {
+          setIsSubmiting(false)
+          setErrorPassword( "Password must include at least one special character.");
+          return
         }
 
         const registerData: TRegisterProps = {
@@ -49,6 +67,7 @@ function Register() {
         }
 
         try {
+
             const response = await fetch('http://127.0.0.1:8000/api/register', {
                 method: 'POST',
                 headers: {
@@ -64,9 +83,7 @@ function Register() {
         
                 if (data.errors) {
                     const errorMessages = Object.values(data.errors).flat().join('\n')
-                    setErrorMessage(errorMessages)
-                } else {
-                    setErrorMessage(data.message || 'Registration failed. Please try again.')
+                    setErrorEmail(errorMessages)
                 }
                 return
             }
@@ -76,10 +93,10 @@ function Register() {
                 localStorage.setItem('token', data.token)
             }
             alert("Registration successful!")
-            route.push('/Application/Organisms/Auth/LoginPage')
+            routeTo.push('/Application/Organisms/Auth/LoginPage')
         } catch (error) {
             console.error("Error during registration:", error)
-            setErrorMessage("An error occurred. Please try again later.")
+            alert("An error occurred. Please try again later.")
         }
         finally {
             await new Promise(resolve => setTimeout(resolve, 500))
@@ -100,22 +117,22 @@ function Register() {
                 <div className="form-group-landscape">
                   <label htmlFor="first_name" className="form-label-landscape">First name</label>
                   <input id="first_name" type="text" placeholder="Enter First Name" value={submitForm.first_name} onChange={(e) => setSubmitForm((prev) => 
-                  ({...prev , first_name: e.target.value}))} className="form-input-landscape" />
+                  ({...prev , first_name: e.target.value}))} className="form-input-landscape" required />
                 </div>
                 <div className="form-group-landscape">
                   <label htmlFor="last_name" className="form-label-landscape">Last name</label>
                   <input id="last_name" type="text" placeholder="Enter Last Name" value={submitForm.last_name} onChange={(e) => setSubmitForm((prev) => 
-                  ({...prev , last_name: e.target.value}))} className="form-input-landscape" />
+                  ({...prev , last_name: e.target.value}))} className="form-input-landscape" required />
                 </div>
                 <div className="form-group-landscape">
                   <label htmlFor="phone_number" className="form-label-landscape">Phone Number</label>
                   <input id="phone_number" type="text" placeholder="Enter Phone Number" maxLength={11} value={submitForm.phone_number} onChange={(e) => setSubmitForm((prev) => 
-                  ({...prev, phone_number: e.target.value}))} className="form-input-landscape" />
+                  ({...prev, phone_number: e.target.value}))} className="form-input-landscape" required />
                 </div>
                 <div className="form-group-landscape">
                   <label htmlFor="address" className="form-label-landscape">Address</label>
                   <input id="address" type="text" placeholder="Enter Address" list="addressList" value={submitForm.address} onChange={(e) => setSubmitForm((prev) => 
-                  ({...prev, address: e.target.value}))} className="form-input-landscape" />
+                  ({...prev, address: e.target.value}))} className="form-input-landscape" required />
                   <datalist id="addressList">
                     <option value="Alcantara, Cebu">Alcantara, Cebu</option>
                             <option value="Alcoy, Cebu">Alcoy, Cebu</option>
@@ -176,19 +193,21 @@ function Register() {
                 <div className="form-group-landscape email-group">
                   <label htmlFor="email" className="form-label-landscape">Email</label>
                   <input id="email" type="email" placeholder="Enter your Email" value={submitForm.email} onChange={(e) => setSubmitForm((prev) => 
-                  ({...prev, email: e.target.value}))} className="form-input-landscape" />
+                  ({...prev, email: e.target.value}))} className="form-input-landscape" required />
+                {errorEmail && <p className="error-message-landscape">{errorEmail}</p>}
                 </div>
                 <div className="form-group-landscape">
                   <label htmlFor="password" className="form-label-landscape">Password</label>
                   <input id="password" type="password" placeholder="Enter your Password" value={submitForm.password} onChange={(e) => setSubmitForm((prev) => 
-                  ({...prev, password: e.target.value}))} className="form-input-landscape" />
+                  ({...prev, password: e.target.value}))} className="form-input-landscape" required />
+                  {errorPassword && <p className="error-message-landscape">{errorPassword}</p>}
                 </div>
-                <div className="form-group-landscape">
+                {/* <div className="form-group-landscape">
                   <label htmlFor="confirm_password" className="form-label-landscape">Confirm Password</label>
                   <input id="confirm_password" type="password" placeholder="Enter Confirmation Password" value={confirm_password} onChange={(e) => setConfirmPassword(e.target.value)} className="form-input-landscape" />
-                </div>
+                </div> */}
               </div>
-              {errorMessage && <p className="error-message-landscape">{errorMessage}</p>}
+              {/* {errorPassword && <p className="error-message-landscape">{errorPassword}</p>} */}
               <div><button type="submit" className="register-button-landscape">
                   {isSubmiting ?  <span className="loader"></span>  :"Register" }
               </button></div>

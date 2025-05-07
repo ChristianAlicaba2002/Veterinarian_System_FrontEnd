@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getUser } from "../../../../utils";
+import { getUser, getToken } from "../../../../utils";
+import { useRouter } from "next/navigation";
 
 type UserData = {
   id: number;
@@ -15,6 +16,7 @@ type UserData = {
 };
 
 export default function UserProfile() {
+  const routeTo = useRouter()
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingText, setLoadingText] = useState(
@@ -38,7 +40,12 @@ export default function UserProfile() {
   useEffect(()=> {
     const user =  getUser()
     setUserData(user)
-  },[])
+    const accessToken = getToken()
+    if(!accessToken)
+    {
+      routeTo.push("/")
+    }
+  },[routeTo])
 
   useEffect(() => {
     const loadData = async () => {
