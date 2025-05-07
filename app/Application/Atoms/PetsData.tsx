@@ -44,8 +44,8 @@ const PetsData: React.FC<PetsDataProps> = (props) => {
           <span
             className={`px-3 py-1 rounded-full text-sm font-medium ${
               props.Status === "Available"
-                ? "bg-green-100 text-green-800"
-                : "bg-red-100 text-red-800"
+                ? "bg-green-200 text-green-800"
+                : "bg-red-200 text-red-800"
             }`}
           >
             {props.Status}
@@ -110,7 +110,7 @@ const PetsData: React.FC<PetsDataProps> = (props) => {
         {/* Action Button */}
         <div className="pt-4">
           <Link href={`/Application/Organisms/Pages/PetDetails/${props.pet_id}`}>
-            <button className="cursor-pointer w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105">
+            <button className="cursor-pointer w-full px-6 py-3 bg-gradient-to-r from-purple-300 to-blue-300 text-white rounded-full hover:from-purple-400 hover:to-blue-400 transition-all duration-300 transform hover:scale-102">
               View Details
             </button>
           </Link>

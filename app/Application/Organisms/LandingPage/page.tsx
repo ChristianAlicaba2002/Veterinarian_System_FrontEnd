@@ -1,20 +1,22 @@
-'use client'
-import React , {useEffect} from "react";
+"use client";
+import React, { useEffect } from "react";
 import "./LandingStyles/Landing.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const LandingPage = () => {
-  const route = useRouter()
+  const route = useRouter();
 
-    useEffect(() => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        route.push("/Application/Organisms/Layouts")
-        route.refresh()
-      }
-    },[route]);
-
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      route.push("/Application/Organisms/Layouts");
+      route.refresh();
+    } else {
+      route.push("/");
+      route.refresh();
+    }
+  }, [route]);
 
   return (
     <div className="landing-container">
@@ -34,9 +36,6 @@ const LandingPage = () => {
           <Link href="#about" className="nav-link">
             About
           </Link>
-          <Link href="#pets" className="nav-link">
-            Pets
-          </Link>
         </div>
 
         <div className="navbar-right">
@@ -47,31 +46,28 @@ const LandingPage = () => {
             Sign In
           </Link>
 
-
           <Link
             href="/Application/Organisms/Auth/RegisterPage"
             className="nav-button"
           >
             Sign Up
           </Link>
-
-
         </div>
       </nav>
 
       <div id="home" className="home">
         <div className="home-content">
-          <h1>
-            Healthy Pets,
-            <br />
-            Happy Wallets
-          </h1>
+          <h1>Healthy Pets,</h1>
+          <h1>Happy Wallets</h1>
           <p>
             Protect their health, protect your budget. Our 'Wellness Package
             Plus' offers essential care with significant discounts on optional
             treatments. See the savings!
           </p>
-          <button className="home-button">Unlock Savings!</button>
+
+          <h3 className="text-purple-400 font-bold">
+            We are open from MONDAY-SATURDAY at 10AM-5PM
+          </h3>
         </div>
         <img src="/img/nursepup.gif" alt="Nurse Pup" className="home-image" />
       </div>
@@ -90,7 +86,11 @@ const LandingPage = () => {
           <p>Complete veterinary care for a vibrant pet.</p>
         </div>
         <div className="service-card">
-          <img src="/img/adoption.png" alt="Adoption" className="service-icon" />
+          <img
+            src="/img/adoption.png"
+            alt="Adoption"
+            className="service-icon"
+          />
           <h3>Adopt:</h3>
           <h3>Heartwarming Companions</h3>
           <p>Find your perfect match and make a difference.</p>
@@ -123,7 +123,7 @@ const LandingPage = () => {
         </div>
       </div>
 
-      <div id="pets" className="pets-container">
+      {/* <div id="pets" className="pets-container">
         <h1>THEYRE LOOKING FOR A HOUSE</h1>
         <div className="pet-card">
           <img src="/img/us.jpg" alt="so us" />
@@ -148,7 +148,7 @@ const LandingPage = () => {
             <button>Learn More</button>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

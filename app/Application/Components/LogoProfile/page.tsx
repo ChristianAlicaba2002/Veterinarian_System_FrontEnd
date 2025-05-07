@@ -29,11 +29,15 @@ export default function LogoProfile() {
                 </button>
                 <div className="dropdown-content">
                     <Link href="/Application/Components/UserProfile">
-                        <i className="fa-solid fa-user"></i>
+                        <i className="fa-solid fa-user"></i>&nbsp;
                         My Profile
                     </Link>
+                    {/* <Link href="/Application/Organisms/Pages/History">
+                    <i className="fa-solid fa-calendar-check"></i>&nbsp;
+                        History
+                    </Link> */}
                     <Link href="/Application/Organisms/Pages/Appointment">
-                        <i className="fa-solid fa-calendar-check"></i>
+                        <i className="fa-solid fa-calendar-check"></i>&nbsp;
                         Appointment's
                     </Link>
                     <div className="dropdown-divider"></div>
