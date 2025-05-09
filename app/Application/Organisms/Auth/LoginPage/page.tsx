@@ -95,15 +95,9 @@ function Login() {
     } catch (error) {
       console.error("Error during login:", error);
       setErrorMessage("An error occurred. Please try again later.");
+      setButtonSubmit(false);
     }
   };
-
-  // const handleShowPassword = () => {
-  //   if (passwordInputRef.current) {
-  //       passwordInputRef.current.type == showPassword ? 'text' : 'password';
-  //     }
-  //   setShowPassword(!false);
-  // };
 
   return (
     <div className="login-container">
@@ -154,22 +148,7 @@ function Login() {
                 <div className="error-message">{errorPassword}</div>
               )}
             </div>
-            {/* <div className="">
-              <input
-                type="checkbox"
-                id="showPassword"
-                className="mr-1.5"
-                checked={showPassword}
-                onChange={handleShowPassword}
-              />
-              <label
-                className=""
-                htmlFor="showPassword"
-              >
-                Show password
-              </label>
-            </div> */}
-
+  
             <div>
               <button type="submit" className="login-button">
                 {buttonSubmit ? <span className="loader"></span> : "Login"}

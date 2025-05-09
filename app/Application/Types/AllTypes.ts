@@ -48,6 +48,14 @@ export type TRegisterProps = {
   notes?: string;
 };
 
+export type TEditUserProps = {
+  client_id:number,
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  address: string;
+};
+
 export type TCheckUpAppointmentData = {
   pet_name?: string;
   breed?: string;

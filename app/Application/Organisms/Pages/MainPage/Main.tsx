@@ -29,6 +29,7 @@ export default function Main() {
     }
 
     const token = localStorage.getItem('token')
+    
     if(token){
       route.push("/Application/Organisms/Layouts")
     }
