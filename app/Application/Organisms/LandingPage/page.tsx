@@ -36,6 +36,9 @@ const LandingPage = () => {
           <Link href="#about" className="nav-link">
             About
           </Link>
+          <Link href="#hours" className="nav-link">
+            Open Hours
+          </Link>
         </div>
 
         <div className="navbar-right">
@@ -64,10 +67,6 @@ const LandingPage = () => {
             Plus' offers essential care with significant discounts on optional
             treatments. See the savings!
           </p>
-
-          <h3 className="text-purple-400 font-bold">
-            We are open from MONDAY-SATURDAY at 10AM-5PM
-          </h3>
         </div>
         <img src="/img/nursepup.gif" alt="Nurse Pup" className="home-image" />
       </div>
@@ -117,39 +116,19 @@ const LandingPage = () => {
             actively seeks community donations to support animal welfare and
             local shelters.
           </p>
-          <Link href="#pets">
+          <Link href="/Application/Organisms/Auth/RegisterPage">
             <button id="adopt-button">Find Your Furry Soulmate</button>
           </Link>
         </div>
       </div>
-
-      {/* <div id="pets" className="pets-container">
-        <h1>THEYRE LOOKING FOR A HOUSE</h1>
-        <div className="pet-card">
-          <img src="/img/us.jpg" alt="so us" />
-          <div className="pet-card-content">
-            <h3>Mimi</h3>
-            <button>Learn More</button>
-          </div>
-        </div>
-
-        <div className="pet-card">
-          <img src="/img/kasal.jpg" alt="kasal" />
-          <div className="pet-card-content">
-            <h3>Kiku</h3>
-            <button>Learn More</button>
-          </div>
-        </div>
-
-        <div className="pet-card">
-          <img src="/img/kiss.jpg" alt="imy" />
-          <div className="pet-card-content">
-            <h3>Ia</h3>
-            <button>Learn More</button>
-          </div>
-        </div>
-      </div> */}
+      <div id="#hours" className="hours-container">
+        <h2>Opening Hours</h2>
+        <p>Monday - Friday: 10:00 AM - 5:00 PM</p>
+        <p>Saturday: 10:00 AM - 4:00 PM</p>
+        <p>Sunday: Closed</p>
+      </div>
     </div>
+  
   );
 };
 
