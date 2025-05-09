@@ -115,7 +115,7 @@
 .home,
 .services-container,
 .about-us-container,
-.pets-container {
+.house-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -312,76 +312,28 @@
     }
 }
 
-.pets-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.pets-container h1{
-    width: 100%;
-    text-align: center;
-    font-weight: bolder;
-    font-size: xx-large;
-    margin-bottom: -150px;
-    color: #8f1a1a;
-}
-.pet-card {
-    width: 300px;
-    margin: 20px;
+ 
+.hours-container {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #D8BFD8, #E6E6FA);
+    padding: 30px;
     border-radius: 12px;
-    box-shadow: 23px 8px 16px rgba(241, 153, 153, 0.2);
-    overflow: hidden;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.pet-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 10px 12px 20px rgba(255, 255, 255, 0.671);
-}
-
-.pet-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.pet-card-content {
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.pet-card-content h3 {
-    font-size: 1.5em;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+ 
+.hours-container h2 {
+    color: #8b82c4;
+    font-size: 2.5em;
+    font-weight: bold;
     margin-bottom: 15px;
-    color: #333;
-}
-
-.pet-card-content p {
-    margin-bottom: 20px;
-    color: #666;
+    text-align: center;
+  }
+  
+  .hours-container p {
+    color: #a161cf;
+    font-size: 1.2em;
     line-height: 1.6;
-}
-
-.pet-card-content button {
-    background-color: #ffffff;
-    color: rgb(255, 92, 92);
-    border: #e05757 1px solid;
-    padding: 12px 25px;
-    border-radius: 25px;
-    font-size: 1em;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.pet-card-content button:hover {
-    color: #8f1a1a;
-    background-color: #ffffffb0;
-    border: #8f1a1a 1px dashed;
-    transform: scale(1.05);
-}
+    margin-bottom: 10px;
+    text-align: center;
+  }
